@@ -1,0 +1,13 @@
+.form label {
+    font-size: 1.05rem; /* Adjust font size */
+    pointer-events: none; /* Disable pointer events to make the label non-interactable */
+    position: absolute; /* Position the label absolutely for overlay effect */
+    top: 3px; /* Adjust top position as needed */
+    transition: all 0.3s ease; /* Add transition for smooth animation */
+}
+
+.form input:focus + label {
+    color: white; /* Set label color to white when input is focused */
+    top: -15px; /* Move label up when input is focused */
+    font-size: 0.85rem; /* Adjust font size when input is focused */
+}

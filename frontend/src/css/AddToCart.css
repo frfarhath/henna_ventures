@@ -1,0 +1,201 @@
+/* AddToCart.css */
+
+/* ... (your existing styles) */
+
+/* ... (your existing styles) */
+
+.App {
+    text-align: center;
+    background: url("../assets/hero/hero-1.jpg") no-repeat center center;
+  }
+  
+  .App-header {
+    padding: 20px;
+    color: rgb(255, 255, 255);
+    justify-content: center;
+  }
+  
+  .App-header h1 {
+    margin-top: 110px;
+  }
+  
+  .menu-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-height: 600px;
+    overflow-y: auto;
+  }
+  
+  .menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    padding: 2px;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+  }
+  
+  .menu-item img {
+    width: 250px;
+    height: 200px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .item-details {
+    text-align: center;
+    margin-bottom: 0px;
+  }
+  
+  h4 {
+    margin-top: 1px;
+    margin-bottom: 1px;
+  }
+  
+  p {
+    margin-top: 1px;
+    max-height: 50px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  
+  p.expanded {
+    max-height: none;
+  }
+  
+  .expanded-description {
+    color: gray;
+    margin-top: 5px;
+  }
+  
+  .buttons-container1 {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+  }
+  
+  button1 {
+    background-color: #FF4500;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+  }
+  
+  button1:hover {
+    background-color: rgb(172, 166, 166);
+    color: #FF4500;
+  }
+  
+  .button1-space {
+    width: 10px;
+  }
+  
+  
+  /*  shopping cart section */
+  
+  .cart-container {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  th, td {
+    border: 1px solid white;
+    padding: 4px;
+    text-align: left;
+    background-color: #272424;
+  }
+  
+  th {
+    background-color: #FF4500;
+    color: white;
+  }
+  
+  .cart-item {
+    background-color: #474747; /* Gray background color for cart items */
+    border-radius: 10px;
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    margin-bottom: 15px;
+    animation: fadeInUp 3s ease-in-out; /* Add animation for cart items */
+  }
+  
+  .cart-item img {
+    width: 10px; /* Decreased width to 10px */
+    height: 10px; /* Decreased height to 10px */
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .quantity-controls button {
+    background-color: #FF4500;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 5px;
+  }
+  
+  .quantity-controls span {
+    padding: 5px 10px;
+    margin: 0 5px;
+    color: #FF4500;
+  }
+  
+  .quantity-controls button:hover {
+    background-color: black;
+  }
+  
+  .place-order-button {
+    background-color: #FF4500;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  .place-order-button:hover {
+    background-color: black;
+    
+  }
+  
+  .item-added-msg {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  .delete-button {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .total-items-row {
+    background-color: #474747;
+  }
+  
