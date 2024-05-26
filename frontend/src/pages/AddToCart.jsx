@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai'; // Importing close icon from react-icons
-import mehendiImg1 from '../images/mehendi1.jpg';
-import mehendiImg2 from '../images/mehendi2.jpg';
-import mehendiImg3 from '../images/mehendi3.jpg';
+import mehendiImg1 from '../images/Products/mehendi1.jpg';
+import mehendiImg2 from '../images/Products/mehendi2.jpg';
+import mehendiImg3 from '../images/Products/mehendi3.jpg';
 import NewNav from '../components/NewNav';
 import Footer from '../components/Footer';
 

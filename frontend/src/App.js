@@ -15,6 +15,11 @@ import AddToCart from "./pages/AddToCart";
 import Artists from "./pages/Artists";
 import Designs from "./pages/Designs";
 import Package from "./pages/package";
+import ProductPage from './pages/ProductPage';
+import CartPage from "./pages/CartPage";
+import CustomizeGift from "./pages/CustomizeGift";
+
+
 // import HelloWorld from './HelloWorld';
 
 function App() {
@@ -39,6 +44,10 @@ function App() {
         <Route path="package" element={<Package />}></Route>
         <Route path="Designs" element={<Designs/>}></Route>
         <Route path="" element={<Service />}></Route>
+        <Route path="/product" element={<ProductPage />} />
+        <Route path="gift" element={<CustomizeGift/>}></Route>
+      
+
       </Routes>
     </BrowserRouter>
   );
