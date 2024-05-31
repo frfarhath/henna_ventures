@@ -18,6 +18,9 @@ import Package from "./pages/package";
 import ProductPage from './pages/ProductPage';
 import CartPage from "./pages/CartPage";
 import CustomizeGift from "./pages/CustomizeGift";
+import Sidebar from './components/Sidebar';
+import Profile from './components/Profile';
+import Orders from './components/Order';
 
 
 // import HelloWorld from './HelloWorld';
@@ -28,6 +31,24 @@ function App() {
 
     <BrowserRouter>
       <Routes>
+    
+          {/* Sidebar routes */}
+          <Route path="/profile" element={
+            <div className="flex w-full">
+              <Sidebar />
+              <div className="flex-grow">
+                <Profile />
+              </div>
+            </div>
+          } />
+          <Route path="/orders" element={
+            <div className="flex w-full">
+              <Sidebar />
+              <div className="flex-grow">
+                <Orders />
+              </div>
+            </div>
+          } />
         <Route path="/" element={<Home />}></Route>
         <Route path="signup" element={<SignUp />}></Route>
         <Route path="signin" element={<SignIn />}></Route>
