@@ -3,7 +3,7 @@ import "../css/signup.css";
 import NewNav from "../components/NewNav";
 import RegistrationForm from "../components/Registration/RegistrationForm";
 import Footer from "../components/Footer";
-import axios from "axios";
+
 
 function SignUp() {
   return (
