@@ -1,68 +1,53 @@
+// src/components/Sidebar.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { FaUser, FaBoxOpen, FaSignOutAlt, FaInbox,FaStar } from 'react-icons/fa';
+import { IoMdSettings } from 'react-icons/io';
+import { BiBarChartSquare } from 'react-icons/bi';
+import { RiTeamFill } from 'react-icons/ri';
+import profileImage from '../images/profile.jpg'; // Adjust the path as needed
 
-const orders = [
-  {
-    id: '63e4e0a1c4298319c53ba109',
-    items: 1,
-    amount: '$469.07',
-    status: 'Processing'
-  },
-  {
-    id: '63e4e58053fd1522749d83fc',
-    items: 2,
-    amount: '$720.55',
-    status: 'Processing'
-  },
-  {
-    id: '63e4e5efc9d03f4e3902b0c',
-    items: 1,
-    amount: '$257.95',
-    status: 'Delivered'
-  }
-];
-
-const Order = () => {
+const Sidebar = () => {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">My Orders</h1>
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border border-gray-200">
-          <thead>
-            <tr className="w-full bg-gray-100 border-b">
-              <th className="py-3 px-6 text-left">Order ID</th>
-              <th className="py-3 px-6 text-left">Number of Items</th>
-              <th className="py-3 px-6 text-left">Amount</th>
-              <th className="py-3 px-6 text-left">Status</th>
-              <th className="py-3 px-6 text-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map(order => (
-              <tr key={order.id} className="border-b">
-                <td className="py-3 px-6">{order.id}</td>
-                <td className="py-3 px-6">{order.items}</td>
-                <td className="py-3 px-6">{order.amount}</td>
-                <td className={`py-3 px-6 ${order.status === 'Delivered' ? 'text-green-600' : 'text-red-600'}`}>{order.status}</td>
-                <td className="py-3 px-6">
-                  <button className="bg-blue-500 text-white py-2 px-4 rounded">
-                    <i className="fas fa-eye"></i>
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="mt-4 flex justify-between items-center">
-          <span>Showing 1 to 3 of 3 entries</span>
-          <div className="flex items-center">
-            <button className="py-2 px-4 bg-gray-200 border border-gray-300">Previous</button>
-            <span className="py-2 px-4">1</span>
-            <button className="py-2 px-4 bg-gray-200 border border-gray-300">Next</button>
+    <div className="bg-gray-50 h-screen w-64 p-6 shadow-lg font-serif flex flex-col justify-between">
+      <div>
+        <div className="flex items-center space-x-4 mb-8">
+          <img src={profileImage} alt="Profile" className="profile-img" />
+          <div>
+            <h4 className="font-bold text-[#804f0e]">Fathima Samee</h4>
+            <p className="text-sm text-gray-600">fathisam100@gmail.com</p>
           </div>
         </div>
+        <nav className="space-y-4">
+          <Link to="/profile" className="flex items-center text-[#804f0e] hover:text-white hover:bg-[#804f0e] p-2 rounded-lg transition duration-300">
+            <FaUser className="mr-3" />
+            Profile
+          </Link>
+          <Link to="/orders" className="flex items-center text-[#804f0e] hover:text-white hover:bg-[#804f0e] p-2 rounded-lg transition duration-300">
+            <FaBoxOpen className="mr-3" />
+            Orders
+          </Link>
+          <Link to="/ratingsss" className="flex items-center text-[#804f0e] hover:text-white hover:bg-[#804f0e] p-2 rounded-lg transition duration-300">
+            <FaStar className="mr-3" />
+            My ratings & reviews
+          </Link>
+      
+        
+          {/* <Link to="/product" className="flex items-center text-[#804f0e] hover:text-white hover:bg-[#804f0e] p-2 rounded-lg transition duration-300">
+            <FaBoxOpen className="mr-3" />
+            Product
+          </Link> */}
+      
+        </nav>
+      </div>
+      <div>
+        <Link to="/logout" className="flex items-center text-[#804f0e] hover:text-white hover:bg-[#804f0e] p-2 rounded-lg transition duration-300">
+          <FaSignOutAlt className="mr-3" />
+          Logout
+        </Link>
       </div>
     </div>
   );
 };
 
-export default Order;
+export default Sidebar;
