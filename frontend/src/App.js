@@ -4,7 +4,6 @@ import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import ContactUs from "./pages/ContactUs";
-import UserProfile from "./pages/UserProfile";
 import Portfolio from "./pages/Portfolio";
 import ArtistSignin from "./pages/ArtistSignin";
 import ArtistRegister from "./pages/ArtistRegister";
