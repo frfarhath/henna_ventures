@@ -53,7 +53,6 @@ function App() {
         <Route path="signin" element={<SignIn />}></Route>
         <Route path="contactus" element={<ContactUs />}></Route>
         <Route path="portfolio" element={<Portfolio />}></Route>
-        <Route path="user_profile" element={<UserProfile />}></Route>
         <Route path="artistlogin" element={<ArtistSignin />}></Route>
         <Route path="artistregister" element={<ArtistRegister />}></Route>
         <Route path="aboutus" element={<AboutUs />}></Route>
