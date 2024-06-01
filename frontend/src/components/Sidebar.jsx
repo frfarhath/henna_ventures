@@ -1,10 +1,6 @@
-// src/components/Sidebar.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaUser, FaBoxOpen, FaSignOutAlt, FaInbox,FaStar } from 'react-icons/fa';
-import { IoMdSettings } from 'react-icons/io';
-import { BiBarChartSquare } from 'react-icons/bi';
-import { RiTeamFill } from 'react-icons/ri';
+import { FaUser, FaBoxOpen, FaSignOutAlt, FaStar, FaCalendarAlt,FaPencilAlt  } from 'react-icons/fa';
 import profileImage from '../images/profile.jpg'; // Adjust the path as needed
 
 const Sidebar = () => {
@@ -12,7 +8,7 @@ const Sidebar = () => {
     <div className="bg-gray-50 h-screen w-64 p-6 shadow-lg font-serif flex flex-col justify-between">
       <div>
         <div className="flex items-center space-x-4 mb-8">
-          <img src={profileImage} alt="Profile" className="profile-img" />
+          <img src={profileImage} alt="Profile" className="w-12 h-12 rounded-full border-2 border-[#804f0e]" />
           <div>
             <h4 className="font-bold text-[#804f0e]">Fathima Samee</h4>
             <p className="text-sm text-gray-600">fathisam100@gmail.com</p>
@@ -27,17 +23,18 @@ const Sidebar = () => {
             <FaBoxOpen className="mr-3" />
             Orders
           </Link>
-          <Link to="/ratingsss" className="flex items-center text-[#804f0e] hover:text-white hover:bg-[#804f0e] p-2 rounded-lg transition duration-300">
+          <Link to="/ratings" className="flex items-center text-[#804f0e] hover:text-white hover:bg-[#804f0e] p-2 rounded-lg transition duration-300">
             <FaStar className="mr-3" />
-            My ratings & reviews
+            My Ratings & Reviews
           </Link>
-      
-        
-          {/* <Link to="/product" className="flex items-center text-[#804f0e] hover:text-white hover:bg-[#804f0e] p-2 rounded-lg transition duration-300">
-            <FaBoxOpen className="mr-3" />
-            Product
-          </Link> */}
-      
+          <Link to="/appointment" className="flex items-center text-[#804f0e] hover:text-white hover:bg-[#804f0e] p-2 rounded-lg transition duration-300">
+            <FaCalendarAlt className="mr-3" />
+            Appointment
+          </Link>
+          <Link to="/custom-design" className="flex items-center text-[#804f0e] hover:text-white hover:bg-[#804f0e] p-2 rounded-lg transition duration-300">
+            <FaPencilAlt className="mr-3" /> {/* Icon for custom design */}
+            Customized Design
+          </Link>
         </nav>
       </div>
       <div>
