@@ -43,7 +43,7 @@ function SignIn() {
         localStorage.setItem('token', response.data.token);  // Assuming the token is part of the response
 
         // Redirect to the sidebar section
-        navigate('/user_profile');
+        navigate('/profile');
       } else {
         setError('Invalid email or password.');
       }
