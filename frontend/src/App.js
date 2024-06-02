@@ -17,9 +17,12 @@ import Package from "./pages/package";
 import ProductPage from './pages/ProductPage';
 import CartPage from "./pages/CartPage";
 import CustomizeGift from "./pages/CustomizeGift";
+
 import Sidebar from './components/Sidebar';
 import Profile from './components/Profile';
 import Orders from './components/Order';
+import Appointment from './components/AppointmentForm';
+import Rating from './components/RatingAndReview';
 
 
 // import HelloWorld from './HelloWorld';
@@ -65,6 +68,12 @@ function App() {
         <Route path="" element={<Service />}></Route>
         <Route path="/product" element={<ProductPage />} />
         <Route path="gift" element={<CustomizeGift/>}></Route>
+            
+        <Route path="/Sidebar" element={<Sidebar />} />    
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/appointment" element={<Appointment />} />
+        <Route path="/ratings" element={<Rating />} />
       
 
       </Routes>
