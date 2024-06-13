@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
-
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const artistRoutes = require('./../domains/artist');
 const userRoutes = require("./../domains/user");
 const OTPRoutes = require("./../domains/otp");
 const EmailVerificationRoutes = require("./../domains/email_verification");
@@ -17,5 +19,6 @@ router.use("/user", userRoutes);
 router.use("/otp", OTPRoutes);
 router.use("/email_verification", EmailVerificationRoutes);
 router.use("/forgot_password", ForgotPasswordRoutes);
+router.use("/artist", artistRoutes); // Added artist routes
 
 module.exports = router;
