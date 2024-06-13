@@ -119,11 +119,11 @@ button1:hover {
 	box-shadow: 0px 0px 18px #ccc;
 }
 .mehendi-color {
-  background-color: #3b6e34; /* You can adjust the hexadecimal color code */
+  background-color: #3a2405b7; /* You can adjust the hexadecimal color code */
 }
 
 .hover:mehendi-dark:hover {
-  background-color: #295029; /* Darker shade for hover effect */
+  background-color: #58432c; /* Darker shade for hover effect */
 }
 
 @media screen and (min-width: 950px) and (max-width: 1980px) {
