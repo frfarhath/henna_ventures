@@ -1,0 +1,568 @@
+body {
+  background: #af8f6f;
+}
+h2 {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size: 40px;
+  margin-bottom: -10px;
+  text-align: left;
+  padding-left: 30px;
+}
+h3 {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size: 20px;
+  margin-bottom: -10px;
+  text-align: center;
+}
+
+/* Basic reset and box-sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Container for the entire app layout */
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 250px;
+  background-color: white;
+  padding: 20px;
+  margin: 10px;
+  margin-bottom: 30px;
+  border-radius: 5px;
+}
+
+.admin-button {
+  margin: 10px 0;
+  width: 100%;
+  height: 70px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  background-color: #804f0e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  display: flex;
+}
+
+.admin-button svg {
+  margin-right: 10px;
+}
+
+/* Right container styles */
+.right-container {
+  flex-grow: 1;
+  background-color: white;
+  padding: 20px;
+  margin: 10px;
+  margin-bottom: 30px;
+  border-radius: 5px;
+}
+
+/* Calendar container */
+.calendar-container {
+  margin-bottom: 20px;
+}
+
+/* Timetable styles */
+.timetable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.timetable th,
+.timetable td {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: center;
+}
+
+.timetable th {
+  background-color: #804f0e;
+  color: white;
+}
+
+.appointment-details:not(:empty) {
+  background-color: #d2b48c;
+}
+
+.art {
+  display: flex;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .art {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+  }
+}
+
+/*Calendar*/
+/* General calendar styles */
+.react-calendar {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  color: #804f0e;
+}
+
+.react-calendar__navigation button {
+  color: #804f0e;
+  background: none;
+}
+
+.react-calendar__navigation button:hover,
+.react-calendar__navigation button:focus {
+  background: #ffa500;
+}
+
+/* Weekdays header */
+.react-calendar__month-view__weekdays__weekday {
+  color: #804f0e;
+  background: none;
+}
+
+/* Days in month view */
+.react-calendar__tile {
+  background: white;
+  color: #804f0e;
+  border-radius: 5px;
+  padding: 10px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.react-calendar__tile:hover,
+.react-calendar__tile:focus {
+  background: #633b0b;
+  color: white;
+}
+
+/* Today's date */
+.react-calendar__tile--now {
+  background: #d2b48c !important;
+  color: black !important;
+}
+
+.react-calendar__tile--now:hover,
+.react-calendar__tile--now:focus {
+  background: #633b0b !important;
+  color: white !important;
+}
+
+/* Active date (selected date) */
+.react-calendar__tile--active {
+  background: #804f0e !important;
+  color: white !important;
+}
+
+.react-calendar__tile--active:hover,
+.react-calendar__tile--active:focus {
+  background: #633b0b !important;
+}
+
+/* Weekend days */
+.react-calendar__month-view__days__day--weekend {
+  color: #804f0e; /* Brown color for weekend days */
+}
+
+.react-calendar__tile--now .react-calendar__tile__content,
+.react-calendar__tile--active .react-calendar__tile__content {
+  background: inherit;
+  color: inherit;
+}
+/*Requests*/
+.status-accepted {
+  background-color: green;
+  color: white;
+}
+
+.status-declined {
+  background-color: #c70000;
+  color: white;
+}
+
+.status-completed {
+  background-color: #804f0e;
+  color: white;
+}
+
+.timetable select {
+  padding: 5px;
+  border: 1px solid #d2b48c;
+  border-radius: 4px;
+}
+
+.timetable select.status-accepted {
+  background-color: green;
+}
+
+.timetable select.status-declined {
+  background-color: #c70000;
+}
+
+.timetable select.status-completed {
+  background-color: #804f0e;
+}
+
+.timetable select.status-pending {
+  background-color: #d2b48c;
+}
+
+.artist-dashboard {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  padding: 10px;
+  border-right: 1px solid #633b0b;
+}
+
+.right-container {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.main-content {
+  margin-left: auto;
+}
+
+.timetable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.timetable th,
+.timetable td {
+  border: 1px solid #d2b48c;
+  padding: 8px;
+  text-align: center;
+  width: auto;
+}
+
+.time-slot {
+  width: 20%;
+}
+
+.appointment-details {
+  width: 100%;
+}
+
+.add-appointment {
+  margin-top: 20px;
+}
+
+.add-appointment input {
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.add-appointment button {
+  padding: 5px 10px;
+  width: 150px;
+}
+
+.save-button {
+  background-color: #804f0e;
+  width: 40%;
+  margin-top: 15px;
+}
+
+.save-button:hover {
+  background-color: #633b0b;
+}
+.add-appointment {
+  display: flex;
+}
+.action-buttons {
+  width: 40px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+.delete-button {
+  background-color: #804f0e;
+}
+
+.update-button {
+  background-color: #804f0e;
+}
+
+.action-buttons:hover {
+  background-color: #99703e;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 4px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.action-buttons {
+  width: 45px;
+  padding: 5px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-button {
+  background-color: #804f0e;
+}
+
+.update-button {
+  background-color: #804f0e;
+}
+
+.action-buttons:hover {
+  background-color: #99703e;
+}
+.copy-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.copy-button:hover {
+  color: #633b0b;
+}
+
+.status-accepted {
+  background-color: #4caf50;
+  color: white;
+}
+
+.status-declined {
+  background-color: crimson;
+  color: white;
+}
+
+.status-completed {
+  background-color: #2196f3;
+  color: white;
+}
+
+.status-pending {
+  background-color: #ff9800;
+  color: white;
+}
+
+.copy-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #804f0e;
+}
+
+.copy-button:hover {
+  color: #99703e;
+}
+.admin-button1 {
+  margin: 10px 0;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  background-color: #804f0e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 10px;
+  display: flex;
+}
+
+.admin-button1 svg {
+  margin-right: 10px;
+}
+.admin-button.active {
+  background-color: #af8f6f;
+  color: white;
+}
+/* Base styles */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.admin-button {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #804f0e;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.admin-button.active {
+  background-color: #af8f6f;
+  color: white;
+}
+
+.admin-button .fa-icon {
+  margin-right: 10px;
+}
+
+.toggle-button {
+  display: none;
+  background-color: #af8f6f;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .toggle-button {
+    display: block;
+  }
+  .sidebar-buttons {
+    display: none;
+  }
+  .sidebar-buttons.show {
+    display: block;
+  }
+  .sidebar {
+    align-self: center;
+  }
+}
+
+.calendar-container {
+  width: 100%;
+}
+
+.add-appointment {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.add-appointment input {
+  flex: 1 1 150px;
+  padding: 5px;
+}
+
+.add-appointment button {
+  padding: 5px 10px;
+  flex: 1 1 100px;
+}
+
+.timetable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.timetable th,
+.timetable td {
+  border: 1px solid #d2b48c;
+  padding: 8px;
+  text-align: center;
+  width: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .timetable th:nth-child(2),
+  .timetable td:nth-child(2),
+  .timetable th:nth-child(4),
+  .timetable td:nth-child(4) .timetable th:nth-child(5),
+  .timetable td:nth-child(5),
+  .timetable th:nth-child(6),
+  .timetable td:nth-child(6),
+  .timetable th:nth-child(8),
+  .timetable td:nth-child(8) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .timetable th:nth-child(2),
+  .timetable td:nth-child(2),
+  .timetable th:nth-child(4),
+  .timetable td:nth-child(4) .timetable th:nth-child(5),
+  .timetable td:nth-child(5),
+  .timetable th:nth-child(6),
+  .timetable td:nth-child(6),
+  .timetable th:nth-child(8),
+  .timetable td:nth-child(8) {
+    display: none;
+  }
+
+  .add-appointment {
+    flex-direction: row;
+  }
+
+  .add-appointment input,
+  .add-appointment button {
+    width: 100%;
+  }
+
+  .right-container {
+    padding: 10px;
+  }
+}
+
+/* Calendar container */
+.calendar-container {
+  width: 100%;
+}
+
+/* Modal styles */
+.modal {
+  width: 90%;
+  max-width: 400px;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.75);
+}
