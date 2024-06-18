@@ -10,14 +10,14 @@ export default function CheckoutInfo() {
     <div>
       <NewNav />
       <br />
-      <div className="right-container">
+      <div className="message-container">
         <div className="main-content">
           <h3>Reciever's Information</h3>
           <br />
           <div className="column-2">
             <div className="personalInfo">
               <div className="form-floating">
-                <label>Receiver Name:</label>
+                <label>Receiver Name:</label></div>
                 <br />
                 <input
                   type="text"
@@ -28,7 +28,7 @@ export default function CheckoutInfo() {
               </div>
               <br />
               <div className="form-floating">
-                <label>Delivery Address:</label>
+                <label>Delivery Address:</label></div>
                 <br />
                 <input
                   type="text"
@@ -39,7 +39,7 @@ export default function CheckoutInfo() {
               </div>
               <br />
               <div className="form-floating">
-                <label>Contact number:</label>
+                <label>Contact number:</label></div>
                 <br />
                 <input
                   type="number"
@@ -47,14 +47,13 @@ export default function CheckoutInfo() {
                   placeholder="Enter receiver's name"
                   style={{ width: "50%" }}
                 />
-              </div>
+             
               <button className="save-button" onClick={handleButtonClick}>
                 Proceed for payment
               </button>
             </div>
-          </div>
-        </div>
-      </div>
+            </div>
+          
       <Footer />
     </div>
   );
