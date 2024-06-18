@@ -117,11 +117,11 @@ h2 {
 
 .product-card .view-product:hover,
 .product-card .add-to-cart:hover {
-  background-color: #45a049;
+  background-color: #006400;
 }
 
 .green-tick {
-  color: #4caf50;
+  color: #006400;
   position: absolute;
   top: 10px;
   right: 10px;
@@ -135,7 +135,7 @@ h2 {
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #d2b48c;
+  background-color: white;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
   position: fixed;
   width: 100%;
@@ -173,7 +173,7 @@ h2 {
 /* Progress Bar Styles */
 .progress-container {
   width: 80%;
-  margin: 20px auto;
+  margin: 10px auto;
   text-align: center;
 }
 
@@ -248,6 +248,7 @@ progress::-webkit-progress-value {
 .search-bar input:focus {
   outline: none;
   border-color: none;
+  border-radius: 5px;
 }
 
 .search-bar button {
@@ -382,6 +383,7 @@ progress::-webkit-progress-value {
 
   .filter {
     margin-left: 18px;
+    border-radius: 5px;
   }
 
   .cart-button {
@@ -704,7 +706,16 @@ h3 {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  margin-bottom: 65px;
+}
+
+.main-content {
+  margin-top: 10px;
   margin-bottom: 10px;
+}
+.form-floating label{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 16px;
 }
 .message-textarea {
   width: 100%;
@@ -1127,3 +1138,53 @@ input[type="number"]::-moz-inner-spin-button {
   line-height: 1.2;
   margin-bottom: 4px;
 }
+.save-button{
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+
+  .navbar {
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    padding: 10px 0;
+  }
+
+  .navbar .nav-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar .nav-button .fa-icon {
+    font-size: 20px;
+  }
+
+  .navbar .nav-button span {
+    font-size: 12px;
+  }
+}
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2px;
+}
+
+
+
+

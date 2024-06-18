@@ -36,6 +36,7 @@ h3 {
   margin: 10px;
   margin-bottom: 30px;
   border-radius: 5px;
+  height: fit-content;
 }
 
 .admin-button {
@@ -107,7 +108,7 @@ h3 {
   .sidebar {
     width: 100%;
     border-right: none;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #d2b48c;
   }
 }
 
@@ -186,7 +187,7 @@ h3 {
 }
 /*Requests*/
 .status-accepted {
-  background-color: green;
+  background-color: #006400;
   color: white;
 }
 
@@ -207,7 +208,7 @@ h3 {
 }
 
 .timetable select.status-accepted {
-  background-color: green;
+  background-color: #006400;
 }
 
 .timetable select.status-declined {
