@@ -17,6 +17,16 @@ import Package from "./pages/package";
 import ProductPage from './pages/ProductPage';
 import CartPage from "./pages/CartPage";
 import CustomizeGift from "./pages/CustomizeGift";
+import ProductPage from "./pages/Product/ProductPage";
+import SelectGift from "./pages/CustomizedGift/SelectGift";
+import SelectGiftBox from "./pages/CustomizedGift/SelectGiftBox";
+import SelectCard from "./pages/CustomizedGift/SelectCard";
+import Message from "./pages/CustomizedGift/Message";
+import Cart from "./pages/Product/Cart";
+import CheckoutInfo from "./pages/Product/CheckoutInfo";
+import ArtistDashboard from "./pages/Artist/ArtistDashboard";
+import RequestPage from "./pages/Artist/RequestPage";
+import ChangePassword from "./pages/Artist/ChangePassword";
 
 import Sidebar from './components/Sidebar';
 import Profile from './components/Profile';
@@ -74,7 +84,16 @@ function App() {
         <Route path="/orders" element={<Orders />} />
         <Route path="/appointment" element={<Appointment />} />
         <Route path="/ratings" element={<Rating />} />
-      
+      <Route path="product" element={<ProductPage />} />
+        <Route path="giftbox" element={<SelectGiftBox />}></Route>
+        <Route path="selectgift" element={<SelectGift />}></Route>
+        <Route path="selectcard" element={<SelectCard />}></Route>
+        <Route path="message" element={<Message />}></Route>
+        <Route path="cart" element={<Cart />}></Route>
+        <Route path="checkoutinfo" element={<CheckoutInfo />}></Route>
+        <Route path="artistdashboard" element={<ArtistDashboard />}></Route>
+        <Route path="requestpage" element={<RequestPage />}></Route>
+        <Route path="changepassword" element={<ChangePassword />}></Route>
 
       </Routes>
     </BrowserRouter>
