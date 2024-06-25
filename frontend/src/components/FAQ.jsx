@@ -36,12 +36,12 @@ const FAQ = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <h2 className="text-4xl font-bold text-center mb-6">FAQ</h2>
+    <div className="max-w-3xl mx-auto p-4">
+      <h2 className="text-2xl font-bold text-center mb-6">FAQ</h2>
       {faqs.map((faq, index) => (
         <div key={index} className="border-b border-gray-300 mb-4">
           <div
-            className={`flex justify-between items-center p-4 bg-gray-800 text-white cursor-pointer rounded-md ${activeIndex === index ? '' : 'hover:bg-gray-700 hover:shadow-md'}`}
+            className={`flex justify-between items-center p-3 bg-gray-800 text-white cursor-pointer rounded-md ${activeIndex === index ? '' : 'hover:bg-gray-700 hover:shadow-md'}`}
             onClick={() => toggleFAQ(index)}
             style={{ transition: 'background-color 0.3s, box-shadow 0.3s', borderRadius: '18px' }}
           >

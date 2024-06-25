@@ -42,7 +42,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[#3a2405b7] text-white">
+    <footer className="bg-[#543310] text-white">
       <div className="footerContent grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-6 sm:px-8 px-5 py-16">
         {/*logo*/}
         <div>
