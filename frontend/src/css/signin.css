@@ -19,7 +19,7 @@
   }
   
   .login-button {
-    background-color: #476629;
+    background-color: #3a2405b7;
   }
  /* Apply a new font family to the form elements with more specificity */
 
@@ -47,7 +47,7 @@
     align-items: center; */
     padding: 20px;
     background: rgba(255, 255, 255, 0.1); /* Semi-transparent background for glass effect */
-    backdrop-filter: blur(20px); /* Glass effect */
+    backdrop-filter: blur(18px); /* Glass effect */
      border-radius: 10px;
      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 400px; 

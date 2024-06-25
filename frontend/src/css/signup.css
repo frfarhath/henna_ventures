@@ -44,7 +44,7 @@
 }
 
 :root {
-  --primary-dark: #435334;
+  --primary-dark: #3a2405b7;
   --primary-light: #D5ABB2;
 }
 
@@ -84,6 +84,7 @@
     opacity: 1;
     box-shadow: 0px 0px 18px #ccc;
   }
+ 
 
   .description {
     margin: 15px;
