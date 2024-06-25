@@ -11,6 +11,7 @@ function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(''); // Add success state
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -42,8 +43,14 @@ function SignIn() {
         localStorage.setItem('user', JSON.stringify(response.data));
         localStorage.setItem('token', response.data.token);  // Assuming the token is part of the response
 
-        // Redirect to the sidebar section
-        navigate('/profile');
+        // Set success message
+        setSuccess('Login successful!');
+        setError('');
+
+        // Redirect to the profile page
+        setTimeout(() => {
+          navigate('/profile');
+        }, 2000); // Redirect after 2 seconds
       } else {
         setError('Invalid email or password.');
       }
@@ -74,6 +81,7 @@ function SignIn() {
           <img className="h-auto w-52" src={logo} alt="Henna Ventures Logo" />
           <form onSubmit={handleSubmit}>
             {error && <div className="error-message text-red-500 mb-4">{error}</div>}
+            {success && <div className="success-message text-green-500 mb-4">{success}</div>} {/* Display success message */}
             <div className="mb-4">
               <label className="block text-gray-700 text-sm mb-2" htmlFor="email">
                 Email
@@ -107,10 +115,7 @@ function SignIn() {
               </div>
             </div>
             <div className="flex items-center justify-between mb-4">
-              <label className="inline-flex items-center">
-                <input type="checkbox" className="form-checkbox text-indigo-600" />
-                <span className="ml-2">Remember me</span>
-              </label>
+              
               <a href="/forgot-password" className="inline-block align-baseline text-sm text-blue-500 hover:text-blue-800">
                 Forgot Password?
               </a>

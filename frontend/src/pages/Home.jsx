@@ -82,13 +82,11 @@ function Home() {
                 Custom Mehendi Designs
               </h5>
               <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                Personalized mehendi designs tailored to individual preferences
-                and occasions, including bridal mehendi, festival designs, and
-                special events.
+              visualize and customize mehendi designs in real-time, ensuring satisfaction before application.
               </p>
               <div className="flex justify-center">
                 <Link
-                  to="/Design"
+                  to="/threedmodel"
                   className="mehendi-color hover:mehendi-dark text-white font-bold py-2 px-4 rounded mt-4"
                 >
                   View More
@@ -109,16 +107,16 @@ function Home() {
             ></img>
             <div className="flex flex-col justify-between p-4 leading-normal">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Henna Party Packages:
+                Mehendi design collections
               </h5>
               <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                Customizable henna party packages for bridal showers, weddings,
-                birthdays, and other celebrations, including on-site henna
-                services and group discounts.
+              browse and explore a diverse collection of mehendi designs.
+Design categories are available for different styles, and preferences
+
               </p>
               <div className="flex justify-center">
                 <Link
-                  to="/package"
+                  to="/MehendiDesignRepository"
                   className="mehendi-color hover:mehendi-dark text-white font-bold py-2 px-4 rounded mt-4"
                 >
                   View More
@@ -171,11 +169,10 @@ function Home() {
             ></img>
             <div className="flex flex-col justify-between p-4 leading-normal">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Expert Artists
+              Customizing giftbox
               </h5>
               <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                Quick and convenient mehendi application services for busy
-                individuals, offering intricate designs in a short time frame.
+              curate a selection of henna products to create a thoughtful and customized gift package for themselves or their loved ones.
               </p>
               <div className="flex justify-center">
                 <Link
@@ -189,7 +186,38 @@ function Home() {
           </a>
         </div>
       </div>
-
+      <div className="our-services">
+        <div className="cardcontainer">
+          <a
+            href="#"
+            className="serviceCard flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+          >
+            <img
+              className="serviceimg object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
+              src={service}
+              alt=""
+            ></img>
+            <div className="flex flex-col justify-between p-4 leading-normal">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              Expert Artists
+              </h5>
+              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              Quick and convenient mehendi application services for busy
+              individuals, offering intricate designs in a short time frame.
+              </p>
+              <div className="flex justify-center">
+                <Link
+                  to="/Design"
+                  className="mehendi-color hover:mehendi-dark text-white font-bold py-2 px-4 rounded mt-4"
+                >
+                  Book now
+                </Link>
+              </div>
+            </div>
+          </a>
+        </div>
+        
+      </div>
       {/* Add the FAQ component here */}
       <FAQ />
       <Rating />
