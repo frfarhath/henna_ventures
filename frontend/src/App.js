@@ -36,6 +36,9 @@ import AppointmentForm from './components/AppointmentForm';
 import Rating from './components/RatingAndReview';
 import PackageForm from './components/PackageForm';
 import MyCollection from './components/MyCollection';
+import './App11.css'; 
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 
 // import HelloWorld from './HelloWorld';
