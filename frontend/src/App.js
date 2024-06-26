@@ -31,8 +31,11 @@ import ChangePassword from "./pages/Artist/ChangePassword";
 import Sidebar from './components/Sidebar';
 import Profile from './components/Profile';
 import Orders from './components/Order';
-import Appointment from './components/AppointmentForm';
+import Appointment from './components/Appointment';
+import AppointmentForm from './components/AppointmentForm';
 import Rating from './components/RatingAndReview';
+import PackageForm from './components/PackageForm';
+import MyCollection from './components/MyCollection';
 
 
 // import HelloWorld from './HelloWorld';
@@ -81,9 +84,13 @@ function App() {
             
         <Route path="/Sidebar" element={<Sidebar />} />    
         <Route path="/profile" element={<Profile />} />
-        <Route path="/orders" element={<Orders />} />
         <Route path="/appointment" element={<Appointment />} />
+        <Route path="/appointment/individual" element={<AppointmentForm />} />
         <Route path="/ratings" element={<Rating />} />
+        <Route path="/packages" element={<Package />} />
+        <Route path="PackageForm" element={<PackageForm />} />
+        <Route path="/mycollection" element={<MyCollection />} />
+            
       <Route path="product" element={<ProductPage />} />
         <Route path="giftbox" element={<SelectGiftBox />}></Route>
         <Route path="selectgift" element={<SelectGift />}></Route>
