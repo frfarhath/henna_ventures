@@ -1,10 +1,35 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js,jsx}",
-  'node_modules/flowbite-react/lib/esm/**/*.js',],
-  
+  content: [
+    "./src/**/*.{html,js,jsx,ts,tsx}",
+    'node_modules/flowbite-react/lib/esm/**/*.js',
+  ],
   theme: {
-    extend: {},
+    extend: {
+      boxShadow: {
+        'brown': '0 10px 20px rgba(128, 79, 14, 0.15), 0 6px 6px rgba(128, 79, 14, 0.10)',
+      },
+      scale: {
+        '105': '1.05',
+      },
+      transitionProperty: {
+        'transform-opacity': 'transform, opacity',
+      },
+      keyframes: {
+        fadeInUp: {
+          '0%': { opacity: 0, transform: 'translateY(20px)' },
+          '100%': { opacity: 1, transform: 'translateY(0)' },
+        },
+        pulse: {
+          '0%, 100%': { opacity: 1 },
+          '50%': { opacity: 0.5 },
+        },
+      },
+      animation: {
+        'fade-in-up': 'fadeInUp 0.5s ease-in-out forwards',
+        'pulse-text': 'pulse 1.5s ease-in-out infinite',
+      },
+    },
     colors: {
       transparent: "transparent",
       current: "currentColor",
@@ -21,5 +46,8 @@ module.exports = {
       secondary: "#cedebd",
     },
   },
-  plugins: [require("flowbite/plugin")],
+  plugins: [
+    require("flowbite/plugin"),
+    require('tailwindcss-filters'),
+  ],
 };
