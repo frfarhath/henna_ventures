@@ -1,74 +1,52 @@
-import React from 'react'
+import React from 'react';
 import { Textarea } from 'flowbite-react';
-import logo from '../images/logo_trans.png'
-import contact from '../images/contact.jpg'
-import NewNav from '../components/NewNav'
-import Footer from '../components/Footer'
+import logo from '../images/logo_trans.png';
+import contact from '../images/contact.jpg';
+import NewNav from '../components/NewNav';
+import Footer from '../components/Footer';
 
 function Contact() {
-    return (
-        <div>
-            <NewNav />
-            <header className="service-header">
-                <div className="service-overlay">
-                
-                    <h1>Contact Us</h1>
-                    <h2>Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!</h2>
-                    <br></br>
-                    {/* <a href='signup'><button1>Sign Up Now</button1></a> */}
-                </div>
-            </header>
-
-            <div className='hometitle'>
-                Cherish Every Moment <br></br> with Our Expertise
-            </div>
-
-
-            <div className='flex flex-col justify-center items-center md:flex-row' style={{ marginTop: 50, marginBottom: 50 }}>
-                <div className='w-full md:w-1/2 flex justify-center items-center'>
-                    <img
-                        style={{ width: 400, height: 550, }}
-                        className="aboutimg"
-                        src={contact}
-                        alt="image description"
-                    />
-                </div>
-                <div className=' w-full md:w-2/3  justify-start items-center'>
-                    <p className='description'>
-                        <div className='formgrid2'>
-
-                            {/* <img class="h-auto max-w-full" style={{ padding: 50 }} src={logo} alt="image description"></img> */}
-                            <img className="logo w-32 h-auto" src={logo} alt="Logo"/>
-
-                            <form class="max-w-md mx-auto">
-
-                                <div class="relative z-0 w-full mb-5 group">
-                                    <input type="text" name="fullname" id="fullname" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                                    <label for="fullname" style={{ fontSize: 15 }} class="font-bold peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Full Name</label>
-                                </div>
-
-                                <div class="relative z-0 w-full mb-5 group">
-                                    <input type="email" name="email" id="email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                                    <label for="email" style={{ fontSize: 15 }} class="font-bold peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
-                                </div>
-                                <div className='textArea'>
-                                    <Textarea id="comment" placeholder="Leave a message..." required rows={4} />
-                                </div>
-
-                                <div className='subButton'>
-                                    <button type="submit" class="button">Send Message</button>
-                                </div>
-
-                            </form>
-                        </div>
-                    </p>
-                </div>
-
-            </div>
-
-            <Footer />
+  return (
+    <div className="contact-page" style={{ backgroundColor: '#ffffff' }}>
+      <NewNav />
+      <header className="service-header">
+        <div className="service-overlay">
+          <h1>Contact Us</h1>
+          <h4>Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!</h4>
         </div>
-    )
+      </header>
+      <div className='hometitle'>
+        Cherish Every Moment <br /> with Our Expertise
+      </div>
+      <div className="flex items-center justify-center min-h-screen py-12">
+        <div className="flex flex-col md:flex-row bg-white  border border-gray-200 shadow-lg max-w-4xl rounded-lg overflow-hidden">
+          <div className="w-full md:w-1/2 relative">
+            <img src={contact} alt="Nature" className="absolute inset-0 w-full h-full object-cover" />
+            <div className="relative bg-black bg-opacity-10 text-white p-10 flex flex-col justify-center h-full">
+              <h2 className="text-2xl text-white font-bold mb-4">Get in touch with us to bring your Mehendi dreams to life!</h2>
+            </div>
+          </div>
+          <div className="w-full md:w-1/2 p-10 flex flex-col items-center">
+            <img src={logo} alt="Logo" className="mb-6 w-32 h-auto" />
+            {/* <h2 className="text-2xl font-bold mb-6">Welcome Back!</h2> */}
+            <form className="w-full">
+              <label htmlFor="full-name" className="block text-gray-700 mb-2">Full Name</label>
+              <input type="text" id="full-name" name="full-name" placeholder="Enter Full Name" className="w-full p-3 mb-4 border border-gray-300 rounded-lg shadow-lg" required />
+              
+              <label htmlFor="email" className="block text-gray-700 mb-2">Email</label>
+              <input type="email" id="email" name="email" placeholder="Enter Email" className="w-full p-3 mb-4 border border-gray-300 rounded-lg shadow-lg" required />
+              
+              <label htmlFor="message" className="block text-gray-700 mb-2">Leave a Message</label>
+              <Textarea id="message" name="message" placeholder="Your Message" className="w-full p-3 mb-4 border border-gray-300 rounded-lg shadow-lg" required />
+              
+              <button type="submit" className="w-full p-3 bg-yellow-800 text-white rounded-lg hover:bg-yellow-700 hover:shadow-lg">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </div>
+  );
 }
 
-export default Contact
+export default Contact;

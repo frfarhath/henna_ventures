@@ -28,6 +28,7 @@ const mehendiDesigns = [
 const MehendiGallery = () => {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
+  const [collection, setCollection] = useState([]);
 
   const filteredDesigns = mehendiDesigns.filter((design) =>
     (design.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -35,15 +36,19 @@ const MehendiGallery = () => {
     (category ? design.category === category : true)
   );
 
+  const addToCollection = (design) => {
+    setCollection([...collection, design]);
+  };
+
   return (
-    <div>
+    <div className="repo-page" style={{ backgroundColor: 'white' }}>
       {/* Navbar */}
       <NavigationBar />
       <div className="services-page">
         <header className="service-header">
           <div className="service-overlay">
             <h1 className="text-4xl font-bold">Our Designs</h1>
-            <h2 className="text-xl mt-2">Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!</h2>
+            <h4 className="text-xl mt-2">Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!</h4>
           </div>
         </header>
         <div className="container mx-auto px-4 py-8">
@@ -63,7 +68,6 @@ const MehendiGallery = () => {
               onChange={(e) => setCategory(e.target.value)}
               className="border p-2 rounded"
             >
-
               <option value="">All Categories</option>
               <option value="Traditional">Indian</option>
               <option value="Modern">Pakistani</option>
@@ -81,12 +85,21 @@ const MehendiGallery = () => {
                 key={design.id}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform duration-200"
+                className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform duration-200 flex flex-col items-center"
               >
                 <img src={design.image} alt={design.name} className="w-full h-72 object-cover" />
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold">{design.name}</h3>
-                  <p className="text-sm text-gray-600">{design.category}</p>
+                <div className="p-3 flex-grow flex flex-col justify-between items-center">
+                  <div className="text-center">
+                    <h3 className="text-lg font-semibold mb-1">{design.name}</h3>
+                    <p className="text-sm text-gray-600 mb-2">{design.category}</p>
+                  </div>
+                  <button
+                    className="mt-2 bg-brown-500 text-white py-2 px-10 rounded"
+                    style={{ backgroundColor: '#804f0e' }}
+                    onClick={() => addToCollection(design)}
+                  >
+                    Add to Collection
+                  </button>
                 </div>
               </motion.div>
             ))}

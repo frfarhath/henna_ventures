@@ -1,12 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link } from "react-router-dom";
 import "../css/pricingCard.css";
 import "../css/home.css";
 import "../css/portfolio.css";
-import "../css/service.css";
-import "../css/services.css";
+// import "../css/service.css";
+// import "../css/services.css";
 import service from "../images/service1.jpg";
+import service3 from "../images/design.jpg";
 import design from "../images/service2.jpg";
+import design2 from "../images/meh.jpg";
 import hena from "../images/product.jpg";
 import photo from "../images/hands.jpg";
 import about from "../images/about.jpg";
@@ -14,27 +16,26 @@ import NewNav from "../components/NewNav";
 import Footer from "../components/Footer";
 import FAQ from "../components/FAQ"; 
 import Rating from "../components/Rating";
+
 function Home() {
   return (
-    <div>
+    <div className="Home-page" style={{ backgroundColor: 'white' }}>
       <NewNav />
-      <header>
-        <div className="overlay">
+      <header className="home-header">
+        <div className="home-overlay">
           <h1>Welcome to Henna Ventures</h1>
-          <h2>Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!</h2>
-          <br />
+          <h4>Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!</h4>
           <a href="signup">
             <button1>Sign Up Now</button1>
           </a>
         </div>
-        
       </header>
-
+     
       {/* <div className="hometitle">
         Embrace Moments with Expertise in <br /> Mehendi, Henna Products!
       </div> */}
 
-      <div
+<div
         className="flex flex-col justify-center items-center md:flex-row"
         style={{ marginTop: 50, marginBottom: 50 }}
       >
@@ -148,7 +149,7 @@ Design categories are available for different styles, and preferences
               </p>
               <div className="flex justify-center">
                 <Link
-                  to="/AddToCart"
+                  to="/product"
                   className="mehendi-color hover:mehendi-dark text-white font-bold py-2 px-4 rounded mt-4"
                 >
                   View More
@@ -176,7 +177,7 @@ Design categories are available for different styles, and preferences
               </p>
               <div className="flex justify-center">
                 <Link
-                  to="/Artists"
+                  to="/giftbox"
                   className="mehendi-color hover:mehendi-dark text-white font-bold py-2 px-4 rounded mt-4"
                 >
                   View More
@@ -194,7 +195,7 @@ Design categories are available for different styles, and preferences
           >
             <img
               className="serviceimg object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-              src={service}
+              src={service3}
               alt=""
             ></img>
             <div className="flex flex-col justify-between p-4 leading-normal">
@@ -216,7 +217,35 @@ Design categories are available for different styles, and preferences
             </div>
           </a>
         </div>
-        
+        <div className="cardcontainer">
+          <a
+            href="#"
+            className="serviceCard flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+          >
+            <img
+              className="serviceimg object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
+              src={design2}
+              alt=""
+            ></img>
+            <div className="flex flex-col justify-between p-4 leading-normal">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+             Henna Packages
+              </h5>
+              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              Each package offers expertly applied designs, blending traditional elegance with personalized touches to ensure a memorable and enchanting experience.
+              </p>
+              <div className="flex justify-center">
+                <Link
+                  to="/giftbox"
+                  className="mehendi-color hover:mehendi-dark text-white font-bold py-2 px-4 rounded mt-4"
+                >
+                  View More
+                </Link>
+              </div>
+            </div>
+          </a>
+        </div>
+      
       </div>
       {/* Add the FAQ component here */}
       <FAQ />

@@ -33,12 +33,12 @@ const HandModelViewer = () => {
     Hand004: "Ring Finger",
     Hand005: "Little Finger",
     Hand006: "Palm Top",
-    Hand007: "Palm Bottom",
-    Hand008: "Back of Thumb",
-    Hand009: "Back of Index Finger",
-    Hand010: "Back of Middle Finger",
-    Hand011: "Back of Ring Finger",
-    Hand012: "Back of Little Finger",
+    Hand007: "Back of Little Finger",
+    Hand008: "Back of Ring Finger",
+    Hand009: "Back of Middle Finger",
+    Hand010: "Back of Index Finger",
+    Hand011: "Back of Thumb",
+    Hand012: "Palm Bottom",
   };
 
   const rendererRef = useRef(null);

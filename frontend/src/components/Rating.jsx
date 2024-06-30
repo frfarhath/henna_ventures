@@ -5,32 +5,33 @@ const RatingReview = () => {
     {
       name: 'Pytavi Umachandran',
       rating: 5,
-      review: 'Divya was my bridal henna artist and she was amazing!! She is incredibly talented (her work speaks for itself!) and so',
+      review: 'The bridal henna service was outstanding! The artist was incredibly talented and professional. The intricate designs were stunning and lasted for weeks. Highly recommend!',
       avatar: 'https://via.placeholder.com/150',
-      date: '5 years ago',
+      date: '1 month ago',
     },
     {
       name: 'Sarah Ghalib',
-      rating: 5,
-      review: 'Divya is an extremely talented individual who truly loves what she does! She makes every bride feel special and gives',
+      rating: 4,
+      review: 'Amazing service! The artist truly loves what they do and makes every client feel special. The attention to detail in the mehendi designs was impressive and beautifully done.',
       avatar: 'https://via.placeholder.com/150',
-      date: '5 years ago',
+      date: '2 month ago',
     },
     {
       name: 'Jasmine Nijjar',
       rating: 5,
-      review: 'Divya is incredibly talented, smart, sweet and professional. She incorporated all of my ideas into a unique design that',
+      review: 'Exceptional experience! The mehendi artist was skilled and incorporated all of my ideas into a unique and beautiful design. The quality of the henna used was top-notch.',
       avatar: 'https://via.placeholder.com/150',
-      date: '5 years ago',
+      date: '1 month ago',
     },
     {
       name: 'Jaspreet Kalhar',
-      rating: 5,
-      review: 'I wish I could give Divya more than 5 stars! Divya is the kindest and sweetest vendor, not to mention her incredible',
+      rating: 4,
+      review: 'Highly recommend this mehendi service! The artist was kind and professional, and the designs were incredibly intricate and beautiful. My bridal mehendi turned out perfect.',
       avatar: 'https://via.placeholder.com/150',
-      date: '5 years ago',
+      date: '3 1 month ago',
     },
   ];
+
 
   return (
     <div className="container mx-auto py-8">
@@ -49,7 +50,7 @@ const RatingReview = () => {
           >
             <div className="flex flex-col items-center mb-4">
               <img src={review.avatar} alt={review.name} className="w-12 h-12 rounded-full mb-2" />
-              <h3 className="text-blue-700 text-lg font-semibold">{review.name}</h3>
+              <h4 className="text-blue-700 text-lg font-semibold">{review.name}</h4>
               <span className="text-gray-500 text-sm">{review.date}</span>
               <div className="text-yellow-500 text-lg mt-1">
                 {Array(review.rating).fill('★').join('')}

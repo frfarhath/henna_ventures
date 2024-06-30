@@ -5,13 +5,13 @@ import Footer from '../components/Footer'
 
 function AboutUs() {
     return (
-        <div>
+        <div className="about-page" style={{ backgroundColor: 'white' }}>
             <NewNav />
             <header className="service-header">
                 <div className="service-overlay">
                    
                     <h1>About Henna Ventures</h1>
-                    <h2> Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!</h2>
+                    <h4> Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!</h4>
                     <br></br>
                     {/* <a href='signup'><button1>Sign Up Now</button1></a> */}
                 </div>
