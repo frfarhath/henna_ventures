@@ -12,7 +12,7 @@ import Contact from "./pages/Contact";
 import Service from "./pages/Service";
 import Artists from "./pages/Artists";
 import Designs from "./pages/Designs";
-import Package from "./pages/package";
+import Package from "./pages/Package";
 import MehendiDesignRepository from "./pages/MehendiDesignRepository";
 import ThreeDModel from './components/ThreeDModel';
 // import ProductPage from './pages/ProductPage';
@@ -29,14 +29,14 @@ import ArtistDashboard from "./pages/Artist/ArtistDashboard";
 import RequestPage from "./pages/Artist/RequestPage";
 import ChangePassword from "./pages/Artist/ChangePassword";
 
-// import Sidebar from './components/User Dashboard/Sidebar';
-// import Profile from './components/User Dashboard/Profile';
-// import Orders from './components/User Dashboard/Order';
-// import Appointment from './components/User Dashboard/Appointment';
-// import AppointmentForm from './components/User Dashboard/AppointmentForm';
-// import Rating from './components/User Dashboard/RatingAndReview';
-// import PackageForm from './components/User Dashboard/PackageForm';
-// import MyCollection from './components/User Dashboard/MyCollection';
+import Sidebar from './components/User Dashboard/Sidebar';
+import Profile from './components/User Dashboard/Profile';
+import Orders from './components/User Dashboard/Order';
+import Appointment from './components/User Dashboard/Appointment';
+import AppointmentForm from './components/User Dashboard/AppointmentForm';
+import Rating from './components/User Dashboard/RatingAndReview';
+import PackageForm from './components/User Dashboard/PackageForm';
+import MyCollection from './components/User Dashboard/MyCollection';
 // import './App11.css'; 
 
 
@@ -49,11 +49,12 @@ function App() {
 
     <BrowserRouter>
       <Routes>
-
+        
+        {/* faisa */}
         <Route path="/" element={<Home />}></Route>
         <Route path="signup" element={<SignUp />}></Route>
         <Route path="signin" element={<SignIn />}></Route>
-        
+        <Route path="/threedmodel" element={<ThreeDModel />}></Route>
         <Route path="portfolio" element={<Portfolio />}></Route>
         <Route path="artistlogin" element={<ArtistSignin />}></Route>
         <Route path="artistregister" element={<ArtistRegister />}></Route>
@@ -62,10 +63,10 @@ function App() {
         <Route path="services" element={<Service />}></Route>
         <Route path="Artists" element={<Artists />}></Route>
         <Route path="package" element={<Package />}></Route>
-        <Route path="Designs" element={<Designs/>}></Route>
+        <Route path="Designs" element={<Designs />}></Route>
         <Route path="" element={<Service />}></Route>
-        
-      <Route path="product" element={<ProductPage />} />
+        {/* farhath */}
+        <Route path="product" element={<ProductPage />} />
         <Route path="giftbox" element={<SelectGiftBox />}></Route>
         <Route path="selectgift" element={<SelectGift />}></Route>
         <Route path="selectcard" element={<SelectCard />}></Route>
@@ -74,12 +75,18 @@ function App() {
         <Route path="checkoutinfo" element={<CheckoutInfo />}></Route>
         <Route path="artistdashboard" element={<ArtistDashboard />}></Route>
         <Route path="requestpage" element={<RequestPage />}></Route>
-        <Route path="changepassword" element={<ChangePassword />}></Route>
+        <Route path="changepassword" element={<ChangePassword />}></Route>
         <Route path="/MehendiDesignRepository" element={<MehendiDesignRepository />}></Route>
-      
-        <Route path="/threedmodel" element={<ThreeDModel />}></Route> {/* Add the new route for ThreeDModel */}
-       
 
+        {/* sameera */}
+        <Route path="sidebar" element={<Sidebar />}></Route>
+        <Route path="profile" element={<Profile />}></Route>
+        <Route path="orders" element={<Orders />}></Route>
+        <Route path="appointment" element={<Appointment />}></Route>
+        <Route path="appointmentForm" element={<AppointmentForm />}></Route>
+        <Route path="rating" element={<Rating />}></Route>
+        <Route path="packageForm" element={<PackageForm />}></Route>
+        <Route path="myCollection" element={<MyCollection />}></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -16,7 +16,7 @@ function Contact() {
         </div>
       </header>
       <div className='hometitle'>
-        Cherish Every Moment <br /> with Our Expertise
+      Embrace Moments with Expertise in  <br></br> Mehendi, Henna Products!
       </div>
       <div className="flex items-center justify-center min-h-screen py-12">
         <div className="flex flex-col md:flex-row bg-white  border border-gray-200 shadow-lg max-w-4xl rounded-lg overflow-hidden">

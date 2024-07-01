@@ -1,11 +1,12 @@
 // src/components/Profile.jsx
 import React from 'react';
-import profileImage from '../images/profile.jpg'; // Adjust the path as needed
+import profileImage from '../../images/profile.jpg'; // Adjust the path as needed
 import { FaCamera } from 'react-icons/fa';
-
+import Sidebar from '../../components/User Dashboard/Sidebar';
 const Profile = () => {
   return (
     <div className="flex-grow p-4 lg:p-10 font-serif">
+        <Sidebar />
       <div className="flex justify-center">
         <div className="relative">
           <img 

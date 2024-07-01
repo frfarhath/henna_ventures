@@ -1,7 +1,7 @@
 import React from 'react';
-import bridal from '../images/bridal.jpeg';
-import arabic from '../images/arabic.jpg';
-import pakistani from '../images/pakistani.jpg';
+import bridal from '../../images/bridal.jpeg';
+import arabic from '../../images/arabic.jpg';
+import pakistani from '../../images/pakistani.jpg';
 
 const Card = ({ image, title }) => {
     return (

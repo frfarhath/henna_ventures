@@ -236,7 +236,7 @@ Design categories are available for different styles, and preferences
               </p>
               <div className="flex justify-center">
                 <Link
-                  to="/giftbox"
+                  to="/package"
                   className="mehendi-color hover:mehendi-dark text-white font-bold py-2 px-4 rounded mt-4"
                 >
                   View More

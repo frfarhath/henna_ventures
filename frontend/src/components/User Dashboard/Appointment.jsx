@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import individualImage from '../images/individual.jpg'; // Adjust the path as needed
-import packagesImage from '../images/packages.jpg'; // Adjust the path as needed
+import individualImage from '../../images/individual.jpg'; // Adjust the path as needed
+import packagesImage from '../../images/packages.jpg'; // Adjust the path as needed
 
 const Appointment = () => {
   return (

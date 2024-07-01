@@ -28,7 +28,7 @@ const RatingReview = () => {
       rating: 4,
       review: 'Highly recommend this mehendi service! The artist was kind and professional, and the designs were incredibly intricate and beautiful. My bridal mehendi turned out perfect.',
       avatar: 'https://via.placeholder.com/150',
-      date: '3 1 month ago',
+      date: '3  month ago',
     },
   ];
 

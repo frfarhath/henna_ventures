@@ -28,13 +28,12 @@ router.post("/", async (req, res) => {
 // Signup
 router.post("/signup", async (req, res) => {
     try {
-        let { first_name, last_name, email, password, phone } = req.body;
-        first_name = first_name.trim();
-        last_name = last_name.trim();
+        let { fullname, email, password, phone } = req.body;
+        fullname = fullname.trim();
         email = email.trim();
         password = password.trim();
         phone = phone.trim();
-        if (!(first_name && last_name && email && password && phone)) {
+        if (!(fullname && email && password && phone)) {
             throw new Error("Empty input fields!");
         } else if (!/^[a-zA-Z ]*$/.test(first_name) || !/^[a-zA-Z ]*$/.test(last_name)) {
             throw new Error("Invalid name entered");
@@ -48,8 +47,7 @@ router.post("/signup", async (req, res) => {
 
             // Good credentials, create new user
             const newUser = await createNewUser({
-                first_name,
-                last_name,
+                fullname,
                 email,
                 password,
                 phone

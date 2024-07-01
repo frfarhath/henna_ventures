@@ -30,11 +30,7 @@ function Portfolio() {
 
                 </div>
             </header>
-            {/* <div className='portfolioTitle'>
-                <div className='inner'>
-                    Photo <span>Gallery</span>
-                </div>
-            </div> */}
+           
             <div className="hometitle">
       Embrace Moments with Expertise in  <br></br> Mehendi, Henna Products!
       </div>

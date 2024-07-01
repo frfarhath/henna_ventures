@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaUser, FaBoxOpen, FaSignOutAlt, FaStar, FaCalendarAlt, FaClipboardList } from 'react-icons/fa';
-import profileImage from '../images/profile.jpg'; // Adjust the path as needed
+import profileImage from '../../images/profile.jpg'; // Adjust the path as needed
 
 const Sidebar = () => {
   return (

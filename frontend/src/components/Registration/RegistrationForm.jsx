@@ -75,27 +75,17 @@ function RegistrationForm() {
       <div className="formgrid">
         <form className="max-w-md mx-auto" onSubmit={submitForm}>
           <div className="relative z-0 w-full mb-4 group">
-            <label htmlFor="first_name">First Name</label>
+            <label htmlFor="fullname">Full Name</label>
             <input
               type="text"
-              name="first_name"
-              id="first_name"
+              name="fullname"
+              id="fullname"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="First Name"
+              placeholder="Full Name"
               required
             />
           </div>
-          <div className="relative z-0 w-full mb-4 group">
-            <label htmlFor="last_name">Last Name</label>
-            <input
-              type="text"
-              name="last_name"
-              id="last_name"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Last Name"
-              required
-            />
-          </div>
+          
           <div className="relative z-0 w-full mb-4 group">
             <label htmlFor="phone">Contact Number</label>
             <input
