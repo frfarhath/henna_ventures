@@ -30,11 +30,11 @@ const Order = () => {
         <table className="min-w-full bg-white border border-[#804f0e]">
           <thead>
             <tr className="w-full bg-[#f5f0eb] border-b">
-              <th className="py-3 px-2 sm:px-6 text-left text-[#804f0e] text-xs sm:text-base">Order ID</th>
-              <th className="py-3 px-2 sm:px-6 text-left text-[#804f0e] text-xs sm:text-base">Number of Items</th>
-              <th className="py-3 px-2 sm:px-6 text-left text-[#804f0e] text-xs sm:text-base">Amount</th>
-              <th className="py-3 px-2 sm:px-6 text-left text-[#804f0e] text-xs sm:text-base">Status</th>
-              <th className="py-3 px-2 sm:px-6 text-left text-[#804f0e] text-xs sm:text-base">Actions</th>
+              <th className="py-3 px-2 sm:px-6 text-left text-[#804f0e] text-xs sm:text-base"style={{ backgroundColor: '#f5f0eb' }}>Order ID</th>
+              <th className="py-3 px-2 sm:px-6 text-left text-[#804f0e] text-xs sm:text-base"style={{ backgroundColor: '#f5f0eb' }}>Number of Items</th>
+              <th className="py-3 px-2 sm:px-6 text-left text-[#804f0e] text-xs sm:text-base"style={{ backgroundColor: '#f5f0eb' }}>Amount</th>
+              <th className="py-3 px-2 sm:px-6 text-left text-[#804f0e] text-xs sm:text-base"style={{ backgroundColor: '#f5f0eb' }}>Status</th>
+              <th className="py-3 px-2 sm:px-6 text-left text-[#804f0e] text-xs sm:text-base"style={{ backgroundColor: '#f5f0eb' }}>Actions</th>
             </tr>
           </thead>
           <tbody>

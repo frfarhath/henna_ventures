@@ -35,7 +35,7 @@ router.post("/signup", async (req, res) => {
         phone = phone.trim();
         if (!(fullname && email && password && phone)) {
             throw new Error("Empty input fields!");
-        } else if (!/^[a-zA-Z ]*$/.test(first_name) || !/^[a-zA-Z ]*$/.test(last_name)) {
+        } else if (!/^[a-zA-Z ]*$/.test(fullname)){
             throw new Error("Invalid name entered");
         } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
             throw new Error("Invalid email entered");

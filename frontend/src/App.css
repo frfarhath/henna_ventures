@@ -65,12 +65,12 @@ body {
   padding: 10px;
 }
 
-.SideBar {
+/* .SideBar {
   background-color: #f0f2f5;
   color: white;
   padding: 10px;
   width: 200px;
-}
+} */
 
 .TableComponent {
   flex: 1;
@@ -80,3 +80,26 @@ body {
 }
 
 /* Add styles for other components as needed */
+/* src/App.css */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Arial', sans-serif;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-grow {
+  flex-grow: 1;
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../css/signup.css";
-
+import logo from '../../images/logo_trans.png';
 function RegistrationForm() {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
@@ -19,8 +19,7 @@ function RegistrationForm() {
   };
 
   const validateForm = (formObject) => {
-    if (!formObject.first_name) return "First Name is required.";
-    if (!formObject.last_name) return "Last Name is required.";
+    if (!formObject.fullname) return "Full Name is required.";
     if (!formObject.phone) return "Contact Number is required.";
     if (!validatePhone(formObject.phone)) return "Invalid Contact Number. It should be 10 digits.";
     if (!formObject.email) return "Email is required.";
@@ -73,6 +72,7 @@ function RegistrationForm() {
   return (
     <div className="signContainer">
       <div className="formgrid">
+        <img src={logo} alt="Logo" className="mx-auto mb-6" style={{ width: '100px', height: 'auto' }} />
         <form className="max-w-md mx-auto" onSubmit={submitForm}>
           <div className="relative z-0 w-full mb-4 group">
             <label htmlFor="fullname">Full Name</label>
@@ -130,7 +130,7 @@ function RegistrationForm() {
             </div>
           )}
           <div className="subButton">
-            <button type="submit" className="button">
+            <button type="submit" className="button ">
               Sign Up
             </button>
           </div>

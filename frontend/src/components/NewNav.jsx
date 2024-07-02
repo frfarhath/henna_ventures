@@ -40,7 +40,7 @@ function NewNav() {
     };
 
     return (
-        <Navbar fluid rounded className='navcom'>
+        <Navbar fluid rounded className='navcom' style={{ backgroundColor: '#ffffff', border: '1px solid #f5f0eb' }}>
             <Navbar.Brand href="https://flowbite-react.com">
                 <img src={logotrans} className="navlogo mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
             </Navbar.Brand>
@@ -58,7 +58,7 @@ function NewNav() {
                 ) : userData !== null ? (
                     <Dropdown>
                         <Dropdown.Toggle variant="info" id="dropdown-basic">
-                            {userData.username}
+                            {userData.fullname}
                             {userData.avatar ? (
                                 <img src={userData.avatar} alt="Profile Avatar" className="avatar h-8 w-8 rounded-full ml-2" />
                             ) : (
