@@ -22,7 +22,7 @@ const Profile = () => {
 
       try {
 
-        const res = await axios.get('http://localhost:3000/api/user/getProfile');
+        const res = await axios.get('http://localhost:8000/api/v1/individual/getProfile');
         const resdata = await res.data;
 
         setId(resdata[0]._id);
@@ -57,7 +57,7 @@ const Profile = () => {
         "address": address
       };
 
-      const res = await axios.put(`http://localhost:3000/api/user/updateProfile/${id}`, postdata);
+      const res = await axios.put(`http://localhost:8000/api/v1/individual/updateProfile/${id}`, postdata);
       const resdat = await res.data;
       console.log(resdat);
 

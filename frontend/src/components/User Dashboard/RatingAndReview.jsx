@@ -19,7 +19,7 @@ const RatingAndReview = () => {
 
       try {
 
-        const res = await axios.get('http://localhost:3000/api/user/getRating');
+        const res = await axios.get('http://localhost:8000/api/v1/individual/getRating');
         const resdata = await res.data;
         setFetchArray(resdata);
 
@@ -59,7 +59,7 @@ const RatingAndReview = () => {
 
     try {
 
-      const res = await axios.delete(`http://localhost:3000/api/user/deleteRate/${id}`);
+      const res = await axios.delete(`http://localhost:8000/api/v1/individual/deleteRate/${id}`);
 
       const resdata = await res.data;
       console.log(resdata);
@@ -91,7 +91,7 @@ const RatingAndReview = () => {
         "date": formateDate
       };
 
-      const res = await axios.post('http://localhost:3000/api/user/postRate', postdata, {
+      const res = await axios.post('http://localhost:8000/api/v1/individual/postRate', postdata, {
         headers: {
           'Content-Type': 'application/json'
         },

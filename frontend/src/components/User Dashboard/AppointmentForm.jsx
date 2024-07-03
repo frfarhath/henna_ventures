@@ -56,7 +56,7 @@ const AppointmentForm = () => {
         "mehendi_for": formehendi
       };
 
-      const res = await axios.post('http://localhost:3000/api/user', postdata, {
+      const res = await axios.post('http://localhost:8000/api/v1/individual', postdata, {
         headers: {
           'Content-Type': 'application/json'
         },

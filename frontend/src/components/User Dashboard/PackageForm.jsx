@@ -44,7 +44,7 @@ const PackageForm = () => {
         "package_type": pack
       };
 
-      const res = await axios.post('http://localhost:3000/api/user/postPackage', postdata, {
+      const res = await axios.post('http://localhost:8000/api/v1/individual/postPackage', postdata, {
         headers: {
           'Content-Type': 'application/json'
         },

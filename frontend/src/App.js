@@ -76,9 +76,9 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="orders" element={<Orders />} />
             <Route path="appointment" element={<Appointment />} />
-            <Route path="appointmentForm" element={<AppointmentForm />} />
+            <Route path="/appointment/individual" element={<AppointmentForm />} />
+            <Route path="/appointment/packages" element={<PackageForm />} />
             <Route path="ratings" element={<Rating />} />
-            <Route path="packageForm" element={<PackageForm />} />
             <Route path="userdash" element={<MyCollection />} />
           </Route>
         </Routes>

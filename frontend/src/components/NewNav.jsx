@@ -17,7 +17,7 @@ function NewNav() {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/auth/profile`, {
+                const response = await axios.get(`http://localhost:8000/api/v1/individual/getProfile`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

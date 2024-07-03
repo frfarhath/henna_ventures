@@ -208,7 +208,7 @@ Design categories are available for different styles, and preferences
               </p>
               <div className="flex justify-center">
                 <Link
-                  to="/Design"
+                  to="/artistdashboard"
                   className="mehendi-color hover:mehendi-dark text-white font-bold py-2 px-4 rounded mt-4"
                 >
                   Book now
