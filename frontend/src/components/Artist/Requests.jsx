@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "../../css/artist.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import { faCopy, faEye } from "@fortawesome/free-solid-svg-icons";
+import RequestModal from "./RequestModal";
 
 export default function Requests() {
   const initialRequests = [
@@ -9,39 +10,58 @@ export default function Requests() {
       id: 1,
       date: "2024-06-10",
       time: "10:00 AM",
-      clientName: "John Doe",
+      firstname: "Jane",
+      lastname: "Smith",
+      email: "abcd1234@gmail.com",
+      city: "Chilaw",
       contactNumber: "123-456-7890",
-      mehendiType: "Bridal",
       district: "District 1",
       address: "123 Street, City",
       status: "Pending",
+      typeofMehendi: "Wedding",
+      designCoverage: "Full hand",
+      type: "Package",
     },
     {
       id: 2,
       date: "2024-06-11",
       time: "11:00 AM",
-      clientName: "Jane Smith",
+      email: "abcd1234@gmail.com",
+      firstname: "Jane",
+      lastname: "Smith",
       contactNumber: "987-654-3210",
-      mehendiType: "Traditional",
       district: "District 2",
+      city: "Chilaw",
       address: "456 Avenue, City",
       status: "Pending",
+      typeofMehendi: "Wedding",
+      designCoverage: "Full hand",
+      type: "Individual",
+      mehendifor: "Ahbehde",
+      mehendiOn: "efefefef",
     },
     {
       id: 3,
       date: "2024-06-11",
       time: "11:00 AM",
-      clientName: "Jane Smith",
+      email: "abcd1234@gmail.com",
+      firstname: "Jane",
+      lastname: "Smith",
       contactNumber: "987-654-3210",
-      mehendiType: "Traditional",
       district: "District 2",
+      city: "Chilaw",
       address: "456 Avenue, City",
       status: "Pending",
+      typeofMehendi: "Wedding",
+      designCoverage: "Full hand",
+      type: "Individual",
+      mehendifor: "Ahbehde",
+      mehendiOn: "efefefef",
     },
-    // Add more initial requests here
   ];
 
   const [requests, setRequests] = useState(initialRequests);
+  const [selectedRequest, setSelectedRequest] = useState(null);
 
   const handleStatusChange = (id, newStatus) => {
     const updatedRequests = requests.map((request) =>
@@ -63,8 +83,16 @@ export default function Requests() {
     }
   };
 
+  const handleViewRequest = (request) => {
+    setSelectedRequest(request);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedRequest(null);
+  };
+
   const handleCopy = (request) => {
-    const dataToCopy = `${request.clientName} | ${request.contactNumber} | ${request.mehendiType} | ${request.district} | ${request.address}`;
+    const dataToCopy = `${request.firstname} | ${request.lastname} | ${request.contactNumber} | ${request.district} | ${request.address}`;
     navigator.clipboard.writeText(dataToCopy).then(
       () => {
         alert("Data copied to clipboard!");
@@ -84,11 +112,12 @@ export default function Requests() {
             <tr>
               <th>Date</th>
               <th>Time</th>
-              <th>Client Name</th>
+              <th>First Name</th>
+              <th>Last Name</th>
               <th>Contact Number</th>
-              <th>Mehendi Type</th>
               <th>District</th>
               <th>Address</th>
+              <th>View Details</th>
               <th>Status</th>
               <th>Copy</th>
             </tr>
@@ -98,11 +127,19 @@ export default function Requests() {
               <tr key={request.id}>
                 <td>{request.date}</td>
                 <td>{request.time}</td>
-                <td>{request.clientName}</td>
+                <td>{request.firstname}</td>
+                <td>{request.lastname}</td>
                 <td>{request.contactNumber}</td>
-                <td>{request.mehendiType}</td>
                 <td>{request.district}</td>
                 <td>{request.address}</td>
+                <td>
+                  <button
+                    className="copy-button"
+                    onClick={() => handleViewRequest(request)}
+                  >
+                    <FontAwesomeIcon icon={faEye} />
+                  </button>
+                </td>
                 <td>
                   <select
                     className={`status-dropdown ${getStatusClass(
@@ -131,6 +168,9 @@ export default function Requests() {
             ))}
           </tbody>
         </table>
+        {selectedRequest && (
+          <RequestModal request={selectedRequest} onClose={handleCloseModal} />
+        )}
       </div>
     </div>
   );

@@ -7,7 +7,8 @@ export default function PasswordChange() {
   return (
     <div className="right-container">
       <div className="main-content">
-        <h3>Change Password</h3><br/>
+        <h3>Change Password</h3>
+        <br />
         <div className="column-2">
           <div className="sub-row"></div>
           <div className="personalInfo">
