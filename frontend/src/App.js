@@ -17,7 +17,7 @@ import Contact from "./pages/Contact";
 import Service from "./pages/Service";
 import Artists from "./pages/Artists";
 import Designs from "./pages/Designs";
-import Package from "./pages/Package";
+import Package from "./pages/package";
 import MehendiDesignRepository from "./pages/MehendiDesignRepository";
 import ThreeDModel from './components/ThreeDModel';
 import ProductPage from "./pages/Product/ProductPage";
