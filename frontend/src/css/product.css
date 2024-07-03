@@ -713,8 +713,8 @@ h3 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.form-floating label{
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+.form-floating label {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-size: 16px;
 }
 .message-textarea {
@@ -1138,7 +1138,7 @@ input[type="number"]::-moz-inner-spin-button {
   line-height: 1.2;
   margin-bottom: 4px;
 }
-.save-button{
+.save-button {
   margin-bottom: 10px;
 }
 
@@ -1181,10 +1181,5 @@ input[type="number"]::-moz-inner-spin-button {
 
 .button-group {
   display: flex;
-  flex-direction: column;
   margin-left: 2px;
 }
-
-
-
-
