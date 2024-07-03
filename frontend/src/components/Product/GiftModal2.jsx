@@ -3,9 +3,10 @@ import "../../css/product.css";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ProductModal1 = ({ product, onClose, onAddToCart }) => {
+const GiftModal2 = ({ product, onClose }) => {
   const [quantity, setQuantity] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [message, setMessage] = useState("");
 
   if (!product) return null;
 
@@ -29,11 +30,6 @@ const ProductModal1 = ({ product, onClose, onAddToCart }) => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex === 0 ? product.images.length - 1 : prevIndex - 1
     );
-  };
-
-  const handleAddToCartClick = () => {
-    onAddToCart(product, quantity);
-    onClose();
   };
 
   return (
@@ -62,6 +58,15 @@ const ProductModal1 = ({ product, onClose, onAddToCart }) => {
           <br />
           <p className="text-model">{product.productdes}</p>
           <p className="text-model">LKR {product.price}</p>
+          <div className="product-options">
+            <textarea
+              id="custom-content"
+              value={message}
+              placeholder="Enter your customised content here"
+              className="message-textarea"
+              onChange={(e) => setMessage(e.target.value)}
+            />
+          </div>
           <div className="product-quantity">
             <button onClick={decrementQuantity} className="quantity-button">
               -
@@ -71,13 +76,11 @@ const ProductModal1 = ({ product, onClose, onAddToCart }) => {
               +
             </button>
           </div>
-          <button className="add-to-cart-button" onClick={handleAddToCartClick}>
-            Add to Cart
-          </button>
+          <button className="add-to-cart-button">Add to Gift Box</button>
         </div>
       </div>
     </div>
   );
 };
 
-export default ProductModal1;
+export default GiftModal2;

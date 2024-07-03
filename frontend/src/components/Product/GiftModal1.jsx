@@ -3,7 +3,7 @@ import "../../css/product.css";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ProductModal1 = ({ product, onClose, onAddToCart }) => {
+const GiftModal1 = ({ product, onClose, onAddToGiftBox }) => {
   const [quantity, setQuantity] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -31,8 +31,8 @@ const ProductModal1 = ({ product, onClose, onAddToCart }) => {
     );
   };
 
-  const handleAddToCartClick = () => {
-    onAddToCart(product, quantity);
+  const handleAddToGiftBox = () => {
+    onAddToGiftBox(product, quantity);
     onClose();
   };
 
@@ -71,8 +71,8 @@ const ProductModal1 = ({ product, onClose, onAddToCart }) => {
               +
             </button>
           </div>
-          <button className="add-to-cart-button" onClick={handleAddToCartClick}>
-            Add to Cart
+          <button className="add-to-cart-button" onClick={handleAddToGiftBox}>
+            Add to Gift Box
           </button>
         </div>
       </div>
@@ -80,4 +80,4 @@ const ProductModal1 = ({ product, onClose, onAddToCart }) => {
   );
 };
 
-export default ProductModal1;
+export default GiftModal1;
