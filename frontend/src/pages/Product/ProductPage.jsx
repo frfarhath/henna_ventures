@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import NewNav from "../../components/NewNav";
 import ProductCard from "../../components/Product/ProductCard";
 import ProductModal1 from "../../components/Product/ProductModal1";
-import ProductModal2 from "../../components/Product/ProductModal2"; // Import ProductModal2
+import ProductModal2 from "../../components/Product/ProductModal2";
 import "../../css/product.css";
 import Footer from "../../components/Footer";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart, faGift } from "@fortawesome/free-solid-svg-icons";
 import imgproduct1 from "../../images/Products/Product1.jpg";
 import imgproduct2 from "../../images/Products/Product2.jpg";
 import imgproduct3 from "../../images/Products/Product3.jpg";
@@ -25,11 +28,9 @@ import imgproduct17 from "../../images/Products/cusprod09.jpg";
 import imgproduct18 from "../../images/Products/cusprod10.jpg";
 import imgproduct19 from "../../images/Products/cusprod12.jpg";
 import imgproduct20 from "../../images/Products/Product9.jpeg";
-import { faShoppingCart, faGift } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchBar from "../../components/Product/SearchBar";
 
-export default function ProductPage() {
+const ProductPage = ({ addToCart }) => {
   const products = [
     {
       images: [imgproduct1, imgproduct2, imgproduct3],
@@ -177,14 +178,7 @@ export default function ProductPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedProduct, setSelectedProduct] = useState(null);
-
-  const handleClickButton1 = () => {
-    window.location.href = "http://localhost:3000/giftbox";
-  };
-
-  const handleClickButton2 = () => {
-    window.location.href = "http://localhost:3000/cart";
-  };
+  const navigate = useNavigate();
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -215,6 +209,15 @@ export default function ProductPage() {
     setSelectedProduct(null);
   };
 
+  const handleAddToCart = (product, quantity) => {
+    addToCart(product, quantity);
+    handleCloseModal();
+  };
+
+  const handleClickButton1 = () => {
+    window.location.href = "http://localhost:3000/giftbox";
+  };
+
   const renderProductModal = () => {
     if (!selectedProduct) return null;
 
@@ -222,11 +225,19 @@ export default function ProductPage() {
 
     if (category === "Henna Products" || category === "Reselling") {
       return (
-        <ProductModal1 product={selectedProduct} onClose={handleCloseModal} />
+        <ProductModal1
+          product={selectedProduct}
+          onClose={handleCloseModal}
+          onAddToCart={handleAddToCart}
+        />
       );
     } else {
       return (
-        <ProductModal2 product={selectedProduct} onClose={handleCloseModal} />
+        <ProductModal2
+          product={selectedProduct}
+          onClose={handleCloseModal}
+          onAddToCart={handleAddToCart}
+        />
       );
     }
   };
@@ -253,7 +264,7 @@ export default function ProductPage() {
             <option value="Graduation">Graduation</option>
             <option value="Reselling">Other</option>
           </select>
-          <button className="cart-button" onClick={handleClickButton2}>
+          <button className="cart-button" onClick={() => navigate("/cart")}>
             <FontAwesomeIcon icon={faShoppingCart} /> Go to Cart
           </button>
         </div>
@@ -274,4 +285,6 @@ export default function ProductPage() {
       <Footer />
     </div>
   );
-}
+};
+
+export default ProductPage;

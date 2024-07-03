@@ -47,7 +47,7 @@ export default function CheckoutInfo() {
                   placeholder="Enter receiver's name"
                   style={{ width: "50%" }}
                 />
-             
+             <br/>
               <button className="save-button" onClick={handleButtonClick}>
                 Proceed for payment
               </button>
