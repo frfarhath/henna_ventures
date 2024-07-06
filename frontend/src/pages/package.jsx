@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa'; // Import the icon
-import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
+import NewNav from '../components/NewNav';
 const Package = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
 
@@ -50,7 +50,7 @@ const Package = () => {
   return (
     <div className="repo-page" style={{ backgroundColor: 'white' }}>
       {/* Navbar */}
-      <NavigationBar />
+      <NewNav />
       <div className="services-page">
         <header className="service-header">
           <div className="service-overlay">

@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-
+import { UserProvider } from './components/UserContext';
 import "./css/style.css";
 import VerifyOTP from './components/verifyOTP';
 import ForgotPassword from './components/ForgotPassword';
@@ -41,6 +41,7 @@ import MyCollection from './components/User Dashboard/MyCollection';
 
 function App() {
   return (
+    <UserProvider>
     <DndProvider backend={HTML5Backend}>
       <Router>
         <Routes>
@@ -83,7 +84,9 @@ function App() {
           </Route>
         </Routes>
       </Router>
+      
     </DndProvider>
+    </UserProvider>
   );
 }
 
