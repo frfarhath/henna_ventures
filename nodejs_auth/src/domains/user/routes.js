@@ -67,21 +67,6 @@ router.post("/signup", async (req, res) => {
     }
 });
 
-// Route to get user profile
-router.get('/profile', verifyToken, async (req, res) => {
-    try {
-        const userId = req.currentUser.userId;
-        const user = await User.findById(userId).select('-password'); // Exclude password field
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-        res.json(user);
-    } catch (error) {
-        console.error('Error fetching user profile:', error);
-        res.status(500).json({ message: 'Server Error' });
-    }
-});
-
 
 // Multer configuration for file uploads
 const storage = multer.diskStorage({
@@ -95,6 +80,31 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+
+
+// Route to get user profile
+router.get('/profile', verifyToken, async (req, res) => {
+  try {
+    const userId = req.currentUser.userId;
+    const user = await User.findById(userId).select('-password'); // Exclude password field
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Construct the full URL for the profile image
+    const baseUrl = req.protocol + '://' + req.get('host');
+    const profileImageUrl = user.profileImage ? `${baseUrl}/${user.profileImage}` : null;
+
+    res.json({
+      ...user._doc,
+      profileImage: profileImageUrl
+    });
+  } catch (error) {
+    console.error('Error fetching user profile:', error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
+
 // Route to update user profile
 router.put("/profile", verifyToken, upload.single("profileImage"), async (req, res) => {
   try {
@@ -104,7 +114,7 @@ router.put("/profile", verifyToken, upload.single("profileImage"), async (req, r
 
     // Check if profileImage was uploaded
     if (req.file) {
-      profileImage = req.file.path;
+      profileImage = req.file.path.replace(/\\/g, '/'); // Normalize file path
     }
 
     const updateData = { fullname, email, phone, address };
@@ -127,7 +137,17 @@ router.put("/profile", verifyToken, upload.single("profileImage"), async (req, r
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json({ message: "Profile updated successfully", user: updatedUser });
+    // Construct the full URL for the profile image
+    const baseUrl = req.protocol + '://' + req.get('host');
+    const profileImageUrl = updatedUser.profileImage ? `${baseUrl}/${updatedUser.profileImage}` : null;
+
+    res.status(200).json({
+      message: "Profile updated successfully",
+      user: {
+        ...updatedUser._doc,
+        profileImage: profileImageUrl
+      }
+    });
   } catch (error) {
     console.error("Error updating profile:", error);
     res.status(500).json({ message: "Server Error" });
@@ -135,6 +155,3 @@ router.put("/profile", verifyToken, upload.single("profileImage"), async (req, r
 });
 
 module.exports = router;
-
-  
-  module.exports = router;

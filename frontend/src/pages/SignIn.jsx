@@ -13,65 +13,48 @@ function SignIn() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(''); // Add success state
   const navigate = useNavigate();
+// Handle form submission
+const handleSubmit = async (event) => {
+  event.preventDefault();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  if (!email || !password) {
+    setError('Email and password are required.');
+    return;
+  }
 
-    // Simple validation
-    if (!email) {
-      setError('Email is required.');
-      return;
-    }
-
-    if (!password) {
-      setError('Password is required.');
-      return;
-    }
-
-    try {
-      console.log('Sending request to backend with:', { email, password });
-      const response = await axios.post('http://localhost:8000/api/v1/user', { email, password }, {
+  try {
+    const response = await axios.post(
+      'http://localhost:8000/api/v1/user',
+      { email, password },
+      {
         headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-
-      console.log('Response data:', response.data);
-
-      if (response.data) {
-        // Store user data and token in local storage
-        localStorage.setItem('user', JSON.stringify(response.data));
-        localStorage.setItem('token', response.data.token);  // Assuming the token is part of the response
-
-        // Set success message
-        setSuccess('Login successful!');
-        setError('');
-
-        // Redirect to the profile page
-        setTimeout(() => {
-          navigate('/profile');
-        }, 2000); // Redirect after 2 seconds
-      } else {
-        setError('Invalid email or password.');
+          'Content-Type': 'application/json',
+        },
       }
-    } catch (error) {
-      console.error('Login error:', error);  // Log the error for debugging
+    );
 
-      if (error.response) {
-        // Server responded with a status other than 200 range
-        console.error('Error response data:', error.response.data);  // Log the response data
-        setError(error.response.data.message || 'An error occurred. Please try again.');
-      } else if (error.request) {
-        // Request was made but no response received
-        console.error('No response received:', error.request);  // Log the request
-        setError('No response from the server. Please try again.');
-      } else {
-        // Something else caused the error
-        console.error('Error message:', error.message);  // Log the error message
-        setError('An error occurred. Please try again.');
-      }
+    if (response.data.token) {
+      // Store token and user data in local storage
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+
+      // Redirect to profile page or another authenticated route
+      navigate('/profile');
+    } else {
+      setError('Invalid credentials.');
     }
-  };
+  } catch (error) {
+    console.error('Login error:', error);
+
+    if (error.response) {
+      // Server responded with an error status
+      setError(error.response.data.message || 'An error occurred.');
+    } else {
+      // No response received
+      setError('Network error. Please try again.');
+    }
+  }
+};
 
   return (
     <div>
