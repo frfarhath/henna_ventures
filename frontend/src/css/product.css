@@ -14,7 +14,9 @@ h2 {
   align-items: center;
   margin-bottom: 20px;
 }
-
+button {
+  border-radius: 8px;
+}
 .cart-button {
   background-color: #804f0e;
   color: white;
