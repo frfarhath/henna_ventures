@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../css/signin.css';
 import logo from '../images/logo_trans.png';
 import NewNav from '../components/NewNav';
 import Footer from '../components/Footer';
@@ -11,50 +10,69 @@ function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(''); // Add success state
+  const [success, setSuccess] = useState('');
   const navigate = useNavigate();
-// Handle form submission
-const handleSubmit = async (event) => {
-  event.preventDefault();
 
-  if (!email || !password) {
-    setError('Email and password are required.');
-    return;
-  }
+  // Handle form submission
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  try {
-    const response = await axios.post(
-      'http://localhost:8000/api/v1/user',
-      { email, password },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    if (!email || !password) {
+      setError('Email and password are required.');
+      setSuccess('');
+      setTimeout(() => {
+        setError('');
+      }, 2000); // Clear error message after 2 seconds
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        'http://localhost:8000/api/v1/user',
+        { email, password },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (response.data.token) {
+        // Store token and user data in local storage
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+
+        // Set success message
+        setSuccess('Login successful!');
+        setError('');
+
+        // Redirect to profile page or another authenticated route after a short delay
+        setTimeout(() => {
+          navigate('/profile');
+        }, 2000); // Redirect after 2 seconds
+      } else {
+        setError('Invalid credentials.');
+        setSuccess('');
+        setTimeout(() => {
+          setError('');
+        }, 2000); // Clear error message after 2 seconds
       }
-    );
+    } catch (error) {
+      console.error('Login error:', error);
 
-    if (response.data.token) {
-      // Store token and user data in local storage
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
-
-      // Redirect to profile page or another authenticated route
-      navigate('/profile');
-    } else {
-      setError('Invalid credentials.');
+      if (error.response) {
+        // Server responded with an error status
+        setError(error.response.data.message || 'An error occurred.');
+      } else {
+        // No response received
+        setError('Network error. Please try again.');
+      }
+      setSuccess('');
+      setTimeout(() => {
+        setError('');
+      }, 2000); // Clear error message after 2 seconds
     }
-  } catch (error) {
-    console.error('Login error:', error);
-
-    if (error.response) {
-      // Server responded with an error status
-      setError(error.response.data.message || 'An error occurred.');
-    } else {
-      // No response received
-      setError('Network error. Please try again.');
-    }
-  }
-};
+  };
 
   return (
     <div>
@@ -63,8 +81,18 @@ const handleSubmit = async (event) => {
         <div className='formgrid'>
           <img className="h-auto w-52" src={logo} alt="Henna Ventures Logo" />
           <form onSubmit={handleSubmit}>
-            {error && <div className="error-message text-red-500 mb-4">{error}</div>}
-            {success && <div className="success-message text-green-500 mb-4">{success}</div>} {/* Display success message */}
+            <div>
+              {error && (
+                <div className="bg-red-500 text-white px-4 py-2 rounded shadow">
+                  {error}
+                </div>
+              )}
+              {success && (
+                <div className="bg-green-500 text-white px-4 py-2 rounded shadow">
+                  {success}
+                </div>
+              )}
+            </div>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm mb-2" htmlFor="email">
                 Email
@@ -98,7 +126,6 @@ const handleSubmit = async (event) => {
               </div>
             </div>
             <div className="flex items-center justify-between mb-4">
-              
               <a href="/forgot-password" className="inline-block align-baseline text-sm text-blue-500 hover:text-blue-800">
                 Forgot Password?
               </a>

@@ -18,6 +18,7 @@ import Service from "./pages/Service";
 import Artists from "./pages/Artists";
 import Designs from "./pages/Designs";
 import Package from "./pages/package";
+import IndPackage from "./pages/individual-packages";
 import MehendiDesignRepository from "./pages/MehendiDesignRepository";
 import ThreeDModel from './components/ThreeDModel';
 import ProductPage from "./pages/Product/ProductPage";
@@ -58,6 +59,7 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="services" element={<Service />} />
           <Route path="Artists" element={<Artists />} />
+          <Route path="individual-package" element={<IndPackage />} />
           <Route path="package" element={<Package />} />
           <Route path="Designs" element={<Designs />} />
           <Route path="product" element={<ProductPage />} />

@@ -70,7 +70,7 @@ const Services = () => {
               <div className="p-4 text-center">
                 <h3 className="text-2xl mb-2 font-bold text-brown-800">{service.title}</h3>
                 <p className="text-gray-600 mb-1">{service.description}</p>
-                <button className="mt-4 px-6 py-2 bg-yellow-800 text-white rounded">MORE</button>
+                {/* <button className="mt-4 px-6 py-2 bg-yellow-800 text-white rounded">MORE</button> */}
             </div>
             </div>
           ))}

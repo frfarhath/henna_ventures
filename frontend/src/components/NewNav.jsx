@@ -58,9 +58,9 @@ const NewNav = () => {
         <Navbar.Link href="/" className='names'>
           Home
         </Navbar.Link>
+        <Navbar.Link href="aboutus" className='names'>About</Navbar.Link>
         <Navbar.Link href="services" className='names'>Services</Navbar.Link>
         <Navbar.Link href="portfolio" className='names'>Portfolio</Navbar.Link>
-        <Navbar.Link href="aboutus" className='names'>About</Navbar.Link>
         <Navbar.Link href="contact" className='names'>Contact</Navbar.Link>
         {isAuthenticated ? (
           <Dropdown

@@ -9,12 +9,12 @@ const Package = () => {
 
   const packages = [
     {
-      title: 'Silver Package',
-      price: 'Rs.5000',
+      title: 'Wrist',
       details: [
-        'Minimum 5 people',
-        'Arabic, Indian designs',
-        'Upgradable to include additional guests or premium designs at an extra cost'
+        '1 side Rs 500',
+        '2 side Rs 1000',
+        '3 side Rs 1500',
+        '1 side Rs 2000',
       ],
       color: 'bg-[#74512D]',
       tabColor: 'bg-[#543310]',
@@ -22,12 +22,13 @@ const Package = () => {
       hoverColor: 'hover:bg-[#543310]'
     },
     {
-      title: 'Gold Package',
-      price: 'Rs.10000',
+      title: 'Half hand',
+  
       details: [
-        'Minimum 10 people',
-        'Arabic, Indian, Pakistani, Western, African designs',
-        'Options for additional services like glitter, stones, or color infusions'
+       '1 side Rs 1000',
+        '2 side Rs 2000',
+        '3 side Rs 3000',
+        '1 side Rs 6000',
       ],
       color: 'bg-[#74512D]',
       tabColor: 'bg-[#543310]',
@@ -35,12 +36,12 @@ const Package = () => {
       hoverColor: 'hover:bg-[#543310]'
     },
     {
-      title: 'Diamond Package',
-      price: 'Rs.15000',
+      title: 'Elbow',
       details: [
-        'Minimum 20 people',
-        'All designs included',
-        'Bridal accessories and personalized henna design consultations'
+        '1 side Rs 2000',
+        '2 side Rs 4000',
+        '3 side Rs 6000',
+        '1 side Rs 8000',
       ],
       color: 'bg-[#74512D]',
       tabColor: 'bg-[#543310]',
@@ -56,7 +57,7 @@ const Package = () => {
       <div className="services-page">
         <header className="service-header">
           <div className="service-overlay">
-            <h1 className="text-4xl font-bold">Our Party Packages</h1>
+            <h1 className="text-4xl font-bold">Our individual Packages</h1>
             <h4 className="text-xl mt-2">Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!</h4>
           </div>
         </header>
@@ -64,8 +65,8 @@ const Package = () => {
         <div className="flex flex-col items-center justify-center p-2">
           {/* Container for the button aligned to the right */}
           <div className="flex justify-end w-full px-4">
-            <Link to="/individual-package" className="mb-9 py-2 px-6 text-white bg-[#AF8F6F] rounded-md hover:bg-[#543310]">
-              Individual Packages
+            <Link to="/package" className="mb-9 py-2 px-6 text-white bg-[#AF8F6F] rounded-md hover:bg-[#543310]">
+             Party Packages
             </Link>
           </div>
           <div className="flex flex-col md:flex-row md:space-x-4">

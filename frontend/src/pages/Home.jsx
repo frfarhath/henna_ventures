@@ -14,7 +14,7 @@ import photo from "../images/hands.jpg";
 import about from "../images/about.jpg";
 import NewNav from "../components/NewNav";
 import Footer from "../components/Footer";
-import FAQ from "../components/FAQ"; 
+import FAQ from "../components/FAQ";
 import Rating from "../components/Rating";
 
 function Home() {
@@ -30,12 +30,12 @@ function Home() {
           </a>
         </div>
       </header>
-     
+
       {/* <div className="hometitle">
         Embrace Moments with Expertise in <br /> Mehendi, Henna Products!
       </div> */}
 
-<div
+      <div
         className="flex flex-col justify-center items-center md:flex-row"
         style={{ marginTop: 50, marginBottom: 50 }}
       >
@@ -83,7 +83,7 @@ function Home() {
                 Custom Mehendi Designs
               </h5>
               <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              visualize and customize mehendi designs in real-time, ensuring satisfaction before application.
+                visualize and customize mehendi designs in real-time, ensuring satisfaction before application.
               </p>
               <div className="flex justify-center">
                 <Link
@@ -111,8 +111,8 @@ function Home() {
                 Mehendi design collections
               </h5>
               <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              browse and explore a diverse collection of mehendi designs.
-Design categories are available for different styles, and preferences
+                explore a diverse collection of mehendi designs.
+                Design categories are available for different styles, and preferences
 
               </p>
               <div className="flex justify-center">
@@ -170,10 +170,10 @@ Design categories are available for different styles, and preferences
             ></img>
             <div className="flex flex-col justify-between p-4 leading-normal">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Customizing giftbox
+                Customizing giftbox
               </h5>
               <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              curate a selection of henna products to create a thoughtful and customized gift package for themselves or their loved ones.
+                curate a selection of henna products to create a thoughtful and customized gift package for themselves or their loved ones.
               </p>
               <div className="flex justify-center">
                 <Link
@@ -200,11 +200,11 @@ Design categories are available for different styles, and preferences
             ></img>
             <div className="flex flex-col justify-between p-4 leading-normal">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Expert Artists
+                Expert Artists
               </h5>
               <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Quick and convenient mehendi application services for busy
-              individuals, offering intricate designs in a short time frame.
+                Quick and convenient mehendi application services for busy
+                individuals, offering intricate designs in a short time frame.
               </p>
               <div className="flex justify-center">
                 <Link
@@ -229,10 +229,10 @@ Design categories are available for different styles, and preferences
             ></img>
             <div className="flex flex-col justify-between p-4 leading-normal">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-             Henna Packages
+                Henna Packages
               </h5>
               <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Each package offers expertly applied designs, blending traditional elegance with personalized touches to ensure a memorable and enchanting experience.
+                Each package offers expertly applied designs, blending traditional elegance to ensure a memorable experience.
               </p>
               <div className="flex justify-center">
                 <Link
@@ -245,7 +245,7 @@ Design categories are available for different styles, and preferences
             </div>
           </a>
         </div>
-      
+
       </div>
       {/* Add the FAQ component here */}
       <FAQ />
