@@ -8,11 +8,11 @@ const RequestModal = ({ request, onClose }) => {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-contentt" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close-button" onClick={onClose}>
           <FontAwesomeIcon icon={faTimes} />
         </button>
-        <div className="modal-header"></div>
+
         <table className="modal-table">
           <h3>Detailed Information</h3>
           <br />

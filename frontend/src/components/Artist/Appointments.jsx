@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import "../../css/artist.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faTrashAlt,
+  faEdit,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 
 const initialAppointments = [
   {
@@ -91,7 +96,6 @@ export default function Appointments({ selectedDate }) {
 
   const parseDetails = (details) => {
     const parts = details.split(" | ");
-    console.log("Details Parts:", parts); // Log parts to see what is being parsed
     return {
       firstname: parts[0] || "",
       lastname: parts[1] || "",
@@ -142,6 +146,10 @@ export default function Appointments({ selectedDate }) {
     );
   }
 
+  const onClose = () => {
+    setModalIsOpen(false);
+  };
+
   return (
     <div className="right-container">
       <div className="main-content">
@@ -164,7 +172,10 @@ export default function Appointments({ selectedDate }) {
               setNewAppointment({ ...newAppointment, details: e.target.value })
             }
           />
-          <button onClick={handleAddAppointment}>
+          <button
+            className="add-appointment-button"
+            onClick={handleAddAppointment}
+          >
             <FontAwesomeIcon icon={faPlus} /> Add Appointment
           </button>
         </div>
@@ -186,38 +197,49 @@ export default function Appointments({ selectedDate }) {
 
       <Modal
         isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
+        onRequestClose={onClose}
         contentLabel="Edit Appointment"
         className="modal"
         overlayClassName="overlay"
       >
-        <h3>Edit Appointment</h3>
-        <br />
-        <form onSubmit={handleSaveChanges}>
-          <label>
-            Time:
-            <br />
-            <input
-              type="time"
-              name="time"
-              value={currentAppointment.time}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            <br />
-            Details:
-            <br />
-            <input
-              type="text"
-              name="details"
-              value={currentAppointment.details}
-              onChange={handleChange}
-            />
-          </label>
+        <div className="modal-overlay" onClick={onClose}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <table className="modal-table">
+              <h3>Edit Appointment</h3>
+              <button className="modal-close-button" onClick={onClose}>
+                <FontAwesomeIcon icon={faTimes} />
+              </button>
 
-          <button type="admin-button">Save Changes</button>
-        </form>
+              <br />
+              <div>
+                <form onSubmit={handleSaveChanges}>
+                  <label>
+                    Time:
+                    <br />
+                    <input
+                      type="time"
+                      name="time"
+                      value={currentAppointment.time}
+                      onChange={handleChange}
+                    />
+                  </label>
+                  <label>
+                    <br />
+                    Details:
+                    <br />
+                    <input
+                      type="text"
+                      name="details"
+                      value={currentAppointment.details}
+                      onChange={handleChange}
+                    />
+                  </label>
+                  <button type="submit">Save Changes</button>
+                </form>
+              </div>
+            </table>
+          </div>
+        </div>
       </Modal>
     </div>
   );

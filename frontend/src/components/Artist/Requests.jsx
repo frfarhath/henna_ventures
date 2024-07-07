@@ -132,7 +132,7 @@ export default function Requests() {
                 <td>{request.contactNumber}</td>
                 <td>{request.district}</td>
                 <td>{request.address}</td>
-                <td>
+                <td className="button-container">
                   <button
                     className="copy-button"
                     onClick={() => handleViewRequest(request)}
@@ -140,7 +140,7 @@ export default function Requests() {
                     <FontAwesomeIcon icon={faEye} />
                   </button>
                 </td>
-                <td>
+                <td className="button-container">
                   <select
                     className={`status-dropdown ${getStatusClass(
                       request.status
@@ -156,7 +156,7 @@ export default function Requests() {
                     <option value="Declined">Declined</option>
                   </select>
                 </td>
-                <td>
+                <td className="button-container">
                   <button
                     className="copy-button"
                     onClick={() => handleCopy(request)}
