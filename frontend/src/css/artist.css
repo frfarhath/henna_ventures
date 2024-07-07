@@ -239,7 +239,8 @@ h3 {
 }
 
 .main-content {
-  margin-left: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .timetable {
@@ -305,13 +306,13 @@ h3 {
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
-/* Remove the blue outline when elements are focused */
+
 input:focus,
 button:focus {
   outline: none;
   box-shadow: none;
 }
-/* Ensure table and its cells are styled appropriately */
+
 .timetable {
   width: 100%;
   border-collapse: collapse;
@@ -321,14 +322,13 @@ button:focus {
 .timetable td {
   border: 1px solid #ddd;
   padding: 8px;
-  text-align: center; /* Center align text in cells */
+  text-align: center; 
 }
 
-/* Center the content of cells containing buttons */
 .timetable td button,
 .timetable td select {
   display: block;
-  margin: 0 auto; /* Center the buttons and select dropdowns */
+  margin: 0 auto; 
 }
 
 /* Center the content of the table cells */
@@ -843,4 +843,8 @@ input[type="password"]:focus {
   .modal-table td {
     padding: 8px;
   }
+}
+.main-content {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
