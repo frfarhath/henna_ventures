@@ -263,16 +263,200 @@ h3 {
   width: 100%;
 }
 
-.add-appointment {
+.add-appointmentt {
   margin-top: 20px;
 }
 
-.add-appointment input {
+.add-appointmentt input {
   margin-right: 10px;
   padding: 5px;
 }
+.add-appointmentt-button {
+  background-color: #804f0e;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
 
-.add-appointment button {
+.add-appointmentt-button:hover {
+  background-color: #633b0b;
+}
+
+/* Modal Styling */
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+/* Remove the blue outline when elements are focused */
+input:focus,
+button:focus {
+  outline: none;
+  box-shadow: none;
+}
+/* Ensure table and its cells are styled appropriately */
+.timetable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.timetable th,
+.timetable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center; /* Center align text in cells */
+}
+
+/* Center the content of cells containing buttons */
+.timetable td button,
+.timetable td select {
+  display: block;
+  margin: 0 auto; /* Center the buttons and select dropdowns */
+}
+
+/* Center the content of the table cells */
+.timetable td .button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Additional button styling */
+.copy-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.form-control {
+  width: auto;
+  padding: 5px; /* Adjust padding as needed */
+  font-size: 16px; /* Adjust font size as needed */
+  color: black;
+  background-color: #fff;
+  border: 1px solid #804f0e; /* Adjust border color as needed */
+  border-radius: 4px; /* Adjust border radius as needed */
+}
+
+/* Status dropdown styling */
+.status-dropdown {
+  width: 100%;
+  padding: 5px;
+  border-radius: 4px;
+}
+.column-2 {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px solid #d2b48c; /* Add green border */
+  display: inline-block;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.save-button {
+  color: white;
+  padding: 5px 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+input[type="time"]:focus,
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #d2b48c;
+}
+
+input[type="time"]:hover,
+input[type="text"]:hover,
+input[type="password"]:focus {
+  background-color: #d2b48c;
+}
+
+/* Additional styling to maintain usability */
+input[type="time"],
+input[type="text"],
+input[type="password"]:focus {
+  border: 1px solid #d2b48c;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.modal-header h3 {
+  margin: 0;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal form label {
+  margin-bottom: 10px;
+}
+
+.modal form input {
+  margin-top: 5px;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.modal form button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #804f0e;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.modal form button:hover {
+  background-color: #633b0b;
+}
+
+.add-appointmentt button {
   padding: 5px 10px;
   width: 150px;
 }
@@ -286,7 +470,7 @@ h3 {
 .save-button:hover {
   background-color: #633b0b;
 }
-.add-appointment {
+.add-appointmentt {
   display: flex;
 }
 .action-buttons {
@@ -303,16 +487,36 @@ h3 {
 
 .delete-button {
   background-color: #804f0e;
+  color: white;
 }
 
 .update-button {
   background-color: #804f0e;
+  color: white;
 }
 
 .action-buttons:hover {
   background-color: #99703e;
+  color: white;
+}
+.button-managee {
+  display: flex;
+  gap: 8px;
 }
 
+.action-buttons {
+  background-color: #6b4f3b;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
 .modal {
   position: absolute;
   top: 50%;
@@ -488,18 +692,18 @@ h3 {
   width: 100%;
 }
 
-.add-appointment {
+.add-appointmentt {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.add-appointment input {
+.add-appointmentt input {
   flex: 1 1 150px;
   padding: 5px;
 }
 
-.add-appointment button {
+.add-appointmentt button {
   padding: 5px 10px;
   flex: 1 1 100px;
 }
@@ -546,12 +750,12 @@ h3 {
     display: none;
   }
 
-  .add-appointment {
+  .add-appointmentt {
     flex-direction: row;
   }
 
-  .add-appointment input,
-  .add-appointment button {
+  .add-appointmentt input,
+  .add-appointmentt button {
     width: 100%;
   }
 
@@ -586,7 +790,7 @@ h3 {
   align-items: center;
 }
 
-.modal-content {
+.modal-contentt {
   background: white;
   padding: 20px;
   border-radius: 8px;
@@ -631,7 +835,7 @@ h3 {
 }
 
 @media (max-width: 480px) {
-  .modal-content {
+  .modal-contentt {
     width: 95%;
     padding: 15px;
   }
