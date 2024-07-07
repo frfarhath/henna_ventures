@@ -156,7 +156,7 @@ export default function Appointments({ selectedDate }) {
         <h3>
           Confirmed Appointments for {selectedDate.toISOString().split("T")[0]}
         </h3>
-        <div className="add-appointment">
+        <div className="add-appointmentt">
           <input
             type="time"
             value={newAppointment.time}
@@ -173,7 +173,7 @@ export default function Appointments({ selectedDate }) {
             }
           />
           <button
-            className="add-appointment-button"
+            className="add-appointmentt-button "
             onClick={handleAddAppointment}
           >
             <FontAwesomeIcon icon={faPlus} /> Add Appointment
