@@ -1,7 +1,7 @@
 body {
   background: #af8f6f;
 }
-h2 {
+/* h2 {
   font-family: "Comic Sans MS", cursive, sans-serif;
   font-size: 40px;
   margin-bottom: -10px;
@@ -13,7 +13,7 @@ h3 {
   font-size: 20px;
   margin-bottom: -10px;
   text-align: center;
-}
+} */
 
 /* Basic reset and box-sizing */
 * {
@@ -272,7 +272,7 @@ h3 {
   margin-right: 10px;
   padding: 5px;
 }
-.add-appointmentt-button {
+/* .add-appointmentt-button {
   background-color: #804f0e;
   border: none;
   color: white;
@@ -285,7 +285,7 @@ h3 {
   cursor: pointer;
   border-radius: 8px;
   transition: background-color 0.3s ease;
-}
+} */
 
 .add-appointmentt-button:hover {
   background-color: #633b0b;
@@ -347,15 +347,15 @@ button:focus {
   padding: 5px;
 }
 
-.form-control {
+/* .form-control {
   width: auto;
-  padding: 5px; /* Adjust padding as needed */
-  font-size: 16px; /* Adjust font size as needed */
+  padding: 5px; 
+  font-size: 16px; 
   color: black;
   background-color: #fff;
-  border: 1px solid #804f0e; /* Adjust border color as needed */
-  border-radius: 4px; /* Adjust border radius as needed */
-}
+  border: 1px solid #804f0e; 
+  border-radius: 4px; 
+} */
 
 /* Status dropdown styling */
 .status-dropdown {
@@ -384,7 +384,7 @@ button:focus {
   font-size: 16px;
   transition: background-color 0.3s ease;
 }
-
+/* 
 input[type="time"]:focus,
 input[type="text"]:focus,
 input[type="password"]:focus {
@@ -397,17 +397,17 @@ input[type="time"]:hover,
 input[type="text"]:hover,
 input[type="password"]:focus {
   background-color: #d2b48c;
-}
+} */
 
 /* Additional styling to maintain usability */
-input[type="time"],
+/* input[type="time"],
 input[type="text"],
 input[type="password"]:focus {
   border: 1px solid #d2b48c;
   padding: 5px;
   border-radius: 4px;
   transition: background-color 0.3s ease, color 0.3s ease;
-}
+} */
 .modal-header {
   display: flex;
   justify-content: space-between;

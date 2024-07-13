@@ -281,10 +281,10 @@ const ThreeDModel = () => {
     <div className="flex flex-col lg:flex-row h-screen overflow-x-hidden">
       
       <div className="w-full lg:w-1/4 bg-[#543310] p-4 overflow-y-auto">
-        <h2 className="text-xl text-white mb-4">Select Design</h2>
+        <h2 className="text-2xl text-white mb-4">Select Design</h2>
         {Object.keys(designImages).map((part) => (
           <div key={part}>
-            <h3 className="text-md text-white mt-4 mb-2">{displayNames[part]}</h3>
+            <h3 className="text-lg text-white mt-4 mb-2">{displayNames[part]}</h3>
             <div className="grid grid-cols-3 gap-2">
               {designImages[part].map((design, index) => (
                 <img

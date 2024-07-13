@@ -199,7 +199,7 @@ export default function SelectGift( addToGiftBox) {
   return (
     <div>
       <NewNav />
-      <h2>Select Gift Items</h2>
+      <h2 className="font-comic text-4xl mb-[20px] mt-5 text-left pl-8">Select Gift Items</h2>
       <ProgressBar value={0.5} />
       <div className="header">
         <div className="separater">

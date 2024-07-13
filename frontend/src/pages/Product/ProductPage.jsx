@@ -245,7 +245,7 @@ const ProductPage = ({ addToCart }) => {
   return (
     <div>
       <NewNav />
-      <h2>Products</h2>
+      <h2 className="font-comic text-4xl mb-[20px] text-left pl-8">Products</h2>
       <div className="header">
         <div className="separater">
           <SearchBar onSearch={handleSearch} />

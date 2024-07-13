@@ -49,7 +49,7 @@ export default function PasswordChange() {
   return (
     <div className="right-container">
       <div className="main-content">
-        <h3>Change Password</h3>
+      <h3 className="font-comic text-2xl mb-[-10px] text-center">Change Password</h3>
         <br />
         <div className="column-2">
           <div className="sub-row"></div>

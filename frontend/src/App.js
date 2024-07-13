@@ -40,6 +40,15 @@ import Rating from './components/User Dashboard/RatingAndReview';
 import PackageForm from './components/User Dashboard/PackageForm';
 import MyCollection from './components/User Dashboard/MyCollection';
 
+import Dashboard from './pages/Admin/dashboard';
+import Product from './pages/Admin/product';
+import Order from './pages/Admin/orders';
+import Appoinment from './pages/Admin/appoinment';
+import Repository from './pages/Admin/repository';
+import Artist from './pages/Admin/artist';
+import Summary from './pages/Admin/summary';
+import Review from './pages/Admin/rating';
+import DisplayMessages from './pages/Admin/DisplayMessages';
 function App() {
   return (
     <UserProvider>
@@ -74,6 +83,16 @@ function App() {
           <Route path="changepassword" element={<ChangePassword />} />
           <Route path="/MehendiDesignRepository" element={<MehendiDesignRepository />} />
           
+          
+          <Route path="/Admin" element={<Dashboard />} />
+          <Route path="/Products" element={<Product />} />
+          <Route path="/Order" element={<Order />} />
+          <Route path="/Appoinment" element={<Appoinment />} />
+          <Route path="/Repository" element={<Repository />} />
+          <Route path="/Artist" element={<Artist />} />
+          <Route path="/Summary" element={<Summary />} />
+          <Route path="/Review" element={<Review />} />
+          <Route path="/DisplayMessages" element={<DisplayMessages />} />
           {/* Routes that need the Sidebar */}
           <Route element={<UserDashboardLayout />}>
             <Route path="profile" element={<Profile />} />
@@ -83,6 +102,7 @@ function App() {
             <Route path="/appointment/packages" element={<PackageForm />} />
             <Route path="ratings" element={<Rating />} />
             <Route path="userdash" element={<MyCollection />} />
+
           </Route>
         </Routes>
       </Router>

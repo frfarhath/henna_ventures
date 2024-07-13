@@ -2,11 +2,11 @@ body {
   background: #af8f6f;
 }
 
-h2 {
+/* h2 {
   text-align: center;
   margin-top: 10px;
   color: #333;
-}
+} */
 
 .header {
   display: flex;
@@ -413,10 +413,10 @@ progress::-webkit-progress-value {
   display: flex;
 }
 
-h2 {
+/* h2 {
   font-size: 2rem;
   margin-bottom: 20px;
-}
+} */
 
 .cart-content {
   background-color: #fff;
@@ -476,10 +476,10 @@ td {
   background-color: #633b0b;
 }
 
-h3 {
+/* h3 {
   margin-top: 0px;
   font-size: 10px;
-}
+} */
 .continue-button {
   margin-top: 20px;
   width: 250px;
@@ -526,10 +526,10 @@ h3 {
     font-size: 0.8rem;
   }
 
-  h4 {
+  /* h4 {
     font-size: 1rem;
     align-items: right;
-  }
+  } */
 
   .checkout-button {
     padding: 8px 16px;

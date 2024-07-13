@@ -34,7 +34,7 @@ export default function SelectCard(value) {
   return (
     <div>
       <NewNav />
-      <h2>Select Wish Card</h2>
+      <h2 className="font-comic text-4xl mb-[20px] mt-5 text-left pl-8">Select Wish Card</h2>
       <ProgressBar value={0.75} />
       <div className="product-grid">
         <CardSelect imgwish={imgwish1} />

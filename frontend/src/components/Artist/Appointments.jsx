@@ -153,7 +153,7 @@ export default function Appointments({ selectedDate }) {
   return (
     <div className="right-container">
       <div className="main-content">
-        <h3>
+      <h3 className="font-comic text-2xl mb-[-10px] text-center">
           Confirmed Appointments for {selectedDate.toISOString().split("T")[0]}
         </h3>
         <div className="add-appointmentt">
@@ -205,7 +205,7 @@ export default function Appointments({ selectedDate }) {
         <div className="modal-overlay" onClick={onClose}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <table className="modal-table">
-              <h3>Edit Appointment</h3>
+            <h3 className="font-comic text-2xl mb-[-10px] text-center">Edit Appointment</h3>
               <button className="modal-close-button" onClick={onClose}>
                 <FontAwesomeIcon icon={faTimes} />
               </button>

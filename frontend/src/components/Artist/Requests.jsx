@@ -106,7 +106,7 @@ export default function Requests() {
   return (
     <div className="right-container">
       <div className="main-content">
-        <h3>Appointment Requests</h3>
+      <h3 className="font-comic text-2xl mb-[-10px] text-center">Appointment Requests</h3>
         <table className="timetable">
           <thead>
             <tr>

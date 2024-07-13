@@ -12,7 +12,7 @@ export default function CheckoutInfo() {
       <br />
       <div className="message-containerr">
         <div className="main-contentt">
-          <h3>Reciever's Information</h3>
+        <h3 className="font-comic text-2xl mb-[-10px] text-center">Reciever's Information</h3>
           <br />
           <div className="column-3">
             <div className="personalInfo">

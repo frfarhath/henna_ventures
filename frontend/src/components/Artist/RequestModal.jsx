@@ -14,7 +14,7 @@ const RequestModal = ({ request, onClose }) => {
         </button>
 
         <table className="modal-table">
-          <h3>Detailed Information</h3>
+        <h3 className="font-comic text-2xl mb-[-10px] text-center">Detailed Information</h3>
           <br />
           <tbody>
             <tr>

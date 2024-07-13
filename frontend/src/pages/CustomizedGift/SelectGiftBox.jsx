@@ -30,7 +30,7 @@ export default function SelectGiftBox() {
   return (
     <div>
       <NewNav />
-      <h2>Select Gift Box</h2>
+      <h2 className="font-comic text-4xl mb-[20px] mt-5 text-left pl-8">Select Gift Box</h2>
       <ProgressBar value={0.25} />
       <div className="product-grid">
         <Package

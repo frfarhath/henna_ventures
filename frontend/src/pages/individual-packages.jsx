@@ -58,7 +58,7 @@ const Package = () => {
         <header className="service-header">
           <div className="service-overlay">
             <h1 className="text-4xl font-bold">Our individual Packages</h1>
-            <h4 className="text-xl mt-2">Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!</h4>
+            <h4 className="font-sans mb-8 text-2xl mt-2">Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!</h4>
           </div>
         </header>
         
