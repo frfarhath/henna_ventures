@@ -24,8 +24,8 @@ function Portfolio() {
             <header className="service-header">
                 <div className="service-overlay">
                 
-                    <h1>Our Portfolio</h1>
-                    <h4> Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!</h4>
+                <h1 className="font-dancing-script text-7xl mb-8">Our Portfolio</h1>
+                    <h4 className="font-sans mb-8 text-2xl"> Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!</h4>
                     <br></br>
 
                 </div>

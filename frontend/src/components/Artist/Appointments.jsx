@@ -2,26 +2,31 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import "../../css/artist.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faTrashAlt,
+  faEdit,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 
 const initialAppointments = [
   {
     id: 1,
     date: "2024-05-29",
     time: "8:00 AM",
-    details: "Jane Smith | 987-654-3210 | Traditional | District 2 | 456 Avenue, City",
+    details: "Jane | Smith | 987-654-3210 | District 2 | 456 Avenue, City",
   },
   {
     id: 2,
     date: "2024-05-29",
     time: "10:00 AM",
-    details: "John Doe | 123-456-7890 | Modern | District 1 | 123 Street, City",
+    details: "John | Doe | 123-456-7890 | District 1 | 123 Street, City",
   },
   {
     id: 3,
     date: "2024-05-30",
     time: "2:00 PM",
-    details: "Client C | 111-222-3333 | Contemporary | District 3 | 789 Road, City",
+    details: "John | Doe | 111-222-3333 | District 3 | 789 Road, City",
   },
 ];
 
@@ -92,9 +97,9 @@ export default function Appointments({ selectedDate }) {
   const parseDetails = (details) => {
     const parts = details.split(" | ");
     return {
-      clientName: parts[0] || "",
-      contactNumber: parts[1] || "",
-      mehendiType: parts[2] || "",
+      firstname: parts[0] || "",
+      lastname: parts[1] || "",
+      contactNumber: parts[2] || "",
       district: parts[3] || "",
       address: parts[4] || "",
     };
@@ -112,9 +117,9 @@ export default function Appointments({ selectedDate }) {
     timeSlots.push(
       <tr key={time}>
         <td className="time-slot">{time}</td>
-        <td className="appointment-details">{parsedDetails.clientName}</td>
+        <td className="appointment-details">{parsedDetails.firstname}</td>
+        <td className="appointment-details">{parsedDetails.lastname}</td>
         <td className="appointment-details">{parsedDetails.contactNumber}</td>
-        <td className="appointment-details">{parsedDetails.mehendiType}</td>
         <td className="appointment-details">{parsedDetails.district}</td>
         <td className="appointment-details">{parsedDetails.address}</td>
         <td className="appointment-details">
@@ -141,13 +146,17 @@ export default function Appointments({ selectedDate }) {
     );
   }
 
+  const onClose = () => {
+    setModalIsOpen(false);
+  };
+
   return (
     <div className="right-container">
       <div className="main-content">
-        <h3>
+      <h3 className="font-comic text-2xl mb-[-10px] text-center">
           Confirmed Appointments for {selectedDate.toISOString().split("T")[0]}
         </h3>
-        <div className="add-appointment">
+        <div className="add-appointmentt">
           <input
             type="time"
             value={newAppointment.time}
@@ -163,7 +172,10 @@ export default function Appointments({ selectedDate }) {
               setNewAppointment({ ...newAppointment, details: e.target.value })
             }
           />
-          <button onClick={handleAddAppointment}>
+          <button
+            className="add-appointmentt-button "
+            onClick={handleAddAppointment}
+          >
             <FontAwesomeIcon icon={faPlus} /> Add Appointment
           </button>
         </div>
@@ -171,9 +183,9 @@ export default function Appointments({ selectedDate }) {
           <thead>
             <tr>
               <th>Time</th>
-              <th>Client Name</th>
+              <th>First Name</th>
+              <th>Last Name</th>
               <th>Contact Number</th>
-              <th>Mehendi Type</th>
               <th>District</th>
               <th>Address</th>
               <th>Actions</th>
@@ -185,37 +197,49 @@ export default function Appointments({ selectedDate }) {
 
       <Modal
         isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
+        onRequestClose={onClose}
         contentLabel="Edit Appointment"
         className="modal"
         overlayClassName="overlay"
       >
-        <h3>Edit Appointment</h3>
-        <br />
-        <form onSubmit={handleSaveChanges}>
-          <label>
-            Time:
-            <br />
-            <input
-              type="time"
-              name="time"
-              value={currentAppointment.time}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            <br />
-            Details:
-            <br />
-            <input
-              type="text"
-              name="details"
-              value={currentAppointment.details}
-              onChange={handleChange}
-            />
-          </label>
-          <button type="submit">Save Changes</button>
-        </form>
+        <div className="modal-overlay" onClick={onClose}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <table className="modal-table">
+            <h3 className="font-comic text-2xl mb-[-10px] text-center">Edit Appointment</h3>
+              <button className="modal-close-button" onClick={onClose}>
+                <FontAwesomeIcon icon={faTimes} />
+              </button>
+
+              <br />
+              <div>
+                <form onSubmit={handleSaveChanges}>
+                  <label>
+                    Time:
+                    <br />
+                    <input
+                      type="time"
+                      name="time"
+                      value={currentAppointment.time}
+                      onChange={handleChange}
+                    />
+                  </label>
+                  <label>
+                    <br />
+                    Details:
+                    <br />
+                    <input
+                      type="text"
+                      name="details"
+                      value={currentAppointment.details}
+                      onChange={handleChange}
+                    />
+                  </label>
+                  <button type="submit">Save Changes</button>
+                </form>
+              </div>
+            </table>
+          </div>
+        </div>
       </Modal>
     </div>
   );

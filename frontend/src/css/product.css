@@ -2,11 +2,11 @@ body {
   background: #af8f6f;
 }
 
-h2 {
+/* h2 {
   text-align: center;
   margin-top: 10px;
   color: #333;
-}
+} */
 
 .header {
   display: flex;
@@ -14,7 +14,9 @@ h2 {
   align-items: center;
   margin-bottom: 20px;
 }
-
+button {
+  border-radius: 8px;
+}
 .cart-button {
   background-color: #804f0e;
   color: white;
@@ -76,7 +78,7 @@ h2 {
 }
 
 .product-card.selected {
-  border: 2px solid #4caf50;
+  border: 3px solid #006400;
 }
 
 .product-card img {
@@ -105,7 +107,7 @@ h2 {
 
 .product-card .view-product,
 .product-card .add-to-cart {
-  background-color: #4caf50;
+  background-color: #006400;
   color: white;
   padding: 10px;
   border: none;
@@ -411,10 +413,10 @@ progress::-webkit-progress-value {
   display: flex;
 }
 
-h2 {
+/* h2 {
   font-size: 2rem;
   margin-bottom: 20px;
-}
+} */
 
 .cart-content {
   background-color: #fff;
@@ -437,10 +439,10 @@ td {
   text-align: center;
 }
 
-th {
+/* th {
   background-color: #804f0e;
   color: white;
-}
+} */
 
 td {
   font-size: 0.9rem;
@@ -474,10 +476,10 @@ td {
   background-color: #633b0b;
 }
 
-h3 {
+/* h3 {
   margin-top: 0px;
   font-size: 10px;
-}
+} */
 .continue-button {
   margin-top: 20px;
   width: 250px;
@@ -524,10 +526,10 @@ h3 {
     font-size: 0.8rem;
   }
 
-  h4 {
+  /* h4 {
     font-size: 1rem;
     align-items: right;
-  }
+  } */
 
   .checkout-button {
     padding: 8px 16px;
@@ -709,7 +711,7 @@ h3 {
   margin-bottom: 65px;
 }
 
-.main-content {
+.main-contentt {
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -719,7 +721,7 @@ h3 {
 }
 .message-textarea {
   width: 100%;
-  height: 100px;
+  height:150px;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -756,7 +758,7 @@ h3 {
   }
 
   .message-textarea {
-    height: 80px;
+    height: 100px;
   }
 }
 
@@ -1183,6 +1185,52 @@ input[type="number"]::-moz-inner-spin-button {
   display: flex;
   flex-direction: column;
   margin-left: 2px;
+  width: 20px;
+}
+.footer {
+  background-color: #fff;
+  /* padding: 1em; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #ccc;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.total-amount {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.button-group {
+  display: flex;
+  gap: 1em;
+}
+
+.footer-button {
+  background-color: #8b5e34;
+  color: white;
+  border: none;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+  width: 100px;
+  margin-left: 0.5em;
+}
+
+.footer-button:first-child {
+  margin-left: 0;
+}
+
+.footer-button:hover {
+  background-color: #6e4528;
 }
 
 

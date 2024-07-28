@@ -1,7 +1,7 @@
 body {
   background: #af8f6f;
 }
-h2 {
+/* h2 {
   font-family: "Comic Sans MS", cursive, sans-serif;
   font-size: 40px;
   margin-bottom: -10px;
@@ -13,7 +13,7 @@ h3 {
   font-size: 20px;
   margin-bottom: -10px;
   text-align: center;
-}
+} */
 
 /* Basic reset and box-sizing */
 * {
@@ -239,7 +239,8 @@ h3 {
 }
 
 .main-content {
-  margin-left: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .timetable {
@@ -263,16 +264,199 @@ h3 {
   width: 100%;
 }
 
-.add-appointment {
+.add-appointmentt {
   margin-top: 20px;
 }
 
-.add-appointment input {
+.add-appointmentt input {
   margin-right: 10px;
   padding: 5px;
 }
+.add-appointmentt-button {
+  background-color: #804f0e;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
 
-.add-appointment button {
+.add-appointmentt-button:hover {
+  background-color: #633b0b;
+}
+
+/* Modal Styling */
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+input:focus,
+button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.timetable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.timetable th,
+.timetable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center; 
+}
+
+.timetable td button,
+.timetable td select {
+  display: block;
+  margin: 0 auto; 
+}
+
+/* Center the content of the table cells */
+.timetable td .button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Additional button styling */
+.copy-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.form-control {
+  width: auto;
+  padding: 5px; 
+  font-size: 16px; 
+  color: black;
+  background-color: #fff;
+  /* border: 1px solid #804f0e;  */
+  border-radius: 4px; 
+}
+
+/* Status dropdown styling */
+.status-dropdown {
+  width: 100%;
+  padding: 5px;
+  border-radius: 4px;
+}
+.column-2 {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px solid #d2b48c; /* Add green border */
+  display: inline-block;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.save-button {
+  color: white;
+  padding: 5px 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+/* 
+input[type="time"]:focus,
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #d2b48c;
+}
+
+input[type="time"]:hover,
+input[type="text"]:hover,
+input[type="password"]:focus {
+  background-color: #d2b48c;
+} */
+
+/* Additional styling to maintain usability */
+/* input[type="time"],
+input[type="text"],
+input[type="password"]:focus {
+  border: 1px solid #d2b48c;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+} */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.modal-header h3 {
+  margin: 0;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal form label {
+  margin-bottom: 10px;
+}
+
+.modal form input {
+  margin-top: 5px;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.modal form button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #804f0e;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.modal form button:hover {
+  background-color: #633b0b;
+}
+
+.add-appointmentt button {
   padding: 5px 10px;
   width: 150px;
 }
@@ -286,7 +470,7 @@ h3 {
 .save-button:hover {
   background-color: #633b0b;
 }
-.add-appointment {
+.add-appointmentt {
   display: flex;
 }
 .action-buttons {
@@ -303,16 +487,36 @@ h3 {
 
 .delete-button {
   background-color: #804f0e;
+  color: white;
 }
 
 .update-button {
   background-color: #804f0e;
+  color: white;
 }
 
 .action-buttons:hover {
   background-color: #99703e;
+  color: white;
+}
+.button-managee {
+  display: flex;
+  gap: 8px;
 }
 
+.action-buttons {
+  background-color: #6b4f3b;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
 .modal {
   position: absolute;
   top: 50%;
@@ -425,10 +629,17 @@ h3 {
   color: white;
 }
 /* Base styles */
-.sidebar {
+.artist-sidebar {
   display: flex;
-  flex-direction: column;
   padding: 20px;
+}
+
+.button-group {
+  flex-direction: row;
+}
+
+.button-group1 {
+  flex-direction: column;
 }
 
 .admin-button {
@@ -481,18 +692,18 @@ h3 {
   width: 100%;
 }
 
-.add-appointment {
+.add-appointmentt {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.add-appointment input {
+.add-appointmentt input {
   flex: 1 1 150px;
   padding: 5px;
 }
 
-.add-appointment button {
+.add-appointmentt button {
   padding: 5px 10px;
   flex: 1 1 100px;
 }
@@ -539,12 +750,12 @@ h3 {
     display: none;
   }
 
-  .add-appointment {
+  .add-appointmentt {
     flex-direction: row;
   }
 
-  .add-appointment input,
-  .add-appointment button {
+  .add-appointmentt input,
+  .add-appointmentt button {
     width: 100%;
   }
 
@@ -566,4 +777,74 @@ h3 {
 
 .overlay {
   background-color: rgba(0, 0, 0, 0.75);
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-contentt {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.modal-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.modal-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.modal-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.modal-table td {
+  padding: 7px;
+  border: 1px solid #804f0e;
+  text-align: left;
+}
+
+.modal-table td:first-child {
+  background-color: white;
+}
+
+.modal-table tr:nth-child(even) td {
+  background-color: #d2b48c;
+}
+
+@media (max-width: 480px) {
+  .modal-contentt {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .modal-table td {
+    padding: 8px;
+  }
+}
+.main-content {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

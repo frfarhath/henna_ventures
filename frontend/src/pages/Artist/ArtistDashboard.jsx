@@ -15,7 +15,7 @@ export default function ArtistDashboard() {
   return (
     <div>
       <NewNav />
-      <h2>Artist Dashboard</h2>
+      <h2 className="font-comic text-4xl mb-8 text-left pl-8">Artist Dashboard</h2>
       <div className="art">
         <SideBar onDateChange={handleDateChange} />
         <Appointments selectedDate={selectedDate} />

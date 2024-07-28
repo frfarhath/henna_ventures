@@ -54,7 +54,7 @@ const ProductModal2 = ({ product, onClose }) => {
           </div>
         </div>
         <div className="modal-right">
-          <h3>{product.name}</h3>
+        <h3 className="font-comic text-2xl mb-[-10px] text-center">{product.name}</h3>
           <br />
           <p className="text-model">{product.productdes}</p>
           <p className="text-model">LKR {product.price}</p>

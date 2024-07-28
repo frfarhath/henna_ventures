@@ -29,8 +29,11 @@ function SignIn() {
     try {
       const response = await axios.post('http://localhost:8000/api/v1/artist/login', formData);
 
-      if (response.status === 200) {
-        navigate('/profile');
+     
+        if (response.status === 200) {
+          const token = response.data.token;
+          localStorage.setItem('token', token); // Store token in localStorage
+        navigate('/artistdashboard');
       }
     } catch (error) {
       setError('Login failed. Please check your credentials and try again.');

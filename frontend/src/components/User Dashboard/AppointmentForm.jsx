@@ -64,6 +64,7 @@ const AppointmentForm = () => {
 
       const resdat = await res.data;
       console.log(resdat);
+      alert('Success ! Appoinment Adding')
       window.location.reload();
 
     } catch (error) {
