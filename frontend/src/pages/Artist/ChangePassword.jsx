@@ -8,7 +8,7 @@ export default function ChangePassword() {
   return (
     <div>
       <NewNav />
-      <h2>Artist Dashboard</h2>
+      <h2 className="font-comic text-4xl mb-[-10px] text-left pl-8">Artist Dashboard</h2>
       <div className="art">
         <SideBar />
         <PasswordChange />

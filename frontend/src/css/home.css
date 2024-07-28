@@ -43,11 +43,11 @@
 
 /* Add additional styles if needed */
 
-h1 {
+/* h1 {
 	font-family: 'Dancing Script', cursive;
 	font-size: 70px;
 	margin-bottom: 30px;
-}
+} */
 
 h3,
 p {
@@ -55,11 +55,11 @@ p {
 	margin-bottom: 30px;
 	
 }
-h4 {
+/* h4 {
 	font-family: 'Open Sans', sans-serif;
 	margin-bottom: 30px;
 	font-size: 20px;
-}
+} */
 
 button1 {
 	border: none;

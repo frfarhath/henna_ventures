@@ -1,40 +1,45 @@
+// Footer.jsx
 import React from "react";
 import Logo from "../images/logo.png";
 import { MdEmail } from "react-icons/md";
-import { FaPhoneAlt } from "react-icons/fa";
-import { FaFacebook } from "react-icons/fa";
-import { FaInstagram } from "react-icons/fa";
+import { FaPhoneAlt, FaFacebook, FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
   const Services = [
     { name: "Henna products", link: "" },
     { name: "Customize designs", link: "" },
-    { name: "packages", link: "" },
+    { name: "Packages", link: "" },
     { name: "Mehendi services", link: "" },
   ];
+
   const QuickLinks = [
-    { name: "Home", link: "/" },
-    { name: "About", link: "" },
-    { name: "Portfolio", link: "portfolio" },
-    { name: "Contact", link: "contactus" },
+    { id: "home", name: "Home", link: "/" },
+    { id: "about", name: "About", link: "" },
+    { id: "portfolio", name: "Portfolio", link: "portfolio" },
+    { id: "contact", name: "Contact", link: "contactus" },
   ];
+
   const SocialMedia = [
     {
+      id: "phone",
       icon: <FaPhoneAlt size={20} />,
       title: "0743883870",
       link: "",
     },
     {
+      id: "email",
       icon: <MdEmail size={20} />,
       title: "Email",
       link: "",
     },
     {
+      id: "facebook",
       icon: <FaFacebook size={20} />,
       title: "Facebook",
       link: "",
     },
     {
+      id: "instagram",
       icon: <FaInstagram size={20} />,
       title: "Instagram",
       link: "",
@@ -56,7 +61,7 @@ const Footer = () => {
               Quick Links
             </h1>
             {QuickLinks.map((link) => (
-              <li key={link.name}>
+              <li key={link.id}>
                 <a
                   className="footerText text-white py-3 hover:text-gray-300 duration-300 text-sm cursor-pointer leading-6"
                   href={link.link}
@@ -92,7 +97,7 @@ const Footer = () => {
               Contact Us
             </h1>
             {SocialMedia.map((link) => (
-              <li key={link.name}>
+              <li key={link.id}>
                 <div className="flex justify-start">
                   <a
                     className="footerText text-white font-semibold py-2 hover:text-gray-300 duration-300 cursor-pointer leading-6"

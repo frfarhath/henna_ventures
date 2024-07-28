@@ -20,6 +20,10 @@ const ratingSchema = mongoose.Schema({
     date: {
         type: String,
         required: true
+    },
+    artist: {
+        type: String,
+        required: true
     }
     
 });
