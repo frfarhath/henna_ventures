@@ -80,7 +80,7 @@ const Cart = () => {
       <NewNav />
       <div className="cart">
         <div className="cart-row">
-        <h2 className="font-comic text-4xl mb-[20px] mt-5 text-left pl-8">Cart</h2>
+          <h2>Cart</h2>
           <button
             className="continue-button"
             onClick={handleClick}
@@ -95,10 +95,10 @@ const Cart = () => {
           <table>
             <thead>
               <tr>
-              <th class="bg-[#804f0e] text-white">Product</th>
-              <th class="bg-[#804f0e] text-white">Quantity</th>
-              <th class="bg-[#804f0e] text-white">Total</th>
-              <th class="bg-[#804f0e] text-white">Select</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Select</th>
               </tr>
             </thead>
             <tbody>

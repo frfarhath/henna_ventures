@@ -10,8 +10,8 @@ function AboutUs() {
             <header className="service-header">
                 <div className="service-overlay">
                    
-                <h1 className="font-dancing-script text-7xl mb-8">About Henna Ventures</h1>
-                    <h4 className="font-sans mb-8 text-2xl"> Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!</h4>
+                    <h1>About Henna Ventures</h1>
+                    <h4> Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!</h4>
                     <br></br>
                     {/* <a href='signup'><button1>Sign Up Now</button1></a> */}
                 </div>

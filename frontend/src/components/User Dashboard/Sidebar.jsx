@@ -4,21 +4,19 @@ import { FaUser, FaBoxOpen, FaSignOutAlt, FaStar, FaCalendarAlt, FaClipboardList
 import profileImage from '../../images/profile.jpg'; // Adjust the path as needed
 
 const Sidebar = () => {
-
   return (
-    <div style={{ backgroundColor: '#f5f0eb'}} className="w-64 p-6 shadow-lg font-serif flex flex-col justify-between">
+    <div style={{ backgroundColor: '#f5f0eb' }} className="h-screen w-64 p-6 shadow-lg font-serif flex flex-col justify-between">
       <div>
-
         <div className="flex items-center space-x-4 mb-8">
           <img src={profileImage} alt="Profile" className="w-12 h-12 rounded-full border-2 border-[#804f0e]" />
           <div>
-            <h4 className="font-bold text-[#804f0e]">Fathima Samee</h4>
+          <h4 className="font-bold mb-1 text-lg text-[#804f0e]">Fathima Samee</h4>
             <p className="text-sm text-gray-600">fathisam100@gmail.com</p>
           </div>
         </div>
 
-        <nav className="space-y-4">
-          <Link to="/collection" className="flex items-center text-[#804f0e] hover:text-white hover:bg-[#804f0e] p-2 rounded-lg transition duration-300">
+        <nav className="space-y-4 text-base">
+          <Link to="/userdash" className="flex items-center text-[#804f0e] hover:text-white hover:bg-[#804f0e] p-2 rounded-lg transition duration-300">
             <FaClipboardList className="mr-3" />
             Collection
           </Link>
@@ -46,11 +44,9 @@ const Sidebar = () => {
             </Link>
           </div>
         </nav>
-
       </div>
     </div>
   );
-
 };
 
 export default Sidebar;

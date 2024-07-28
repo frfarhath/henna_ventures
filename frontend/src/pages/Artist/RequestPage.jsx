@@ -15,7 +15,7 @@ export default function RequestPage() {
   return (
     <div>
       <NewNav />
-      <h2 className="font-comic text-4xl mb-[-10px] text-left pl-8">Artist Dashboard</h2>
+      <h2>Artist Dashboard</h2>
       <div className="art">
         <SideBar onDateChange={handleDateChange} />
         <Requests />

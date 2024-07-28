@@ -36,18 +36,11 @@ export default function SideBar({ onDateChange }) {
     window.location.href = "/changepassword";
   };
 
- 
   const handleClickButton4 = () => {
     console.log("logout clicked");
-    
-    // Perform logout logic here, such as clearing session or token
-    // Example: Clearing localStorage token
-    localStorage.removeItem('token');
-  
-    // Redirect to login page or any other route
-    window.location.href = "/artistlogin"; // Replace with your desired logout route
+    // Add logout logic here
   };
-  
+
   const isActive = (path) => location.pathname === path;
 
   useEffect(() => {

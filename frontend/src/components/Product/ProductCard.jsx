@@ -16,7 +16,7 @@ export default function ProductCard({
       <p className="product-name">{productname}</p>
       <p className="product-description">{productdes}</p>
       <div className="product-price">LKR {price}</div>
-      <button className="add-to-cart-button" onClick={onViewProduct}>
+      <button className="product-button" onClick={onViewProduct}>
         <FontAwesomeIcon icon={faEye} /> View Product
       </button>
     </div>
