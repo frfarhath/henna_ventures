@@ -3,7 +3,7 @@ import "../../css/product.css";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ProductModal1 = ({ product, onClose, onAddToCart }) => {
+const ProductModal1 = ({ product, onClose }) => {
   const [quantity, setQuantity] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -29,11 +29,6 @@ const ProductModal1 = ({ product, onClose, onAddToCart }) => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex === 0 ? product.images.length - 1 : prevIndex - 1
     );
-  };
-
-  const handleAddToCartClick = () => {
-    onAddToCart(product, quantity);
-    onClose();
   };
 
   return (
@@ -71,9 +66,7 @@ const ProductModal1 = ({ product, onClose, onAddToCart }) => {
               +
             </button>
           </div>
-          <button className="add-to-cart-button" onClick={handleAddToCartClick}>
-            Add to Cart
-          </button>
+          <button className="add-to-cart-button">Add to Cart</button>
         </div>
       </div>
     </div>

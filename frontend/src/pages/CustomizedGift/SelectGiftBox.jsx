@@ -10,8 +10,8 @@ import imgpackage4 from "../../images/Products/package4.jpg";
 import ProgressBar from "../../components/Product/ProgressBar";
 import GoBackFooter from "../../components/Product/GoBackFooter";
 
-export default function SelectGiftBox() {
-  const [totalprice, setTotalprice] = useState(0);
+export default function SelectGiftBox(value) {
+  const [total, setTotal] = useState(1000);
 
   const handleNext = () => {
     console.log("Next button clicked");
@@ -23,42 +23,21 @@ export default function SelectGiftBox() {
     window.location.href = "http://localhost:3000/product";
   };
 
-  const handleSelectBox = (amount) => {
-    setTotalprice(totalprice + amount);
-  };
-
   return (
     <div>
       <NewNav />
       <h2>Select Gift Box</h2>
       <ProgressBar value={0.25} />
       <div className="product-grid">
-        <Package
-          imgpackage={imgpackage1}
-          productname="Brown | CardBoard Box"
-          onClick={() => handleSelectBox(500)}
-        />
-        <Package
-          imgpackage={imgpackage2}
-          productname="White | CardBoard Box"
-          onClick={() => handleSelectBox(500)}
-        />
-        <Package
-          imgpackage={imgpackage3}
-          productname="Pink | CardBoard Box"
-          onClick={() => handleSelectBox(800)}
-        />
+        <Package imgpackage={imgpackage1} productname="Brown | CardBoard Box" />
+        <Package imgpackage={imgpackage2} productname="White | CardBoard Box" />
+        <Package imgpackage={imgpackage3} productname="Pink | CardBoard Box" />
         <Package
           imgpackage={imgpackage4}
           productname="Light Blue | CardBoard Box"
-          onClick={() => handleSelectBox(800)}
         />
       </div>
-      <GoBackFooter
-        total={totalprice}
-        onNext={handleNext}
-        onBack={handleBack}
-      />
+      <GoBackFooter total={total} onNext={handleNext} onBack={handleBack} />
       <Footer />
     </div>
   );

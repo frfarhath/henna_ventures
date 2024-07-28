@@ -56,7 +56,7 @@ export default function SideBar({ onDateChange }) {
     <>
       {!isMobile ? (
         <div className="sidebar">
-          <div className="button-group1">
+          <div className="button-group">
             <button
               className={`admin-button ${
                 isActive("/artistdashboard") ? "active" : ""
@@ -72,7 +72,10 @@ export default function SideBar({ onDateChange }) {
               }`}
               onClick={handleClickButton2}
             >
-              <FontAwesomeIcon icon={faEnvelopeOpenText} className="fa-icon" />{" "}
+              <FontAwesomeIcon
+                icon={faEnvelopeOpenText}
+                className="fa-icon"
+              />{" "}
               Requests
             </button>
             <button
@@ -85,10 +88,13 @@ export default function SideBar({ onDateChange }) {
               Password
             </button>
             <button
-              className={`admin-button ${isActive("/logout") ? "active" : ""}`}
+              className={`admin-button ${
+                isActive("/logout") ? "active" : ""
+              }`}
               onClick={handleClickButton4}
             >
-              <FontAwesomeIcon icon={faSignOutAlt} className="fa-icon" /> Logout
+              <FontAwesomeIcon icon={faSignOutAlt} className="fa-icon" />{" "}
+              Logout
             </button>
           </div>
           <Calendar onChange={handleDateChange} value={selectedDate} />
@@ -105,10 +111,15 @@ export default function SideBar({ onDateChange }) {
             <span>Appointments</span>
           </button>
           <button
-            className={`nav-button ${isActive("/requestpage") ? "active" : ""}`}
+            className={`nav-button ${
+              isActive("/requestpage") ? "active" : ""
+            }`}
             onClick={handleClickButton2}
           >
-            <FontAwesomeIcon icon={faEnvelopeOpenText} className="fa-icon" />
+            <FontAwesomeIcon
+              icon={faEnvelopeOpenText}
+              className="fa-icon"
+            />
             <span>Requests</span>
           </button>
           <button
@@ -121,7 +132,9 @@ export default function SideBar({ onDateChange }) {
             <span>Change Password</span>
           </button>
           <button
-            className={`nav-button ${isActive("/logout") ? "active" : ""}`}
+            className={`nav-button ${
+              isActive("/logout") ? "active" : ""
+            }`}
             onClick={handleClickButton4}
           >
             <FontAwesomeIcon icon={faSignOutAlt} className="fa-icon" />

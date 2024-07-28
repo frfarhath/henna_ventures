@@ -9,19 +9,19 @@ const initialAppointments = [
     id: 1,
     date: "2024-05-29",
     time: "8:00 AM",
-    details: "Jane | Smith | 987-654-3210 | District 2 | 456 Avenue, City",
+    details: "Jane Smith | 987-654-3210 | Traditional | District 2 | 456 Avenue, City",
   },
   {
     id: 2,
     date: "2024-05-29",
     time: "10:00 AM",
-    details: "John | Doe | 123-456-7890 | District 1 | 123 Street, City",
+    details: "John Doe | 123-456-7890 | Modern | District 1 | 123 Street, City",
   },
   {
     id: 3,
     date: "2024-05-30",
     time: "2:00 PM",
-    details: "John | Doe | 111-222-3333 | District 3 | 789 Road, City",
+    details: "Client C | 111-222-3333 | Contemporary | District 3 | 789 Road, City",
   },
 ];
 
@@ -91,11 +91,10 @@ export default function Appointments({ selectedDate }) {
 
   const parseDetails = (details) => {
     const parts = details.split(" | ");
-    console.log("Details Parts:", parts); // Log parts to see what is being parsed
     return {
-      firstname: parts[0] || "",
-      lastname: parts[1] || "",
-      contactNumber: parts[2] || "",
+      clientName: parts[0] || "",
+      contactNumber: parts[1] || "",
+      mehendiType: parts[2] || "",
       district: parts[3] || "",
       address: parts[4] || "",
     };
@@ -113,9 +112,9 @@ export default function Appointments({ selectedDate }) {
     timeSlots.push(
       <tr key={time}>
         <td className="time-slot">{time}</td>
-        <td className="appointment-details">{parsedDetails.firstname}</td>
-        <td className="appointment-details">{parsedDetails.lastname}</td>
+        <td className="appointment-details">{parsedDetails.clientName}</td>
         <td className="appointment-details">{parsedDetails.contactNumber}</td>
+        <td className="appointment-details">{parsedDetails.mehendiType}</td>
         <td className="appointment-details">{parsedDetails.district}</td>
         <td className="appointment-details">{parsedDetails.address}</td>
         <td className="appointment-details">
@@ -172,9 +171,9 @@ export default function Appointments({ selectedDate }) {
           <thead>
             <tr>
               <th>Time</th>
-              <th>First Name</th>
-              <th>Last Name</th>
+              <th>Client Name</th>
               <th>Contact Number</th>
+              <th>Mehendi Type</th>
               <th>District</th>
               <th>Address</th>
               <th>Actions</th>
@@ -215,8 +214,7 @@ export default function Appointments({ selectedDate }) {
               onChange={handleChange}
             />
           </label>
-
-          <button type="admin-button">Save Changes</button>
+          <button type="submit">Save Changes</button>
         </form>
       </Modal>
     </div>

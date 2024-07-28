@@ -19,7 +19,7 @@ import ProgressBar from "../../components/Product/ProgressBar";
 import GoBackFooter from "../../components/Product/GoBackFooter";
 
 export default function SelectCard(value) {
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState(1000);
 
   const handleNext = () => {
     console.log("Next button clicked");

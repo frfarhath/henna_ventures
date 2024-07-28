@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import NewNav from "../../components/NewNav";
 import Footer from "../../components/Footer";
 import "../../css/product.css";
-import ProductCard from "../../components/Product/ProductCard";
+import GiftProductCard from "../../components/Product/GiftProductCard";
 import imgproduct1 from "../../images/Products/Product1.jpg";
 import imgproduct2 from "../../images/Products/Product2.jpg";
 import imgproduct3 from "../../images/Products/Product3.jpg";
@@ -20,8 +20,6 @@ import imgproduct18 from "../../images/Products/cusprod10.jpg";
 import imgproduct19 from "../../images/Products/cusprod12.jpg";
 import ProgressBar from "../../components/Product/ProgressBar";
 import GoBackFooter from "../../components/Product/GoBackFooter";
-import GiftModal1 from "../../components/Product/GiftModal1";
-import GiftModal2 from "../../components/Product/GiftModal2";
 import {
   faShoppingCart,
   faGift,
@@ -30,7 +28,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchBar from "../../components/Product/SearchBar";
 
-export default function SelectGift( addToGiftBox) {
+export default function SelectGift() {
   const products = [
     {
       img: imgproduct1,
@@ -119,11 +117,10 @@ export default function SelectGift( addToGiftBox) {
     },
   ];
 
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState(1000);
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -165,37 +162,6 @@ export default function SelectGift( addToGiftBox) {
     window.location.href = "http://localhost:3000/giftbox";
   };
 
-  const handleCloseModal = () => {
-    setSelectedProduct(null);
-  };
-  const handleAddToGiftBox = (product, quantity) => {
-    addToGiftBox(product, quantity);
-    handleCloseModal();
-  };
-
-  const renderGiftBoxModal = () => {
-    if (!selectedProduct) return null;
-
-    const { category } = selectedProduct;
-
-    if (category === "Henna Products" || category === "Reselling") {
-      return (
-        <GiftModal1
-          product={selectedProduct}
-          onClose={handleCloseModal}
-          onAddToCart={handleAddToGiftBox}
-        />
-      );
-    } else {
-      return (
-        <GiftModal2
-          product={selectedProduct}
-          onClose={handleCloseModal}
-          onAddToCart={handleAddToGiftBox}
-        />
-      );
-    }
-  };
   return (
     <div>
       <NewNav />
@@ -225,15 +191,15 @@ export default function SelectGift( addToGiftBox) {
       </div>
       <div className="product-grid">
         {filteredProducts.map((product, index) => (
-          <ProductCard
+          <GiftProductCard
             key={index}
             imgmehendi={product.img}
             productname={product.name}
+            productdes={product.category}
             price={product.price}
           />
         ))}
       </div>
-      {renderGiftBoxModal()}
       <GoBackFooter total={total} onNext={handleNext} onBack={handleBack} />
       <Footer />
     </div>

@@ -2,12 +2,9 @@ import React, { useState } from "react";
 import NewNav from "../../components/NewNav";
 import ProductCard from "../../components/Product/ProductCard";
 import ProductModal1 from "../../components/Product/ProductModal1";
-import ProductModal2 from "../../components/Product/ProductModal2";
+import ProductModal2 from "../../components/Product/ProductModal2"; // Import ProductModal2
 import "../../css/product.css";
 import Footer from "../../components/Footer";
-import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart, faGift } from "@fortawesome/free-solid-svg-icons";
 import imgproduct1 from "../../images/Products/Product1.jpg";
 import imgproduct2 from "../../images/Products/Product2.jpg";
 import imgproduct3 from "../../images/Products/Product3.jpg";
@@ -28,9 +25,11 @@ import imgproduct17 from "../../images/Products/cusprod09.jpg";
 import imgproduct18 from "../../images/Products/cusprod10.jpg";
 import imgproduct19 from "../../images/Products/cusprod12.jpg";
 import imgproduct20 from "../../images/Products/Product9.jpeg";
+import { faShoppingCart, faGift } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchBar from "../../components/Product/SearchBar";
 
-const ProductPage = ({ addToCart }) => {
+export default function ProductPage() {
   const products = [
     {
       images: [imgproduct1, imgproduct2, imgproduct3],
@@ -178,7 +177,14 @@ const ProductPage = ({ addToCart }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const navigate = useNavigate();
+
+  const handleClickButton1 = () => {
+    window.location.href = "http://localhost:3000/giftbox";
+  };
+
+  const handleClickButton2 = () => {
+    window.location.href = "http://localhost:3000/cart";
+  };
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -209,15 +215,6 @@ const ProductPage = ({ addToCart }) => {
     setSelectedProduct(null);
   };
 
-  const handleAddToCart = (product, quantity) => {
-    addToCart(product, quantity);
-    handleCloseModal();
-  };
-
-  const handleClickButton1 = () => {
-    window.location.href = "http://localhost:3000/giftbox";
-  };
-
   const renderProductModal = () => {
     if (!selectedProduct) return null;
 
@@ -225,19 +222,11 @@ const ProductPage = ({ addToCart }) => {
 
     if (category === "Henna Products" || category === "Reselling") {
       return (
-        <ProductModal1
-          product={selectedProduct}
-          onClose={handleCloseModal}
-          onAddToCart={handleAddToCart}
-        />
+        <ProductModal1 product={selectedProduct} onClose={handleCloseModal} />
       );
     } else {
       return (
-        <ProductModal2
-          product={selectedProduct}
-          onClose={handleCloseModal}
-          onAddToCart={handleAddToCart}
-        />
+        <ProductModal2 product={selectedProduct} onClose={handleCloseModal} />
       );
     }
   };
@@ -264,7 +253,7 @@ const ProductPage = ({ addToCart }) => {
             <option value="Graduation">Graduation</option>
             <option value="Reselling">Other</option>
           </select>
-          <button className="cart-button" onClick={() => navigate("/cart")}>
+          <button className="cart-button" onClick={handleClickButton2}>
             <FontAwesomeIcon icon={faShoppingCart} /> Go to Cart
           </button>
         </div>
@@ -285,6 +274,4 @@ const ProductPage = ({ addToCart }) => {
       <Footer />
     </div>
   );
-};
-
-export default ProductPage;
+}
