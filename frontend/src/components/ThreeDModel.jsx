@@ -1,29 +1,33 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { saveAs } from 'file-saver';
+import NewNav from '../components/NewNav';
+import Footer from '../components/Footer';
 
-const HandModelViewer = () => {
+const ThreeDModel = () => {
   const containerRef = useRef(null);
   const objectsRef = useRef({});
   const handModelRef = useRef(null);
   const maxScaleFactor = 75;
   const currentScaleFactorRef = useRef(1.0);
 
+  const [selectedColor, setSelectedColor] = useState('#FF8C00'); // Default light skin color
+
   const designImages = {
-    Hand001: ["a.png", "b.png", "c.png", "d.png", "e.png"],
-    Hand002: ["a.png", "b.png", "c.png", "d.png", "e.png"],
-    Hand003: ["a.png", "b.png", "c.png", "d.png", "e.png"],
-    Hand004: ["a.png", "b.png", "c.png", "d.png", "e.png"],
-    Hand005: ["a.png", "b.png", "c.png", "d.png", "e.png"],
-    Hand006: ["a.png", "b.png", "c.png", "d.png", "e.png"],
-    Hand007: ["a.png", "b.png", "c.png", "d.png", "e.png"],
+    Hand006: ["a.png", "b.png", "i.png", "e.png", "h.png", "c.png", "w.png", "j.png", "l.png"],
+    Hand002: ["n.png", "w.png", "d.png"],
+    Hand003: ["a.png", "b.png", "c.png", "d.png", "e.png", "z.png"],
+    Hand004: ["a.png", "b.png", "c.png", "d.png", "e.png", "z.png"],
+    Hand005: ["a.png", "b.png", "c.png", "d.png", "e.png", "z.png"],
+    Hand001: ["a.png", "b.png", "c.png", "d.png", "z.png","e.png"],
+    Hand012: ["a.png", "b.png", "i.png", "e.png", "h.png", "c.png", "w.png", "j.png", "l.png"],
+    Hand007: ["a.png", "b.png", "c.png", "d.png", "e.png", "z.png"],
     Hand008: ["a.png", "b.png", "c.png", "d.png", "e.png"],
     Hand009: ["a.png", "b.png", "c.png", "d.png", "e.png"],
     Hand010: ["a.png", "b.png", "c.png", "d.png", "e.png"],
     Hand011: ["a.png", "b.png", "c.png", "d.png", "e.png"],
-    Hand012: ["a.png", "b.png", "c.png", "d.png", "e.png"],
   };
 
   const displayNames = {
@@ -106,7 +110,7 @@ const HandModelViewer = () => {
           );
 
           const material = new THREE.MeshStandardMaterial({
-            color: 0xFF8C00, // Orange color
+            color: selectedColor,
             emissive: 0xFF4000,
             side: THREE.DoubleSide,
             emissiveIntensity: 0.3,
@@ -157,7 +161,7 @@ const HandModelViewer = () => {
         containerRef.current.removeChild(renderer.domElement);
       }
     };
-  }, []);
+  }, [selectedColor]);
 
   const onImageClick = (part, designUrl) => {
     const objects = objectsRef.current;
@@ -209,47 +213,171 @@ const HandModelViewer = () => {
     });
   };
 
+  const saveDesignState = () => {
+    const objects = objectsRef.current;
+    const designState = {
+      textures: {},
+      scaleFactor: currentScaleFactorRef.current,
+    };
+
+    Object.keys(objects).forEach(part => {
+      const material = objects[part].material;
+      designState.textures[part] = {
+        color: material.color.getHex(),
+        emissive: material.emissive.getHex(),
+        textureUrl: material.map ? material.map.image.src : null,
+      };
+    });
+
+    localStorage.setItem('handDesignState', JSON.stringify(designState));
+    alert('Design state saved!');
+  };
+
+  const loadDesignState = () => {
+    const savedState = localStorage.getItem('handDesignState');
+    if (savedState) {
+      const designState = JSON.parse(savedState);
+      const objects = objectsRef.current;
+
+      Object.keys(designState.textures).forEach(part => {
+        const textureInfo = designState.textures[part];
+        const material = new THREE.MeshStandardMaterial({
+          color: textureInfo.color,
+          emissive: textureInfo.emissive,
+          side: THREE.DoubleSide,
+          emissiveIntensity: 0.3,
+        });
+
+        if (textureInfo.textureUrl) {
+          const textureLoader = new THREE.TextureLoader();
+          textureLoader.load(textureInfo.textureUrl, (texture) => {
+            material.map = texture;
+            material.needsUpdate = true;
+          });
+        }
+
+        if (objects[part]) {
+          objects[part].material = material;
+          objects[part].material.needsUpdate = true;
+        }
+      });
+
+      currentScaleFactorRef.current = designState.scaleFactor;
+      const handModel = handModelRef.current;
+      if (handModel) {
+        handModel.scale.set(
+          maxScaleFactor * currentScaleFactorRef.current,
+          maxScaleFactor * currentScaleFactorRef.current,
+          maxScaleFactor * currentScaleFactorRef.current
+        );
+      }
+    } else {
+      alert('No saved design state found.');
+    }
+  };
+
   return (
-    <div className="flex flex-col lg:flex-row h-screen">
-      <div className="w-full lg:w-1/4 bg-[#543310] p-4 overflow-y-auto">
-        <h2 className="text-xl text-white mb-4">Select Design</h2>
-        {Object.keys(designImages).map((part) => (
-          <div key={part}>
-            <h3 className="text-md text-white mt-4 mb-2">{displayNames[part]}</h3>
-            <div className="grid grid-cols-2 gap-2">
-              {designImages[part].map((design, index) => (
-                <img
-                  key={index}
-                  src={`/images/${design}`}
-                  alt={`Design ${index + 1}`}
-                  className="cursor-pointer border border-gray-300 p-1 w-9 h-9" // Adjust size here
-                  onClick={() => onImageClick(part, `/images/${design}`)}
-                />
-              ))}
+    <div>
+      <NewNav />
+      <div className="flex flex-col lg:flex-row h-screen overflow-x-hidden">
+        <div className="w-full lg:w-1/4 bg-[#543310] p-4 overflow-y-auto">
+          <h2 className="text-2xl text-white mb-4">Select Design</h2>
+          {Object.keys(designImages).map((part) => (
+            <div key={part}>
+              <h3 className="text-lg text-white mt-4 mb-2">{displayNames[part]}</h3>
+              <div className="grid grid-cols-3 gap-2">
+                {designImages[part].map((design, index) => (
+                  <img
+                    key={index}
+                    src={`/images/${design}`}
+                    alt={`Design ${index + 1}`}
+                    className="cursor-pointer border border-gray-300 p-1 w-9 h-9" // Adjust size here
+                    onClick={() => onImageClick(part, `/images/${design}`)}
+                  />
+                ))}
+              </div>
             </div>
+          ))}
+          <label className="block text-white mt-4 mb-2">Select Skin Tone:</label>
+          <div className="flex flex-wrap gap-2">
+            <button
+              style={{ backgroundColor: '#FFDFC4' }}
+              className="w-10 h-10 rounded-full border"
+              onClick={() => setSelectedColor('#FFDFC4')}
+            ></button>
+            <button
+              style={{ backgroundColor: '#F0D5BE' }}
+              className="w-10 h-10 rounded-full border"
+              onClick={() => setSelectedColor('#F0D5BE')}
+            ></button>
+            <button
+              style={{ backgroundColor: '#D1A38D' }}
+              className="w-10 h-10 rounded-full border"
+              onClick={() => setSelectedColor('#D1A38D')}
+            ></button>
+            <button
+              style={{ backgroundColor: '#A87955' }}
+              className="w-10 h-10 rounded-full border"
+              onClick={() => setSelectedColor('#A87955')}
+            ></button>
+            <button
+              style={{ backgroundColor: '#8D5524' }}
+              className="w-10 h-10 rounded-full border"
+              onClick={() => setSelectedColor('#8D5524')}
+            ></button>
+            <button
+              style={{ backgroundColor: '#6A4E42' }}
+              className="w-10 h-10 rounded-full border"
+              onClick={() => setSelectedColor('#6A4E42')}
+            ></button>
+            <button
+              style={{ backgroundColor: '#4B3621' }}
+              className="w-10 h-10 rounded-full border"
+              onClick={() => setSelectedColor('#4B3621')}
+            ></button>
+              <button
+              style={{ backgroundColor: '#FF8C00' }}
+              className="w-10 h-10 rounded-full border"
+              onClick={() => setSelectedColor('#FF8C00')}
+            ></button>
           </div>
-        ))}
-        <label htmlFor="sizeSlider" className="block text-white mt-4 mb-2">Size:</label>
-        <input
-          type="range"
-          id="sizeSlider"
-          min="0.1"
-          max="2.0"
-          step="0.1"
-          defaultValue="1.0"
-          onChange={onSizeChange}
-          className="w-full"
-        />
-        <button
-          onClick={takePhoto}
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-        >
-          Take Photo
-        </button>
+          <label htmlFor="sizeSlider" className="block text-white mt-4 mb-2">Size:</label>
+          <input
+            type="range"
+            id="sizeSlider"
+            min="0.1"
+            max="2.0"
+            step="0.1"
+            defaultValue="1.0"
+            onChange={onSizeChange}
+            className="w-full"
+          />
+        </div>
+        <div className="w-full lg:w-3/4 h-full" ref={containerRef}></div>
+        <div style={{ position: "absolute", top: "270px", left: "350px", display: "flex", flexDirection: "column", gap: "10px" }}>
+          <button
+            onClick={takePhoto}
+            className="px-4 py-2 bg-blue-500 text-white rounded"
+          >
+            Take Photo
+          </button>
+          <button
+            onClick={saveDesignState}
+            className="px-4 py-2 bg-green-500 text-white rounded"
+          >
+            Save Design
+          </button>
+          <button
+            onClick={loadDesignState}
+            className="px-4 py-2 bg-yellow-500 text-white rounded"
+          >
+            Load Design
+          </button>
+        </div>
       </div>
-      <div className="w-full lg:w-3/4 h-full" ref={containerRef}></div>
+      <Footer />
     </div>
   );
 };
 
-export default HandModelViewer;
+export default ThreeDModel;

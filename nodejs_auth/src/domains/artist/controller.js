@@ -1,11 +1,13 @@
 const Artist = require('./model');
 const bcrypt = require('bcryptjs');
+const createToken = require("./../../util/createToken");
 const sendEmail = require('../../util/sendEmail');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
+const verifyToken = require('./../../middleware/auth');
+const catchAsyncError = require('./../../middleware/catchAsyncError');
 
-// Configure storage
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'uploads/');
@@ -81,33 +83,6 @@ exports.approveArtist = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
-
-exports.loginArtist = async (req, res) => {
-    try {
-        const { username, password } = req.body;
-
-        const artist = await Artist.findOne({ username });
-        if (!artist || !artist.is_approved) {
-            return res.status(401).json({ message: 'Invalid credentials or account not approved' });
-        }
-
-        const isMatch = await bcrypt.compare(password, artist.password);
-        if (!isMatch) {
-            return res.status(401).json({ message: 'Invalid credentials' });
-        }
-
-        const token = jwt.sign(
-            { id: artist._id, username: artist.username },
-            process.env.JWT_SECRET,
-            { expiresIn: '1h' }
-        );
-
-        res.status(200).json({ token, message: 'Login successful' });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
 exports.getAllArtists = async (req, res) => {
     try {
         const artists = await Artist.find({});
@@ -116,3 +91,89 @@ exports.getAllArtists = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+// Controller function to handle artist login
+exports.loginArtist = async (req, res) => {
+    try {
+      const { username, password } = req.body;
+  
+      const artist = await Artist.findOne({ username });
+      if (!artist || !artist.is_approved) {
+        return res.status(401).json({ message: "Invalid credentials or account not approved" });
+      }
+  
+      const isMatch = await bcrypt.compare(password, artist.password);
+      if (!isMatch) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+  
+      // Create user token with artistId
+      const tokenData = { artistId: artist._id, email: artist.email };
+      const token = await createToken(tokenData);
+  
+      res.status(200).json({ token, message: "Login successful" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: error.message });
+    }
+  };
+  
+  // Controller function to change artist's password
+  exports.changePassword = [
+    verifyToken,
+    async (req, res) => {
+      const { oldPassword, password, confirmPassword } = req.body;
+  
+      if (!oldPassword || !password || !confirmPassword) {
+        return res.status(400).json({
+          success: false,
+          message: "Please provide old password, new password, and confirm password",
+        });
+      }
+  
+      if (password !== confirmPassword) {
+        return res.status(400).json({
+          success: false,
+          message: "New password and confirm password do not match",
+        });
+      }
+  
+      try {
+        const artist = await Artist.findById(req.currentUser.artistId).select("+password");
+  
+        if (!artist) {
+          return res.status(404).json({
+            success: false,
+            message: "Artist not found",
+          });
+        }
+  
+        const isPasswordMatched = await bcrypt.compare(oldPassword, artist.password);
+        if (!isPasswordMatched) {
+          return res.status(400).json({
+            success: false,
+            message: "Old password is incorrect",
+          });
+        }
+  
+        // Update password hash
+        artist.password = await bcrypt.hash(password, 10);
+        await artist.save();
+  
+        // Generate new token with updated credentials
+        const tokenData = { artistId: artist._id, email: artist.email };
+        const token = await createToken(tokenData);
+  
+        res.status(200).json({
+          success: true,
+          message: "Password updated successfully",
+          token: token,
+        });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+      }
+    },
+  ];
+  
+  module.exports = exports;

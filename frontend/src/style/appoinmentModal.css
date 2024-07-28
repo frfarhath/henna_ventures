@@ -1,0 +1,36 @@
+
+.modal-main2 {
+    background-color: white;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 3px 5px rgba(213, 192, 192, 0.3);
+    width: 60%;
+}
+
+.modalbody2{
+    display: flex;
+    margin-top: 10px;
+    padding: 10px;
+}
+.modalset{
+    width: 45%;
+    margin-left: 20px;
+}
+
+.modalsavebtn2{
+    background-color: rgb(2, 99, 2);
+    padding: 5px;
+    width: 10%;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.modalcancelbtn2{
+    background-color: rgb(57, 58, 57);
+    padding: 5px;
+    width: 10%;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
