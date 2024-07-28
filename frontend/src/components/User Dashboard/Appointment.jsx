@@ -5,7 +5,7 @@ import packagesImage from '../../images/packages.jpg'; // Adjust the path as nee
 
 const Appointment = () => {
   return (
-    <div className="flex flex-col items-center justify-center bg-[#f5f0eb] p-6 min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#f5f0eb] p-6">
       <h2 className="text-3xl font-bold mb-6 text-center text-[#804f0e] animate-fade-in-up animate-pulse-text">Please Select Relevant Appointment</h2>
       <div className="flex flex-col sm:flex-row space-y-6 sm:space-y-0 sm:space-x-6">
         <Link to="/appointment/individual" className="relative group w-64 h-64 sm:w-80 sm:h-80 shadow-brown rounded-lg overflow-hidden transition-transform transform hover:scale-105 bg-white">

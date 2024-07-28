@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const artistRoutes = require('../domains/artist');
-const contactRoutes = require('../domains/contact');
 const userRoutes = require("../domains/user");
 const OTPRoutes = require("../domains/otp");
 const EmailVerificationRoutes = require("../domains/email_verification");
@@ -18,7 +17,7 @@ router.use("/user", userRoutes);
 router.use("/otp", OTPRoutes);
 router.use("/email_verification", EmailVerificationRoutes);
 router.use("/forgot_password", ForgotPasswordRoutes);
-router.use("/artist", artistRoutes); 
+router.use("/artist", artistRoutes); // Added artist routes
 router.use('/individual', individualRoutes);
-router.use('/contactus', contactRoutes);
+
 module.exports = router;

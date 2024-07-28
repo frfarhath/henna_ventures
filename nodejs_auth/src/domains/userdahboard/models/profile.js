@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-
+const mongoose = require('mongoose')
 const profileSchema = mongoose.Schema({
 
     fullname: {
@@ -24,14 +22,6 @@ const profileSchema = mongoose.Schema({
         required: true
     }
     
-});
-
-profileSchema.pre('save', async function(next) {
-    const user = this;
-    if(!user.isModified('password')) return next();
-    const hash = await bcrypt.hash(user.password, 10);
-    user.password = hash;
-    next();
 });
 
 module.exports = mongoose.model('Profile', profileSchema);

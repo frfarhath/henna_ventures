@@ -42,9 +42,6 @@ function RegistrationForm() {
     const validationError = validateForm(formObject);
     if (validationError) {
       setError(validationError);
-      setTimeout(() => {
-        setError('');
-      }, 2000);
       return;
     }
   
@@ -62,9 +59,6 @@ function RegistrationForm() {
       console.log(response.data);
       setSuccess(response.data.message);
       setError(null);
-      setTimeout(() => {
-        setError('');
-      }, 2000);
   
       // Redirect to OTP verification page with email
       navigate("/verify-otp", { state: { email: formObject.email } });
@@ -72,9 +66,6 @@ function RegistrationForm() {
       console.error("There was an error!", error.response?.data || error.message);
       setError(error.response?.data?.message || "An error occurred during registration.");
       setSuccess(null);
-      setTimeout(() => {
-        setError('');
-      }, 2000);
     }
   };
 

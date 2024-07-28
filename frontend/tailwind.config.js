@@ -9,10 +9,6 @@ module.exports = {
       boxShadow: {
         'brown': '0 10px 20px rgba(128, 79, 14, 0.15), 0 6px 6px rgba(128, 79, 14, 0.10)',
       },
-      fontFamily: {
-        'dancing-script': ['Dancing Script', 'cursive'],
-        'comic': ['"Comic Sans MS"', 'cursive', 'sans-serif'],
-      },
       scale: {
         '105': '1.05',
       },

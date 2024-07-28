@@ -5,7 +5,7 @@ const GoBackFooter = ({ total, onNext, onBack }) => {
     <footer className="footer">
       <div className="footer-content">
         <div className="total-amount">Total: {total} LKR</div>
-        <div className="button-group1">
+        <div className="button-group">
           <button onClick={onBack} className="footer-button">
             Go Back
           </button>

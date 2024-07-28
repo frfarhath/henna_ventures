@@ -27,7 +27,7 @@ export default function Message() {
   return (
     <div>
       <NewNav />
-      <h2 className="font-comic text-4xl mb-[20px] mt-5 text-left pl-8">Message on Card</h2>
+      <h2>Message on Card</h2>
       <ProgressBar value={1.0} />
 
       <div className="message-container">

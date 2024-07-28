@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaSearch } from 'react-icons/fa';
-import NewNav from '../components/NewNav';
+import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
 
 // Import images
@@ -43,7 +43,7 @@ const MehendiGallery = () => {
   return (
     <div className="repo-page" style={{ backgroundColor: 'white' }}>
       {/* Navbar */}
-      <NewNav/>
+      <NavigationBar />
       <div className="services-page">
         <header className="service-header">
           <div className="service-overlay">
