@@ -272,7 +272,7 @@ h3 {
   margin-right: 10px;
   padding: 5px;
 }
-/* .add-appointmentt-button {
+.add-appointmentt-button {
   background-color: #804f0e;
   border: none;
   color: white;
@@ -285,7 +285,7 @@ h3 {
   cursor: pointer;
   border-radius: 8px;
   transition: background-color 0.3s ease;
-} */
+}
 
 .add-appointmentt-button:hover {
   background-color: #633b0b;
@@ -347,15 +347,15 @@ button:focus {
   padding: 5px;
 }
 
-/* .form-control {
+.form-control {
   width: auto;
   padding: 5px; 
   font-size: 16px; 
   color: black;
   background-color: #fff;
-  border: 1px solid #804f0e; 
+  /* border: 1px solid #804f0e;  */
   border-radius: 4px; 
-} */
+}
 
 /* Status dropdown styling */
 .status-dropdown {
@@ -629,7 +629,7 @@ input[type="password"]:focus {
   color: white;
 }
 /* Base styles */
-.sidebar {
+.artist-sidebar {
   display: flex;
   padding: 20px;
 }

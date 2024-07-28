@@ -95,10 +95,10 @@ const Cart = () => {
           <table>
             <thead>
               <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Select</th>
+              <th class="bg-[#804f0e] text-white">Product</th>
+              <th class="bg-[#804f0e] text-white">Quantity</th>
+              <th class="bg-[#804f0e] text-white">Total</th>
+              <th class="bg-[#804f0e] text-white">Select</th>
               </tr>
             </thead>
             <tbody>

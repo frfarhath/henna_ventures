@@ -10,7 +10,7 @@ export default function CheckoutInfo() {
     <div>
       <NewNav />
       <br />
-      <div className="message-containerr">
+      <div className="message-container">
         <div className="main-contentt">
         <h3 className="font-comic text-2xl mb-[-10px] text-center">Reciever's Information</h3>
           <br />

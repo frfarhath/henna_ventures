@@ -51,6 +51,7 @@ const PackageForm = () => {
       });
       const resdata = await res.data;
       console.log(resdata);
+      alert('Success ! Package Adding')
       window.location.reload();
 
     } catch (error) {

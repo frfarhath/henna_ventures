@@ -101,7 +101,7 @@ function App() {
             <Route path="/appointment/individual" element={<AppointmentForm />} />
             <Route path="/appointment/packages" element={<PackageForm />} />
             <Route path="ratings" element={<Rating />} />
-            <Route path="userdash" element={<MyCollection />} />
+            <Route path="collection" element={<MyCollection />} />
 
           </Route>
         </Routes>
