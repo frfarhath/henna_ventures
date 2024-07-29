@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 import "../style/modal.css";
 
-import Dropdown from "../components/Admin/dropdown";
+import Dropdown from "../components/dropdown";
 
 const RepositoryModal = ({ show, handleClose }) => {
 
@@ -32,7 +32,7 @@ const RepositoryModal = ({ show, handleClose }) => {
                 "repoImage": image
             };
 
-            const res = await axios.post('http://localhost:8000/api/v1/admin/repoupload', postdata, {
+            const res = await axios.post('http://localhost:8000/api/admin/repoupload', postdata, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },

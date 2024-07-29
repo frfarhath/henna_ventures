@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import "../style/modal.css";
-import Dropdown from "../components/Admin/dropdown";
+
+import Dropdown from "../components/dropdown";
 
 const ProductModal = ({ show, handleClose }) => {
 
@@ -41,7 +42,7 @@ const ProductModal = ({ show, handleClose }) => {
                 "image3": image3,
             };
 
-            const res = await axios.post('http://localhost:8000/api/v1/admin/addProduct', postdata, {
+            const res = await axios.post('http://localhost:8000/api/admin/addProduct', postdata, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },

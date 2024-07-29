@@ -35,7 +35,7 @@ const AcceptArtist = ({ show, handleClose, passing }) => {
                 "password": password,
             };
 
-            const res = await axios.post('http://localhost:8000/api/v1/admin/addConfirmArtist', postdata, {
+            const res = await axios.post('http://localhost:8000/api/admin/addConfirmArtist', postdata, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
