@@ -9,81 +9,135 @@ import Head from '../../components/Admin/head';
 import StarRating from '../../components/Admin/starrating';
 import FetchStar from '../../components/Admin/fetchstar';
 import { MdDelete } from 'react-icons/md';
+import Loading from '../components/loading';
+
 
 class Review extends Component {
+
     constructor(props) {
         super(props);
+
         this.state = {
-            searchQuery: '',
-            reviews: [
-                {
-                    date: '03/04/2023',
-                    review: 'AWESOME...',
-                    rating: 5,
-                    artist: 'John Doe'
-                },
-                {
-                    date: '04/04/2023',
-                    review: 'Amazing experience!',
-                    rating: 4,
-                    artist: 'Jane Smith'
-                },
-                {
-                    date: '05/04/2023',
-                    review: 'Could be better.',
-                    rating: 3,
-                    artist: 'John Doe'
-                }
-            ]
+            fetchArray: [],
+            loading: true,
+            StarsTotalArray: [],
+            highStarLabel: 0
+        }
+    }
+
+    componentDidMount() {
+
+        const fetchData = async () => {
+            try {
+                const res = await axios.get('http://localhost:8000/api/v1/admin/getReview');
+                const resdata = await res.data;
+
+                const subArray = [];
+                resdata.map((item) => {
+                    subArray.push({
+                        ...item,
+                        'rating': parseInt(item.rate, 10)
+                    })
+                });
+
+                const star1Array = [];
+                const star2Array = [];
+                const star3Array = [];
+                const star4Array = [];
+                const star5Array = [];
+
+                subArray.map((item) => {
+                    if (item.rate === '5') {
+                        star5Array.push(item)
+                    }
+                    if (item.rate === '4') {
+                        star4Array.push(item)
+                    }
+                    if (item.rate === '3') {
+                        star3Array.push(item)
+                    }
+                    if (item.rate === '2') {
+                        star2Array.push(item)
+                    }
+                    if (item.rate === '1') {
+                        star1Array.push(item)
+                    }
+                })
+
+                const totArray = [
+                    {
+                        value: star5Array.length,
+                        label: '5',
+                    },
+                    {
+                        value: star4Array.length,
+                        label: '4',
+                    },
+                    {
+                        value: star3Array.length,
+                        label: '3',
+                    },
+                    {
+                        value: star2Array.length,
+                        label: '2',
+                    },
+                    {
+                        value: star1Array.length,
+                        label: '1',
+                    },
+                ]
+
+                this.setState({
+                    StarsTotalArray: totArray
+                });
+
+                const highestStar = totArray.reduce((prev, current) =>
+                    prev.value > current.value ? prev : current
+                );
+
+                const highstar = parseInt(highestStar.label, 10)
+
+                this.setState({
+                    fetchArray: subArray,
+                    loading: false,
+                    highStarLabel: highstar
+                });
+
+            } catch (error) {
+                console.log('Main Error', error);
+            }
         };
+        fetchData();
+
     }
 
-    handleSearch = (event) => {
-        this.setState({ searchQuery: event.target.value });
-    }
+    handleDlete = async (id) => {
 
-    handleRemove = (index) => {
-        this.setState(prevState => {
-            const reviews = [...prevState.reviews];
-            reviews.splice(index, 1);
-            return { reviews };
-        });
-    }
+        try {
+
+            const res = await axios.delete(`http://localhost:8000/api/v1/admin/deleteReview/${id}`);
+
+            const resdata = await res.data;
+            console.log(resdata);
+            alert('Successfully ! Review Deleting')
+            window.location.reload();
+
+        } catch (error) {
+            console.log('Main Error', error);
+            alert('Failed ! Review Deleting')
+            window.location.reload();
+        }
+
+    };
+
 
     render() {
-        const { searchQuery, reviews } = this.state;
-
-        const filteredReviews = reviews.filter(review =>
-            review.artist.toLowerCase().includes(searchQuery.toLowerCase())
-        );
 
         const chartSetting = {
             width: 350,
-            height: 150,
+            height: 125,
         };
 
-        const dataset = [
-            {
-                seoul: 99,
-                month: '5',
-            },
-            {
-                seoul: 144,
-                month: '4',
-            },
-            {
-                seoul: 319,
-                month: '3',
-            },
-            {
-                seoul: 249,
-                month: '2',
-            },
-            {
-                seoul: 131,
-                month: '1',
-            },
-        ];
 
         return (
             <div className='body'>
@@ -96,103 +150,129 @@ class Review extends Component {
 
                     <div className='conbody'>
 
-                        <div className='producthead'>
-                            <h3 className='productheadtxt'>RATE & REVIEWS</h3>
-                        </div>
-
-                        <div className='row1'>
-
-                            <div className='cardrating'>
-
-                                <div className='rateitem1'>
-                                    <h1 className='ratetxt1'>4.6</h1>
-                                    <StarRating totalStars={5} />
+                        {!this.state.loading && (
+                            <div>
+                                <div className='producthead'>
+                                    <h3 className='productheadtxt'>RATE & REVIEWS</h3>
                                 </div>
 
-                                <div className='rateitem2'>
-                                    <BarChart
-                                        dataset={dataset}
-                                        yAxis={[{ scaleType: 'band', dataKey: 'month' }]}
-                                        series={[{
-                                            dataKey: 'seoul',
-                                            color: ['#ff7c43']
-                                        }]}
-                                        layout="horizontal"
-                                        grid={{ vertical: true }}
-                                        {...chartSetting}
-                                        margin={{ top: 5, bottom: 30, left: 15, right: 20 }}
-                                    />
-                                </div>
+                                <div className='row1'>
 
-                            </div>
+                                    <div className='cardrating'>
 
-                            <div className='card'>
-                                <div className='ratecount'>
-                                    <h4 className='ratecounttxt'>Total Reviews and Rate</h4>
-                                </div>
-                                <div className='ratecount2'>
-                                    <h1 className='ratecounttxt'>125</h1>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div className='review-search-bar'>
-                            <input
-                                type='text'
-                                placeholder='Search by artist name...'
-                                value={searchQuery}
-                                onChange={this.handleSearch}
-                                className='review-search-input'
-                            />
-                        </div>
-
-                        <div className='rownew'>
-
-                            <div className='reviewcard'>
-
-                                <table className='review-table'>
-                                    <thead>
-                                        <tr>
-                                            <th style={{ width: '10%' }}>DATE</th>
-                                            <th style={{ width: '30%' }}>REVIEW</th>
-                                            <th style={{ width: '30%' }}>ARTIST</th>
-                                            <th style={{ width: '20%' }}>RATING</th>
-                                            <th style={{ width: '10%' }}>REMOVE</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {filteredReviews.map((review, index) => (
-                                            <tr key={index}>
-                                                <td style={{ width: '10%' }}>{review.date}</td>
-                                                <td style={{ width: '30%' }}>{review.review}</td>
-                                                <td style={{ width: '30%' }}>{review.artist}</td>
-                                                <td style={{ width: '20%' }}>
-                                                    <FetchStar totalStars={review.rating} />
-                                                </td>
-                                                <td style={{ width: '10%' }}>
-                                                    <MdDelete
-                                                        size={22}
-                                                        className='MdDelete'
-                                                        onClick={() => this.handleRemove(index)}
+                                        <div className='rateitem1'>
+                                            <h1 className='ratetxt1'>{this.state.highStarLabel}</h1>
+                                            <div className="flex items-center">
+                                                {[...Array(this.state.highStarLabel)].map((index) => (
+                                                    <FaStar
+                                                        key={index}
+                                                        style={{ color: 'rgb(215, 184, 4)' }}
+                                                        size={30}
                                                     />
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                                                ))}
+                                                {[...Array(5 - this.state.highStarLabel)].map((index) => (
+                                                    <FaStar
+                                                        key={index}
+                                                        style={{ color: 'rgb(158, 157, 157)' }}
+                                                        size={30}
+                                                    />
+                                                ))}
+                                            </div>
+                                        </div>
 
+                                        <div className='rateitem2'>
+                                            <BarChart
+                                                dataset={this.state.StarsTotalArray}
+                                                yAxis={[{ scaleType: 'band', dataKey: 'label' }]}
+                                                series={[{
+                                                    dataKey: 'value',
+                                                    color: ['#ff7c43']
+                                                }]}
+                                                layout="horizontal"
+                                                grid={{ vertical: true }}
+                                                {...chartSetting}
+                                                margin={{ top: 5, bottom: 30, left: 15, right: 20 }}
+                                            />
+                                        </div>
+
+                                    </div>
+
+                                    <div className='card'>
+                                        <div className='ratecount'>
+                                            <h4 className='ratecounttxt'>Total Reviews and Rate</h4>
+                                        </div>
+                                        <div className='ratecount2'>
+                                            <h1 className='ratecounttxt'>{this.state.fetchArray.length}</h1>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div className='rownew' style={{ marginTop: '2rem' }}>
+                                    <div className='reviewcard'>
+
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>DATE</th>
+                                                    <th>REVIEW</th>
+                                                    <th>ARTIST</th>
+                                                    <th>RATING</th>
+                                                    <th>REMOVE</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                {this.state.fetchArray.map((item, index) => (
+
+                                                    <tr key={index}>
+                                                        <td>{item.date}</td>
+                                                        <td>{item.review}</td>
+                                                        <td>{item.artist}</td>
+
+                                                        <td>
+                                                            <div className="flex items-center">
+                                                                {[...Array(item.rating)].map((star, index) => (
+                                                                    <FaStar
+                                                                        key={index}
+                                                                        style={{ color: 'rgb(215, 184, 4)' }}
+                                                                        size={23}
+                                                                    />
+                                                                ))}
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div style={{ display: 'flex', justifyContent: 'center' }} className='action'>
+                                                                <MdDelete size={22} className='MdDelete' onClick={() => this.handleDlete(item._id)} />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                ))}
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
                             </div>
+                        )}
 
-                        </div>
+                        {this.state.loading && (
+                            <div style={{ marginTop: '2rem' }}>
+                                <Loading />
+                            </div>
+                        )}
 
                     </div>
 
                 </div>
-
             </div>
         )
+
     }
+
+
 };
 
 export default Review;
