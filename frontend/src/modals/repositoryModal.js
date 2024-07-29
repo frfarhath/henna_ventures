@@ -32,7 +32,7 @@ const RepositoryModal = ({ show, handleClose }) => {
                 "repoImage": image
             };
 
-            const res = await axios.post('http://localhost:8000/api/admin/repoupload', postdata, {
+            const res = await axios.post('http://localhost:8000/api/v1/admin/repoupload', postdata, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
