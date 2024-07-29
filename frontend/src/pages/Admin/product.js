@@ -67,7 +67,7 @@ class Product extends Component {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/admin/getProduct');
+                const res = await axios.get('http://localhost:8000/api/v1/admin/getProduct');
                 const resdata = await res.data;
 
                 this.setState({
@@ -86,7 +86,7 @@ class Product extends Component {
 
         try {
 
-            const res = await axios.delete(`http://localhost:8000/api/admin/deleteProduct/${id}`);
+            const res = await axios.delete(`http://localhost:8000/api/v1/admin/deleteProduct/${id}`);
 
             const resdata = await res.data;
             console.log(resdata);
