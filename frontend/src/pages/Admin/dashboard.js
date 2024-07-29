@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import "../../style/dashboard.css";
+import axios from 'axios';
+import "../style/dashboard.css";
 import { PieChart } from 'react-minimal-pie-chart';
-
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-
-import { RiAlignTop } from 'react-icons/ri';
+import { RiAlignItemTopFill } from "react-icons/ri";
 import { PiHourglassLowFill } from "react-icons/pi";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 
-import SideBar from '../../components/Admin/sidebar';
-import Head from '../../components/Admin/head';
+import SideBar from '../components/sidebar';
+import Head from '../components/head';
 import Loading from '../components/loading';
 import DashboardStock from '../modals/dashboarStockModal';
 import DashStockModal2 from '../modals/dashStockModal2';

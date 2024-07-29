@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import "../../style/dashboard.css";
-import "../../style/rating.css";
+import axios from 'axios';
+import "../style/dashboard.css";
+import "../style/rating.css";
 import { BarChart } from '@mui/x-charts/BarChart';
 
-import SideBar from '../../components/Admin/sidebar';
-import Head from '../../components/Admin/head';
-
-import StarRating from '../../components/Admin/starrating';
-import FetchStar from '../../components/Admin/fetchstar';
-import { MdDelete } from 'react-icons/md';
+import SideBar from '../components/sidebar';
+import Head from '../components/head';
+import { MdDelete } from "react-icons/md";
+import { FaStar } from 'react-icons/fa';
 import Loading from '../components/loading';
 
 
@@ -29,7 +28,7 @@ class Review extends Component {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/v1/admin/getReview');
+                const res = await axios.get('http://localhost:8000/api/admin/getReview');
                 const resdata = await res.data;
 
                 const subArray = [];
@@ -115,7 +114,7 @@ class Review extends Component {
 
         try {
 
-            const res = await axios.delete(`http://localhost:8000/api/v1/admin/deleteReview/${id}`);
+            const res = await axios.delete(`http://localhost:8000/api/admin/deleteReview/${id}`);
 
             const resdata = await res.data;
             console.log(resdata);

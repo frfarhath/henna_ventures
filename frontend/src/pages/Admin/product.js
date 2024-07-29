@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import "../../style/dashboard.css";
-import "../../style/product.css";
+import axios from 'axios';
 
-import p1 from "../../images/p1.jpg";
+import "../style/dashboard.css";
+import "../style/product.css";
 
-import SideBar from '../../components/Admin/sidebar';
-import Head from '../../components/Admin/head';
+import SideBar from '../components/sidebar';
+import Head from '../components/head';
 
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { IoSearchOutline } from "react-icons/io5";
@@ -13,9 +13,9 @@ import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa";
 
-import ProductModal from '../../modals/productModal';
-import EditProduct from '../../modals/edit/editproduct';
-import UpdateStock from '../../modals/edit/updatestock';
+import ProductModal from '../modals/productModal';
+import EditProduct from '../modals/edit/editproduct';
+import UpdateStock from '../modals/edit/updatestock';
 import Loading from '../components/loading';
 
 class Product extends Component {
@@ -67,7 +67,7 @@ class Product extends Component {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/v1/admin/getProduct');
+                const res = await axios.get('http://localhost:8000/api/admin/getProduct');
                 const resdata = await res.data;
 
                 this.setState({
@@ -86,7 +86,7 @@ class Product extends Component {
 
         try {
 
-            const res = await axios.delete(`http://localhost:8000/api/v1/admin/deleteProduct/${id}`);
+            const res = await axios.delete(`http://localhost:8000/api/admin/deleteProduct/${id}`);
 
             const resdata = await res.data;
             console.log(resdata);

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import "../../style/dashboard.css";
-import "../../style/messages.css";
+import axios from 'axios';
+import "../style/dashboard.css";
+import "../style/messages.css";
 
-import SideBar from '../../components/Admin/sidebar';
-import Head from '../../components/Admin/head';
+import SideBar from '../components/sidebar';
+import Head from '../components/head';
 import Loading from '../components/loading';
 
 class DisplayMessages extends Component {
@@ -20,7 +21,7 @@ class DisplayMessages extends Component {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/v1/admin/getMessage');
+                const res = await axios.get('http://localhost:8000/api/admin/getMessage');
                 const resdata = await res.data;
 
                 this.setState({

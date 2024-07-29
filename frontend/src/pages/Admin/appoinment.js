@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import "../../style/dashboard.css";
-import "../../style/product.css";
+import axios from 'axios';
 
+import "../style/dashboard.css";
+import "../style/product.css";
 import { FaCheckCircle } from "react-icons/fa";
 
-import SideBar from '../../components/Admin/sidebar';
-import Head from '../../components/Admin/head';
-
-import Dropdown from '../../components/Admin/dropdown';
-import DetailModal from '../../modals/detailsModal';
+import SideBar from '../components/sidebar';
+import Head from '../components/head';
+import DetailModal from '../modals/detailsModal';
 import Loading from '../components/loading';
 
 
@@ -47,7 +46,7 @@ class Appoinment extends Component {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/v1/admin/getAppoinmentPackage');
+                const res = await axios.get('http://localhost:8000/api/admin/getAppoinmentPackage');
                 const resdata = await res.data;
 
                 this.setState({
@@ -63,7 +62,7 @@ class Appoinment extends Component {
 
         const fetchData2 = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/v1/admin/getConfirmArtist');
+                const res = await axios.get('http://localhost:8000/api/admin/getConfirmArtist');
                 const resdata = await res.data;
 
                 this.setState({
@@ -78,7 +77,7 @@ class Appoinment extends Component {
 
         const fetchData3 = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/v1/admin/getAppoinmentIndividual');
+                const res = await axios.get('http://localhost:8000/api/admin/getAppoinmentIndividual');
                 const resdata = await res.data;
 
                 this.setState({
@@ -134,7 +133,7 @@ class Appoinment extends Component {
                     "artist": item.artist,
                 };
 
-                const res = await axios.post('http://localhost:8000/api/v1/admin/addConfirmAppoinmentPackage', postdata, {
+                const res = await axios.post('http://localhost:8000/api/admin/addConfirmAppoinmentPackage', postdata, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     },
@@ -145,7 +144,7 @@ class Appoinment extends Component {
 
                 try {
 
-                    const res = await axios.delete(`http://localhost:8000/api/v1/admin/deleteAppoinmentPackage/${item._id}`);
+                    const res = await axios.delete(`http://localhost:8000/api/admin/deleteAppoinmentPackage/${item._id}`);
 
                     const resdata = await res.data;
                     console.log(resdata);
@@ -192,7 +191,7 @@ class Appoinment extends Component {
                     "artist": item.artist,
                 };
 
-                const res = await axios.post('http://localhost:8000/api/v1/admin/addConfirmAppoinmentIndividual', postdata, {
+                const res = await axios.post('http://localhost:8000/api/admin/addConfirmAppoinmentIndividual', postdata, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     },
@@ -203,7 +202,7 @@ class Appoinment extends Component {
 
                 try {
 
-                    const res = await axios.delete(`http://localhost:8000/api/v1/admin/deleteAppoinmentIndividual/${item._id}`);
+                    const res = await axios.delete(`http://localhost:8000/api/admin/deleteAppoinmentIndividual/${item._id}`);
 
                     const resdata = await res.data;
                     console.log(resdata);
