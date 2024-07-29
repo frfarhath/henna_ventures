@@ -65,34 +65,8 @@
     margin-top: 10px;
 }
 
-.review-search-bar {
-    margin: 20px 0;
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-}
 
-.review-search-input {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: 300px;
-    font-size: 16px;
-}
 
-.review-table .MdDelete {
-    color: red;
-    cursor: pointer;
-}
-
-.review-table .MdDelete:hover {
-    color: rgb(126, 3, 3);
-}
-
-.card{
-    margin-right: 30px;
-    width: 75%;
-    height: 85%;
-    border-radius: 10px;
-    padding: 10px;
+.test{
+    color: rgb(158, 157, 157);
 }
