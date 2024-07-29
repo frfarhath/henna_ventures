@@ -16,6 +16,7 @@ import { FaCartPlus } from "react-icons/fa";
 import ProductModal from '../../modals/productModal';
 import EditProduct from '../../modals/edit/editproduct';
 import UpdateStock from '../../modals/edit/updatestock';
+import Loading from '../components/loading';
 
 class Product extends Component {
     constructor(props) {
@@ -24,25 +25,10 @@ class Product extends Component {
             show: false,
             showedit: false,
             showupdate: false,
-            productArray: [
-                {
-                    number: 1,
-                    image: p1,
-                    name: 'Nail cone',
-                    description: 'It is a natural Mehndi product for your beautiful nail',
-                    price: 'Rs.250',
-                    category: 'Mehndi product',
-                    available: '10',
-                },
-                // ... (other products)
-            ],
-            passingArray: {
-                number: null,
-                name: null,
-                description: null,
-                price: null,
-                available: null,
-            }
+            fetchArray: [],
+            loading: true,
+
+            passingArray: {}
         };
     }
 
@@ -76,14 +62,45 @@ class Product extends Component {
         this.setState({ showupdate: false });
     }
 
-    handleStockUpdate = (productNumber, newStock) => {
-        const updatedProducts = this.state.productArray.map(product =>
-            product.number === productNumber
-                ? { ...product, available: newStock }
-                : product
-        );
-        this.setState({ productArray: updatedProducts });
+
+    componentDidMount() {
+
+        const fetchData = async () => {
+            try {
+                const res = await axios.get('http://localhost:8000/api/admin/getProduct');
+                const resdata = await res.data;
+
+                this.setState({
+                    fetchArray: resdata,
+                    loading: false
+                });
+
+            } catch (error) {
+                console.log('Main Error', error);
+            }
+        };
+        fetchData();
     }
+
+    handleDlete = async (id) => {
+
+        try {
+
+            const res = await axios.delete(`http://localhost:8000/api/admin/deleteProduct/${id}`);
+
+            const resdata = await res.data;
+            console.log(resdata);
+            alert('Successfully ! Product Deleting')
+            window.location.reload();
+
+        } catch (error) {
+            console.log('Main Error', error);
+            alert('Failed ! Product Deleting')
+            window.location.reload();
+        }
+
+    };
+
 
     render() {
         return (
@@ -92,9 +109,11 @@ class Product extends Component {
                 <div className='content'>
                     <Head />
                     <div className='conbody'>
+
                         <div className='producthead'>
                             <h3 className='productheadtxt'>PRODUCTS</h3>
                         </div>
+
                         <div className='productadd'>
                             <div className='add'>
                                 <IoIosAddCircleOutline size={22} style={{ color: 'white' }} />
@@ -105,51 +124,75 @@ class Product extends Component {
                                 <input className='searchinpu' placeholder='search by product name' />
                             </div>
                         </div>
+
+
                         <div className='producttable'>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>NO</th>
-                                        <th>IMAGE</th>
-                                        <th>PRODUCT NAME</th>
-                                        <th>DESCRIPTION</th>
-                                        <th>PRICE</th>
-                                        <th>CATEGORY</th>
-                                        <th>AVAILABLE</th>
-                                        <th>ACTION</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.state.productArray.map((item, index) => (
-                                        <tr key={index} style={{ height: '70px' }}>
-                                            <td>{item.number}</td>
-                                            <td style={{ justifyContent: 'center', display: 'flex' }}>
-                                                <div className='productimgcard'>
-                                                    <img src={item.image} alt="" className='productimg' />
-                                                </div>
-                                            </td>
-                                            <td>{item.name}</td>
-                                            <td>{item.description}</td>
-                                            <td>{item.price}</td>
-                                            <td>{item.category}</td>
-                                            <td>{item.available}</td>
-                                            <td>
-                                                <div className='action'>
-                                                    <FaEdit size={22} style={{ marginRight: 5 }} className='FaEdit' onClick={() => this.showEdit(item)} />
-                                                    <FaCartPlus size={22} color='green' style={{ marginRight: 5 }} className='FaEdit' onClick={() => this.showUpdate(item)} />
-                                                    <MdDelete size={22} className='MdDelete' />
-                                                </div>
-                                            </td>
+
+                            {!this.state.loading && (
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>NO</th>
+                                            <th>IMAGE</th>
+                                            <th>PRODUCT NAME</th>
+                                            <th>DESCRIPTION</th>
+                                            <th>PRICE</th>
+                                            <th>CATEGORY</th>
+                                            <th>AVAILABLE</th>
+                                            <th>ACTION</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+
+                                    <tbody>
+                                        {this.state.fetchArray.map((item, index) => {
+
+                                            const base64String = btoa(
+                                                String.fromCharCode(...new Uint8Array(item.image1.data.data))
+                                            );
+
+                                            return (
+                                                <tr key={index}>
+                                                    <td>{index + 1}</td>
+                                                    <td style={{ justifyContent: 'center', display: 'flex' }}>
+                                                        <div className='productimgcard'>
+                                                            <img src={`data:image/png;base64,${base64String}`} alt="" className='productimg' />
+                                                        </div>
+                                                    </td>
+                                                    <td>{item.name}</td>
+                                                    <td>{item.description}</td>
+                                                    <td>{item.price}</td>
+                                                    <td>{item.category}</td>
+                                                    <td>{item.count}</td>
+                                                    <td>
+                                                        <div style={{ display: 'flex' }} className='action'>
+                                                            <FaEdit size={22} style={{ marginRight: 5 }} className='FaEdit' onClick={() => this.showEdit(item)} />
+                                                            <FaCartPlus size={22} color='green' style={{ marginRight: 5 }} className='FaEdit' onClick={() => this.showUpdate(item)} />
+                                                            <MdDelete size={22} className='MdDelete' onClick={() => this.handleDlete(item._id)} />
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            )
+
+                                        })}
+                                    </tbody>
+                                </table>
+                            )}
+
+                            {this.state.loading && (
+                                <div style={{ marginTop: '2rem' }}>
+                                    <Loading />
+                                </div>
+                            )}
+
                         </div>
+
                     </div>
                 </div>
+
                 <ProductModal show={this.state.show} handleClose={this.hideModal} />
                 <EditProduct show={this.state.showedit} handleClose={this.hideEdit} passing={this.state.passingArray} />
-                <UpdateStock show={this.state.showupdate} handleClose={this.hideUpdate} passing={this.state.passingArray} onStockUpdate={this.handleStockUpdate} />
+                <UpdateStock show={this.state.showupdate} handleClose={this.hideUpdate} passing={this.state.passingArray} />
+
             </div>
         );
     }
