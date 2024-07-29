@@ -1,7 +1,8 @@
 import React from 'react';
 import "../style/orderModal.css";
 
-const OrderModal = ({ show, handleClose, order }) => {
+const OrderModal = ({ show, handleClose, passing }) => {
+
     if (!show) {
         return null;
     }
@@ -24,10 +25,10 @@ const OrderModal = ({ show, handleClose, order }) => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{order.product}</td>
-                                <td>{order.customized}</td>
-                                <td>{order.items}</td>
-                                <td>content message 1</td>
+                                <td>{passing.product}</td>
+                                <td>{passing.custom}</td>
+                                <td>{passing.quantity}</td>
+                                <td>{passing.message}</td>
                             </tr>
                         </tbody>
                     </table>
