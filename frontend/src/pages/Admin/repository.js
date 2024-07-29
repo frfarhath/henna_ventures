@@ -11,6 +11,7 @@ import { FaEdit } from "react-icons/fa";
 
 import RepositoryModal from '../../modals/repositoryModal';
 import EditRepo from '../../modals/edit/editrepo';
+import Loading from '../components/loading';
 
 
 class Repository extends Component {
@@ -21,7 +22,14 @@ class Repository extends Component {
         this.state = {
             show: false,
             showrepo: false,
-            fetchArray: []
+            fetchArray: [],
+            loading: true,
+
+            passingArray: {
+                id: null,
+                name: null,
+                category: null
+            }
         }
 
     }
@@ -32,9 +40,14 @@ class Repository extends Component {
         });
     }
 
-    showRepo = () => {
+    showEdit = (item) => {
         this.setState({
-            showrepo: true
+            showrepo: true,
+            passingArray: {
+                id: item._id,
+                name: item.name,
+                category: item.category
+            }
         });
     }
 
@@ -55,12 +68,13 @@ class Repository extends Component {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/admin/getrepo');
+                const res = await axios.get('http://localhost:8000/api/v1/admin/getrepo');
                 const resdata = await res.data;
 
                 this.setState({
-                    fetchArray: resdata
-                })
+                    fetchArray: resdata,
+                    loading: false
+                });
 
             } catch (error) {
                 console.log('Main Error', error);
@@ -68,6 +82,25 @@ class Repository extends Component {
         };
         fetchData();
     }
+
+    handleDlete = async (id) => {
+
+        try {
+
+            const res = await axios.delete(`http://localhost:8000/api/v1/admin/deleterepo/${id}`);
+
+            const resdata = await res.data;
+            console.log(resdata);
+            alert('Successfully ! Repo Deleting')
+            window.location.reload();
+
+        } catch (error) {
+            console.log('Main Error', error);
+            alert('Failed ! Repo Deleting')
+            window.location.reload();
+        }
+
+    };
 
 
     render() {
@@ -96,56 +129,63 @@ class Repository extends Component {
 
                         <div className='producttable'>
 
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>NO</th>
-                                        <th>IMAGE</th>
-                                        <th>NAME</th>
-                                        <th>CATEGORY</th>
-                                        <th>ACTION</th>
-                                    </tr>
-                                </thead>
+                            {!this.state.loading && (
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>NO</th>
+                                            <th>IMAGE</th>
+                                            <th>NAME</th>
+                                            <th>CATEGORY</th>
+                                            <th>ACTION</th>
+                                        </tr>
+                                    </thead>
 
-                                <tbody>
-                                    {this.state.fetchArray.map((item, index) => {
+                                    <tbody>
+                                        {this.state.fetchArray.map((item, index) => {
 
-                                        const base64String = btoa(
-                                            String.fromCharCode(...new Uint8Array(item.image.data.data))
-                                        );
+                                            const base64String = btoa(
+                                                String.fromCharCode(...new Uint8Array(item.image.data.data))
+                                            );
 
-                                        return (
-                                            <tr key={index}>
-                                                <td>{index + 1}</td>
-                                                <td style={{ justifyContent: 'center', display: 'flex' }}>
-                                                    <div className='repoimgcard'>
-                                                        <img src={`data:image/png;base64,${base64String}`} alt='' className='productimg' />
-                                                    </div>
-                                                </td>
-                                                <td>{item.name}</td>
-                                                <td>{item.category}</td>
-                                                <td>
-                                                    <div style={{ display: 'flex', justifyContent: 'center' }} className='action'>
-                                                        <FaEdit size={22} style={{ marginRight: 5 }} className='FaEdit' onClick={this.showRepo} />
-                                                        <MdDelete size={22} className='MdDelete' />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        )
+                                            return (
+                                                <tr key={index}>
+                                                    <td>{index + 1}</td>
+                                                    <td style={{ justifyContent: 'center', display: 'flex' }}>
+                                                        <div className='repoimgcard'>
+                                                            <img src={`data:image/png;base64,${base64String}`} alt='' className='productimg' />
+                                                        </div>
+                                                    </td>
+                                                    <td>{item.name}</td>
+                                                    <td>{item.category}</td>
+                                                    <td>
+                                                        <div style={{ display: 'flex', justifyContent: 'center' }} className='action'>
+                                                            <FaEdit size={22} style={{ marginRight: 5 }} className='FaEdit' onClick={() => this.showEdit(item)} />
+                                                            <MdDelete size={22} className='MdDelete' onClick={() => this.handleDlete(item._id)} />
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            )
 
-                                    })}
-                                </tbody>
-                            </table>
+                                        })}
+                                    </tbody>
+                                </table>
+                            )}
+
+                            {this.state.loading && (
+                                <div style={{ marginTop: '2rem' }}>
+                                    <Loading />
+                                </div>
+                            )}
 
                         </div>
-
                     </div>
 
                 </div>
 
                 {/* Modal */}
                 <RepositoryModal show={this.state.show} handleClose={this.hideModal} />
-                <EditRepo show={this.state.showrepo} handleClose={this.hideRepo} />
+                <EditRepo show={this.state.showrepo} handleClose={this.hideRepo} passing={this.state.passingArray} />
 
             </div >
         )
