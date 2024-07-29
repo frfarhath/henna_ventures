@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import "../style/modal.css";
-
 import Dropdown from "../components/Admin/dropdown";
 
 const ProductModal = ({ show, handleClose }) => {
@@ -15,7 +15,6 @@ const ProductModal = ({ show, handleClose }) => {
     const [image1, setImage1] = useState(null);
     const [image2, setImage2] = useState(null);
     const [image3, setImage3] = useState(null);
-    const [url1, setUrl1] = useState('');
 
 
     const data = [
@@ -27,9 +26,37 @@ const ProductModal = ({ show, handleClose }) => {
     }
 
     const send = async (e) => {
-
         e.preventDefault();
-        console.log(image1)
+
+        try {
+
+            const postdata = {
+                "name": productname,
+                "description": description,
+                "price": price,
+                "category": category,
+                "count": count,
+                "image1": image1,
+                "image2": image2,
+                "image3": image3,
+            };
+
+            const res = await axios.post('http://localhost:8000/api/v1/admin/addProduct', postdata, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+            });
+
+            const resdata = await res.data;
+            console.log(resdata);
+            alert('Successfully ! Product Added')
+            window.location.reload();
+
+        } catch (error) {
+            console.log('Main Error', error);
+            alert('Failed ! Product Added')
+            window.location.reload();
+        }
 
     }
 
@@ -90,8 +117,10 @@ const ProductModal = ({ show, handleClose }) => {
                             <div style={{ width: '90%' }}>
                                 <input type="file" accept="image/*" className="modalinput"
                                     onChange={(e) => setImage1(e.target.files[0])} />
-                                <input type="file" className="modalinput" />
-                                <input type="file" className="modalinput" />
+                                <input type="file" accept="image/*" className="modalinput"
+                                    onChange={(e) => setImage2(e.target.files[0])} />
+                                <input type="file" accept="image/*" className="modalinput"
+                                    onChange={(e) => setImage3(e.target.files[0])} />
                             </div>
                         </div>
 
