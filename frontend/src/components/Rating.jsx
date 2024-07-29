@@ -87,8 +87,8 @@ const RatingReview = () => {
       <div className="text-center mb-8">
         <img src="https://via.placeholder.com/150" alt="Henna by Divya" className="w-16 h-16 rounded-full mx-auto mb-2" />
         <h3 className="text-xl font-semibold">Henna Ventures</h3>
-        <span className="text-yellow-500 text-2xl">★★★★★</span>
-        <p className="text-gray-600">5.0 (based on 100 reviews)</p>
+        {/* <span className="text-yellow-500 text-2xl">★★★★★</span>
+        <p className="text-gray-600">5.0 (based on 100 reviews)</p> */}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {reviews.map((review, index) => (
@@ -100,7 +100,7 @@ const RatingReview = () => {
               <img src={review.avatar} alt={review.name} className="w-12 h-12 rounded-full mb-2" />
               <h4 className="text-blue-700 text-lg font-semibold">{review.username}</h4>
               <span className="text-gray-500 text-sm">{review.date}</span>
-              <h3 className="text-lg font-bold">Artist : {review.artist}</h3>
+              <h3 className="text-sm font-bold mb-2">Artist : {review.artist}</h3>
               <div className="flex items-center">
                 {/* {Array(review.rate).fill('★').join('')} */}
                 {[1, 2, 3, 4, 5].map((star) => (

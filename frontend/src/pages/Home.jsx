@@ -23,7 +23,7 @@ function Home() {
       <NewNav />
       <header className="home-header">
         <div className="home-overlay">
-        <h1 className="font-dancing-script text-7xl mb-8">Welcome to Henna Ventures</h1>
+        <h1 className="font-dancing-script text-6xl mb-8">Welcome to Henna Ventures</h1>
           <h4 className="font-sans mb-8 text-2xl">Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!</h4>
           <a href="signup">
             <button1>Sign Up Now</button1>

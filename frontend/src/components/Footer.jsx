@@ -6,17 +6,17 @@ import { FaPhoneAlt, FaFacebook, FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
   const Services = [
-    { name: "Henna products", link: "" },
-    { name: "Customize designs", link: "" },
-    { name: "Packages", link: "" },
-    { name: "Mehendi services", link: "" },
+    { name: "Henna products", link: "/product" },
+    { name: "Customize designs", link: "/threedmodel" },
+    { name: "Packages", link: "/package" },
+    { name: "Mehendi designs", link: "/MehendiDesignRepository" },
   ];
 
   const QuickLinks = [
     { id: "home", name: "Home", link: "/" },
-    { id: "about", name: "About", link: "" },
-    { id: "portfolio", name: "Portfolio", link: "portfolio" },
-    { id: "contact", name: "Contact", link: "contactus" },
+    { id: "about", name: "About", link: "/aboutus" },
+    { id: "portfolio", name: "Portfolio", link: "/portfolio" },
+    { id: "contact", name: "Contact", link: "/contact" },
   ];
 
   const SocialMedia = [
