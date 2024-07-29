@@ -43,7 +43,7 @@ class Order extends Component {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/admin/getOrder');
+                const res = await axios.get('http://localhost:8000/api/v1/admin/getOrder');
                 const resdata = await res.data;
 
                 this.setState({
@@ -68,7 +68,7 @@ class Order extends Component {
                 "status": '1'
             };
 
-            const res = await axios.put('http://localhost:8000/api/admin/deliveryUpdate/' + id, postdata, {
+            const res = await axios.put('http://localhost:8000/api/v1/admin/deliveryUpdate/' + id, postdata, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
