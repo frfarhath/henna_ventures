@@ -1,10 +1,43 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../style/modal.css";
 import "../style/orderModal.css";
 
-const DetailModal = ({ show, handleClose }) => {
+const DetailModal = ({ show, handleClose, passing }) => {
 
     const showHideClassName = show ? "modal display-block" : "modal display-none";
+
+    const [firstname, setFirstname] = useState('');
+    const [lastname, setLastname] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [district, setDistrict] = useState('');
+    const [date, setDate] = useState('');
+
+    useEffect(() => {
+
+        if (passing.address) {
+            setFirstname(passing.firstname);
+            setLastname(passing.lastname);
+            setEmail(passing.email);
+            setPhone(passing.phone);
+            setAddress(passing.address);
+            setCity(passing.city);
+            setDistrict(passing.district);
+            setDate(passing.wedding);
+        } else{
+            setFirstname(passing.firstname);
+            setLastname(passing.lastname);
+            setEmail(passing.email);
+            setPhone(passing.phone);
+            setAddress(passing.address1);
+            setCity(passing.city);
+            setDistrict(passing.district);
+            setDate(passing.wedding);
+        }
+
+    }, [passing])
 
     return (
         <div className={showHideClassName}>
@@ -22,39 +55,38 @@ const DetailModal = ({ show, handleClose }) => {
                             <tbody>
                                 <tr>
                                     <th>Fist Name</th>
-                                    <td>Jhone</td>
+                                    <td>{firstname}</td>
                                 </tr>
                                 <tr>
                                     <th>Last Name</th>
-                                    <td>Doe</td>
+                                    <td>{lastname}</td>
                                 </tr>
                                 <tr>
                                     <th>Email</th>
-                                    <td>jhone@example.com</td>
+                                    <td>{email}</td>
                                 </tr>
                                 <tr>
                                     <th>Phone</th>
-                                    <td>011-2673983</td>
+                                    <td>{phone}</td>
                                 </tr>
                                 <tr>
                                     <th>Address</th>
-                                    <td>123, Main St</td>
+                                    <td>{address}</td>
                                 </tr>
                                 <tr>
                                     <th>City</th>
-                                    <td>Colombo</td>
+                                    <td>{city}</td>
                                 </tr>
                                 <tr>
                                     <th>District</th>
-                                    <td>Colombo</td>
+                                    <td>{district}</td>
                                 </tr>
                                 <tr>
                                     <th>Appointment Date</th>
-                                    <td>01/01/2024</td>
+                                    <td>{date}</td>
                                 </tr>
                             </tbody>
                         </table>
-
 
                     </div>
 
