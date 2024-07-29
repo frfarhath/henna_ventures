@@ -33,7 +33,7 @@ class Summary extends Component {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/admin/getOrder');
+                const res = await axios.get('http://localhost:8000/api/v1/admin/getOrder');
                 const resdata = await res.data;
 
                 const subArray = [];
@@ -88,9 +88,9 @@ class Summary extends Component {
 
         const fetchData2 = async () => {
             try {
-                const res1 = await axios.get('http://localhost:8000/api/admin/getConfirmAppoinmentPackage');
-                const res2 = await axios.get('http://localhost:8000/api/admin/getConfirmAppoinmentIndividual');
-                const res3 = await axios.get('http://localhost:8000/api/admin/getProduct');
+                const res1 = await axios.get('http://localhost:8000/api/v1/admin/getConfirmAppoinmentPackage');
+                const res2 = await axios.get('http://localhost:8000/api/v1/admin/getConfirmAppoinmentIndividual');
+                const res3 = await axios.get('http://localhost:8000/api/v1/admin/getProduct');
 
                 const resdata1 = await res1.data;
                 const resdata2 = await res2.data;
