@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import "../../style/dashboard.css";
+import "../style/dashboard.css";
 
 import { FaUser } from "react-icons/fa6";
 import { ImSwitch } from "react-icons/im";
