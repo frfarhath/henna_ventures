@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaSearch } from 'react-icons/fa';
 import NewNav from '../components/NewNav';
 import Footer from "../components/Footer";
+import axios from 'axios'; // Import axios
 
 // Import images
 import img from '../images/collections/Indian1.jpg';
@@ -29,6 +30,20 @@ const MehendiGallery = () => {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
   const [collection, setCollection] = useState([]);
+  const [adminCollections, setAdminCollections] = useState([]); // State to store admin collections
+
+  useEffect(() => {
+    // Fetch admin collections on component mount
+    const fetchAdminCollections = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/v1/admin/getrepo');
+        setAdminCollections(response.data);
+      } catch (error) {
+        console.error('Error fetching admin collections:', error);
+      }
+    };
+    fetchAdminCollections();
+  }, []);
 
   const filteredDesigns = mehendiDesigns.filter((design) =>
     (design.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -36,8 +51,17 @@ const MehendiGallery = () => {
     (category ? design.category === category : true)
   );
 
-  const addToCollection = (design) => {
-    setCollection([...collection, design]);
+  const addToCollection = async (design) => {
+    try {
+      const response = await axios.post('http://localhost:8000/api/admin/repoupload', { design });
+      if (response.status === 200) {
+        setCollection([...collection, design]);
+        alert('Design added to collection successfully!');
+      }
+    } catch (error) {
+      console.error('Error adding design to collection:', error);
+      alert('Failed to add design to collection.');
+    }
   };
 
   return (
@@ -80,7 +104,7 @@ const MehendiGallery = () => {
             </select>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {filteredDesigns.map((design) => (
+            {filteredDesigns.concat(adminCollections).map((design) => (
               <motion.div
                 key={design.id}
                 whileHover={{ scale: 1.05 }}

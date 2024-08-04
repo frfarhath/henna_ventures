@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import "../style/dashboard.css";
-import "../style/product.css";
+import "../../style/dashboard.css";
+import "../../style/product.css";
 
-import SideBar from '../components/sidebar';
-import Head from '../components/head';
-import OrderModal from '../modals/orderModal';
+import SideBar from '../../components/Admin/sidebar';
+import Head from '../../components/Admin/head';
+import OrderModal from '../../modals/orderModal';
 import { FaEye } from 'react-icons/fa';
-import Loading from '../components/loading';
+import Loading from '../../components/Admin/loading';
 
 class Order extends Component {
 
@@ -41,7 +41,7 @@ class Order extends Component {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/admin/getOrder');
+                const res = await axios.get('http://localhost:8000/api/v1/admin/getOrder');
                 const resdata = await res.data;
 
                 this.setState({
@@ -66,7 +66,7 @@ class Order extends Component {
                 "status": '1'
             };
 
-            const res = await axios.put('http://localhost:8000/api/admin/deliveryUpdate/' + id, postdata, {
+            const res = await axios.put('http://localhost:8000/api/v1/admin/deliveryUpdate/' + id, postdata, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
@@ -135,7 +135,7 @@ class Order extends Component {
                                                 <td>
                                                     {item.status === '0' && (
                                                         <div style={{ width: '100%' }}>
-                                                            <select value={item.status} onChange={() => this.handleChange(item._id)} className="modalinput" style={{backgroundColor:'rgb(168, 150, 19)', color:'white'}}>
+                                                            <select value={item.status} onChange={() => this.handleChange(item._id)} className="Admin-modalinput" style={{backgroundColor:'rgb(168, 150, 19)', color:'white'}}>
                                                                 {data.map((item, index) => (
                                                                     <option key={index} value={item.status}>
                                                                         {item.label}

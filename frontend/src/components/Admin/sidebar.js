@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import "../style/dashboard.css";
+import "../../style/dashboard.css";
 
-import dp from "../images/logo.jpg";
+import dp from "../../images/logo.png";
 import { IoMdList } from "react-icons/io";
 import { MdOutlineInventory } from "react-icons/md";
 import { IoCalendar } from "react-icons/io5";
@@ -15,7 +15,7 @@ import { MdContactMail } from "react-icons/md";
 class SideBar extends Component {
   render() {
     return (
-      <div className='sidebar'>
+      <div className='Admin-sidebar'>
         <div className='sidehead'>
           <div className="imgdp">
             <img src={dp} alt="" className='logo' />
@@ -23,7 +23,7 @@ class SideBar extends Component {
           <h4 className='sidetitle'>ADMIN DASHBOARD</h4>
         </div>
         <div className='sidebody'>
-          <Link className='siderow' to='/Product'>
+          <Link className='siderow' to='/Products'>
             <BsFillGridFill size={22} className="icon3" />
             <h5 className='siderowtxt'>PRODUCTS</h5>
           </Link>

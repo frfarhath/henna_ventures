@@ -9,11 +9,11 @@ const OrderModal = ({ show, handleClose, passing }) => {
 
 
     return (
-        <div className='modal display-block' style={{ justifyContent: 'center', display: 'flex'}}>
-            <div className='modal-main'>
+        <div className='Admin-modal display-block' style={{ justifyContent: 'center', display: 'flex'}}>
+            <div className='Admin-modal-main'>
                 <button className='close' onClick={handleClose}>&times;</button>
-                <h2 className='modalhead'>Order Details</h2>
-                <div className='modalbody'>
+                <h2 className='Admin-modalhead'>Order Details</h2>
+                <div className='Admin-modalbody'>
                     <table className='table'>
                         <thead>
                             <tr>

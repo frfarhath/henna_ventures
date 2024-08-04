@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "../style/appoinmentModal.css";
+import "../../style/appoinmentModal.css";
 
 const Dropdown = ({ data, onSelectChange}) => {
 

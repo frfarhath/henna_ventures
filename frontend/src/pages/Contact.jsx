@@ -26,7 +26,7 @@ function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/contactus/contact', formData);
+      const response = await axios.post('http://localhost:8000/api/v1/admin/Message', formData);
       setFeedbackMessage(response.data.message);
       setIsError(false);
       setTimeout(() => {

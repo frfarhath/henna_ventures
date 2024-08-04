@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import "../style/dashboard.css";
+import "../../style/dashboard.css";
 import { PieChart } from 'react-minimal-pie-chart';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { RiAlignItemTopFill } from "react-icons/ri";
+// import { RiAlignItemTopFill } from "react-icons/ri";
+import { RiAlignTop } from 'react-icons/ri';
 import { PiHourglassLowFill } from "react-icons/pi";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 
-import SideBar from '../components/sidebar';
-import Head from '../components/head';
-import Loading from '../components/loading';
-import DashboardStock from '../modals/dashboarStockModal';
-import DashStockModal2 from '../modals/dashStockModal2';
+import SideBar from '../../components/Admin/sidebar';
+import Head from '../../components/Admin/head';
+import Loading from '../../components/Admin/loading';
+import DashboardStock from '../../modals/dashboarStockModal';
+import DashStockModal2 from '../../modals/dashStockModal2';
 
 
 class Dashboard extends Component {
@@ -70,7 +71,7 @@ class Dashboard extends Component {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/admin/getProduct');
+                const res = await axios.get('http://localhost:8000/api/v1/admin/getProduct');
                 const resdata = await res.data;
 
                 const subArray = [];
@@ -164,7 +165,7 @@ class Dashboard extends Component {
 
 
         return (
-            <div className='body'>
+            <div className='body' style={{ backgroundColor: '#ffffff' }}>
 
                 <SideBar />
 
@@ -180,10 +181,10 @@ class Dashboard extends Component {
                                     <div className='card'>
                                         <div className='item1'>
                                             <h4 className='item1txt'>OUT STOCK</h4>
-                                            <RiAlignItemTopFill size={25} className="icon" />
+                                            <RiAlignTop size={25} className="icon" />
                                         </div>
                                         <div className='item' onClick={() => this.showModal1()} style={{cursor:'pointer'}}>
-                                            <RiAlignItemTopFill size={40} className="icon2" color='#4B49AC' />
+                                            <RiAlignTop size={40} className="icon2" color='#4B49AC' />
                                             <h1 className='itemtxt2'>{this.state.outStockCount}</h1>
                                         </div>
                                     </div>

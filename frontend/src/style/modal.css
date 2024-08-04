@@ -1,21 +1,22 @@
-.modal{
+.Admin-modal{
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 50%;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.modal-main {
-    background-color: white;
+.Admin-modal-main {
+    background-color: yellow;
     padding: 20px;
     border-radius: 4px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
     width: 30%;
+    overflow-y: auto;
 }
 
 .display-block{
@@ -26,17 +27,21 @@
     display: none;
 }
 
-.modalhead{
+.Admin-modalhead{
     background-color: rgb(230, 230, 226);
     padding: 10px;
     font-weight: bold;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
-.modalbody{
+.Admin-modalbody{
     padding: 10px;
     padding-top: 0;
 }
-.modalinput{
+.Admin-modalinput{
     padding: 8px;
     padding-left: 10px;
     width: 100%;
@@ -44,7 +49,7 @@
     border: 1px solid rgb(136, 135, 135);
     border-radius: 5px;
 }
-.modalsavebtn{
+.Admin-modalsavebtn{
     background-color: rgb(2, 99, 2);
     padding: 5px;
     width: 20%;
@@ -54,7 +59,7 @@
     margin-right: 10px;
     cursor: pointer;
 }
-.modalcancelbtn{
+.Admin-modalcancelbtn{
     background-color: rgb(57, 58, 57);
     padding: 5px;
     width: 20%;
@@ -63,10 +68,10 @@
     border-radius: 5px;
     cursor: pointer;
 }
-.modalsavebtn:hover{
+.Admin-modalsavebtn:hover{
     background-color: rgb(35, 101, 35);
 }
-.modalcancelbtn:hover{
+.Admin-modalcancelbtn:hover{
     background-color: rgb(18, 19, 18);
 }
 
@@ -83,24 +88,12 @@
 
 }
 
-.modal-main {
-    position: relative;
-    /* other existing styles */
-}
 
-.modalhead {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
 
 .close-icon {
     position: absolute;
     top: 10px;
     right: 10px;
     cursor: pointer;
-    color: #595656; /* Customize the color */
+    color: #595656;
 }
-
-/* Other existing styles */

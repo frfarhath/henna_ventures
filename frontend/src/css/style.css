@@ -11,12 +11,12 @@
   flex-direction: column;
   /* Stack children vertically */
   height: 100vh;
-  /* Make the container take up the full height of the viewport */
+  
 }
 
 .content-container {
   display: flex;
-  /* Display SideBar and TableComponent horizontally */
+  
 }
 
 
@@ -41,7 +41,7 @@
 .navcom {
   background-color: #ffffff62;
 
-  /* B76E79 */
+
 }
 
 .names {

@@ -75,7 +75,7 @@ const RatingReview = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/v1/individual/getRating')
+    fetch('http://localhost:8000/api/v1/individual/getAllRatings')
       .then(response => response.json())
       .then(data => setReviews(data))
       .catch(error => console.error('Error fetching reviews:', error));
@@ -97,7 +97,7 @@ const RatingReview = () => {
             className="bg-white p-6 border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
           >
             <div className="flex flex-col items-center mb-4">
-              <img src={review.avatar} alt={review.name} className="w-12 h-12 rounded-full mb-2" />
+              <img src={review.profileImage} alt={review.name} className="w-12 h-12 rounded-full mb-2" />
               <h4 className="text-blue-700 text-lg font-semibold">{review.username}</h4>
               <span className="text-gray-500 text-sm">{review.date}</span>
               <h3 className="text-sm font-bold mb-2">Artist : {review.artist}</h3>

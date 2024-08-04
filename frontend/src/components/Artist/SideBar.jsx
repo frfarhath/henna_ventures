@@ -63,9 +63,9 @@ export default function SideBar({ onDateChange }) {
     <>
       {!isMobile ? (
         <div className="sidebar">
-          <div className="button-group">
+          <div className="artist-button-group">
             <button
-              className={`admin-button ${
+              className={`dashboard-button ${
                 isActive("/artistdashboard") ? "active" : ""
               }`}
               onClick={handleClickButton1}
@@ -74,7 +74,7 @@ export default function SideBar({ onDateChange }) {
               Appointments
             </button>
             <button
-              className={`admin-button ${
+              className={`dashboard-button ${
                 isActive("/requestpage") ? "active" : ""
               }`}
               onClick={handleClickButton2}
@@ -86,7 +86,7 @@ export default function SideBar({ onDateChange }) {
               Requests
             </button>
             <button
-              className={`admin-button ${
+              className={`dashboard-button ${
                 isActive("/changepassword") ? "active" : ""
               }`}
               onClick={handleClickButton3}
@@ -95,7 +95,7 @@ export default function SideBar({ onDateChange }) {
               Password
             </button>
             <button
-              className={`admin-button ${
+              className={`dashboard-button ${
                 isActive("/logout") ? "active" : ""
               }`}
               onClick={handleClickButton4}

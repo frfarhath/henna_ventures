@@ -17,8 +17,13 @@ router.post('/', storage, individualController.postIndividual);
 router.get('/getPackage', packageController.getPackage);
 router.post('/postPackage', storage, packageController.postPackage);
 
-router.get('/getRating', ratingController.getRate);
-router.post('/postRate', storage, ratingController.postRate);
+// router.get('/getRating', ratingController.getRate);
+// router.post('/postRate', storage, ratingController.postRate);
+// router.delete('/deleteRate/:id', ratingController.deleteRate);
+
+router.post('/postRate', ratingController.postRate);
+router.get('/getAllRatings', ratingController.getAllRatings);
+router.get('/getUserRatings', ratingController.getUserRatings);
 router.delete('/deleteRate/:id', ratingController.deleteRate);
 
 router.get('/getProfile', profileController.getProfile);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "../style/dashboard.css";
+import "../../style/dashboard.css";
 
 
 class Foot extends Component {

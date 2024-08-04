@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import "../style/dashboard.css";
+import "../../style/dashboard.css";
 import { PieChart } from 'react-minimal-pie-chart';
 import { BarChart } from '@mui/x-charts/BarChart';
 
-import SideBar from '../components/sidebar';
-import Head from '../components/head';
-import Loading from '../components/loading';
+import SideBar from '../../components/Admin/sidebar';
+import Head from '../../components/Admin/head';
+import Loading from '../../components/Admin/loading';
 
 
 class Summary extends Component {
@@ -32,7 +32,7 @@ class Summary extends Component {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/admin/getOrder');
+                const res = await axios.get('http://localhost:8000/api/v1/admin/getOrder');
                 const resdata = await res.data;
 
                 const subArray = [];
@@ -87,9 +87,9 @@ class Summary extends Component {
 
         const fetchData2 = async () => {
             try {
-                const res1 = await axios.get('http://localhost:8000/api/admin/getConfirmAppoinmentPackage');
-                const res2 = await axios.get('http://localhost:8000/api/admin/getConfirmAppoinmentIndividual');
-                const res3 = await axios.get('http://localhost:8000/api/admin/getProduct');
+                const res1 = await axios.get('http://localhost:8000/api/v1/admin/getConfirmAppoinmentPackage');
+                const res2 = await axios.get('http://localhost:8000/api/v1/admin/getConfirmAppoinmentIndividual');
+                const res3 = await axios.get('http://localhost:8000/api/v1/admin/getProduct');
 
                 const resdata1 = await res1.data;
                 const resdata2 = await res2.data;

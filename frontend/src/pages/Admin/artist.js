@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import "../style/dashboard.css";
-import "../style/product.css";
+import "../../style/dashboard.css";
+import "../../style/product.css";
 import { FaCheck, FaTimes } from "react-icons/fa";
 
-import SideBar from '../components/sidebar';
-import Head from '../components/head';
-import AcceptArtist from '../modals/acceptArtist';
-import Loading from '../components/loading';
+import SideBar from '../../components/Admin/sidebar';
+import Head from '../../components/Admin/head';
+import AcceptArtist from '../../modals/acceptArtist';
+import Loading from '../../components/Admin/loading';
 
 class Artist extends Component {
 
@@ -40,7 +40,7 @@ class Artist extends Component {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/admin/getArtist');
+                const res = await axios.get('http://localhost:8000/api/v1/admin/getArtist');
                 const resdata = await res.data;
 
                 this.setState({
@@ -60,7 +60,7 @@ class Artist extends Component {
 
         try {
 
-            const res = await axios.delete(`http://localhost:8000/api/admin/deleteArtist/${id}`);
+            const res = await axios.delete(`http://localhost:8000/api/v1/admin/deleteArtist/${id}`);
 
             const resdata = await res.data;
             console.log(resdata);

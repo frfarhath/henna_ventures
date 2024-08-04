@@ -50,27 +50,20 @@ body {
 
 .app-container {
   display: flex;
-  flex-direction: column; /* Stack children vertically */
-  height: 100vh; /* Make the container take up the full height of the viewport */
+  flex-direction: column; 
+  height: 100vh;
 }
 
 .content-container {
-  display: flex; /* Display SideBar and TableComponent horizontally */
+  display: flex; 
 }
 
-/* Style for NavigationBar, SideBar, and TableComponent */
 .NavigationBar {
   background-color: #282c34;
   color: white;
   padding: 10px;
 }
 
-/* .SideBar {
-  background-color: #f0f2f5;
-  color: white;
-  padding: 10px;
-  width: 200px;
-} */
 
 .TableComponent {
   flex: 1;
@@ -79,8 +72,7 @@ body {
   width: 100%;
 }
 
-/* Add styles for other components as needed */
-/* src/App.css */
+
 body, html {
   margin: 0;
   padding: 0;

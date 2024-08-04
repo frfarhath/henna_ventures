@@ -2,22 +2,22 @@ import React from "react";
 import "../style/modal.css";
 
 const ArtistModal = ({ show, handleClose, handleFormChange, handleAddArtist, newArtist }) => {
-    const showHideClassName = show ? "modal display-block" : "modal display-none";
+    const showHideClassName = show ? "Admin-modal display-block" : "Admin-modal display-none";
 
     return (
         <div className={showHideClassName}>
             <div style={{ justifyContent: 'center', display: 'flex', marginTop: '3%' }}>
-                <div className="modal-main">
-                    <div className="modalhead">
+                <div className="Admin-modal-main">
+                    <div className="Admin-modalhead">
                         ADD ARTIST
                     </div>
-                    <div className="modalbody">
+                    <div className="Admin-modalbody">
                         <div>
                             <label>Full Name</label>
                             <div style={{ width: '90%' }}>
                                 <input
                                     name="name"
-                                    className="modalinput"
+                                    className="Admin-modalinput"
                                     placeholder='full name'
                                     value={newArtist.name}
                                     onChange={handleFormChange}
@@ -30,7 +30,7 @@ const ArtistModal = ({ show, handleClose, handleFormChange, handleAddArtist, new
                             <div style={{ width: '90%' }}>
                                 <input
                                     name="phone"
-                                    className="modalinput"
+                                    className="Admin-modalinput"
                                     placeholder='phone'
                                     value={newArtist.phone}
                                     onChange={handleFormChange}
@@ -43,7 +43,7 @@ const ArtistModal = ({ show, handleClose, handleFormChange, handleAddArtist, new
                             <div style={{ width: '90%' }}>
                                 <input
                                     name="email"
-                                    className="modalinput"
+                                    className="Admin-modalinput"
                                     placeholder='email'
                                     value={newArtist.email}
                                     onChange={handleFormChange}
@@ -56,7 +56,7 @@ const ArtistModal = ({ show, handleClose, handleFormChange, handleAddArtist, new
                             <div style={{ width: '90%' }}>
                                 <input
                                     name="location"
-                                    className="modalinput"
+                                    className="Admin-modalinput"
                                     placeholder='location'
                                     value={newArtist.location}
                                     onChange={handleFormChange}
@@ -70,7 +70,7 @@ const ArtistModal = ({ show, handleClose, handleFormChange, handleAddArtist, new
                                 <input
                                     type="file"
                                     name="previousWork"
-                                    className="modalinput"
+                                    className="Admin-modalinput"
                                     onChange={handleFormChange}
                                 />
                             </div>
@@ -82,7 +82,7 @@ const ArtistModal = ({ show, handleClose, handleFormChange, handleAddArtist, new
                                 <input
                                     type="file"
                                     name="eCertificate"
-                                    className="modalinput"
+                                    className="Admin-modalinput"
                                     onChange={handleFormChange}
                                 />
                             </div>
@@ -101,9 +101,9 @@ const ArtistModal = ({ show, handleClose, handleFormChange, handleAddArtist, new
                         </div>
                     </div>
 
-                    <div className="modalhead">
-                        <button className="modalsavebtn" onClick={handleAddArtist}>ADD</button>
-                        <button className="modalcancelbtn" onClick={handleClose}>Cancel</button>
+                    <div className="Admin-modalhead">
+                        <button className="Admin-modalsavebtn" onClick={handleAddArtist}>ADD</button>
+                        <button className="Admin-modalcancelbtn" onClick={handleClose}>Cancel</button>
                     </div>
                 </div>
             </div>

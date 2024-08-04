@@ -5,6 +5,11 @@ const ratingSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    profileImage: {
+            type: String, // Store image URL or path
+            required: true
+        
+    },
     rate: {
         type: String,
         required: true
@@ -24,8 +29,9 @@ const ratingSchema = mongoose.Schema({
     artist: {
         type: String,
         required: true
-    }
-    
+    },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
+
 });
 
 module.exports = mongoose.model('Rating', ratingSchema);

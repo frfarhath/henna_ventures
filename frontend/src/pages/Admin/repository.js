@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import "../style/dashboard.css";
-import "../style/product.css";
-import SideBar from '../components/sidebar';
-import Head from '../components/head';
+import "../../style/dashboard.css";
+import "../../style/product.css";
+import SideBar from '../../components/Admin/sidebar';
+import Head from '../../components/Admin/head';
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 
-import RepositoryModal from '../modals/repositoryModal';
-import EditRepo from '../modals/edit/editrepo';
-import Loading from '../components/loading';
+import RepositoryModal from '../../modals/repositoryModal';
+import EditRepo from '../../modals/edit/editrepo';
+import Loading from '../../components/Admin/loading';
 
 
 class Repository extends Component {
@@ -68,7 +68,7 @@ class Repository extends Component {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/admin/getrepo');
+                const res = await axios.get('http://localhost:8000/api/v1/admin/getrepo');
                 const resdata = await res.data;
 
                 this.setState({
@@ -87,7 +87,7 @@ class Repository extends Component {
 
         try {
 
-            const res = await axios.delete(`http://localhost:8000/api/admin/deleterepo/${id}`);
+            const res = await axios.delete(`http://localhost:8000/api/v1/admin/deleterepo/${id}`);
 
             const resdata = await res.data;
             console.log(resdata);

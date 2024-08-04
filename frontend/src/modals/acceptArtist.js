@@ -4,7 +4,7 @@ import "../style/orderModal.css";
 
 const AcceptArtist = ({ show, handleClose, passing }) => {
 
-    const showHideClassName = show ? "modal display-block" : "modal display-none";
+    const showHideClassName = show ? "Admin-modal display-block" : "Admin-modal display-none";
 
     const [receivedArray, setReceivedArray] = useState({});
     const [username, setUsername] = useState('');
@@ -58,17 +58,17 @@ const AcceptArtist = ({ show, handleClose, passing }) => {
     return (
         <div className={showHideClassName}>
             <div style={{ justifyContent: 'center', display: 'flex' }}>
-                <div className='modal-main'>
+                <div className='Admin-modal-main'>
                     <button className='close' onClick={handleClose}>&times;</button>
 
-                    <h2 className='modalhead'>Generate Credentials</h2>
+                    <h2 className='Admin-modalhead'>Generate Credentials</h2>
 
-                    <div className='modalbody'>
+                    <div className='Admin-modalbody'>
 
                         <div>
                             <label>USERNAME</label>
                             <div style={{ width: '90%' }}>
-                                <input type="text" className="modalinput" placeholder='username'
+                                <input type="text" className="Admin-modalinput" placeholder='username'
                                     onChange={(e) => setUsername(e.target.value)} value={username} />
                             </div>
                         </div>
@@ -76,14 +76,14 @@ const AcceptArtist = ({ show, handleClose, passing }) => {
                         <div style={{ marginTop: 10 }}>
                             <label>PASSWORD</label>
                             <div style={{ width: '90%' }}>
-                                <input type="password" className="modalinput" placeholder='password'
+                                <input type="password" className="Admin-modalinput" placeholder='password'
                                     onChange={(e) => setPassword(e.target.value)} value={password} />
                             </div>
                         </div>
 
-                        <div className="modalhead" style={{ marginTop: 10 }}>
-                            <button className="modalsavebtn" onClick={send}>Send</button>
-                            <button className="modalcancelbtn" onClick={handleClose}>Cancel</button>
+                        <div className="Admin-modalhead" style={{ marginTop: 10 }}>
+                            <button className="Admin-modalsavebtn" onClick={send}>Send</button>
+                            <button className="Admin-modalcancelbtn" onClick={handleClose}>Cancel</button>
                         </div>
 
                     </div>

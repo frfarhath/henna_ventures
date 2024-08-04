@@ -6,7 +6,7 @@ import Dropdown from "../../components/Admin/dropdown";
 
 const EditRepo = ({ show, handleClose }) => {
 
-    const showHideClassName = show ? "modal display-block" : "modal display-none";
+    const showHideClassName = show ? "Admin-modal display-block" : "Admin-modal display-none";
 
     const data = [
         'Category 1', 'Category 2'
@@ -18,18 +18,18 @@ const EditRepo = ({ show, handleClose }) => {
         <div className={showHideClassName}>
             <div style={{ justifyContent: 'center', display: 'flex', marginTop: '3%' }}>
 
-                <div className="modal-main">
+                <div className="Admin-modal-main">
 
-                    <div className="modalhead">
+                    <div className="Admin-modalhead">
                         EDIT REPOSITORY
                     </div>
 
-                    <div className="modalbody">
+                    <div className="Admin-modalbody">
 
                         <div>
                             <label>Name</label>
                             <div style={{ width: '90%' }}>
-                                <input className="modalinput" placeholder='name' onChange={(e) => setName(e.target.value)} value={name} />
+                                <input className="Admin-modalinput" placeholder='name' onChange={(e) => setName(e.target.value)} value={name} />
                             </div>
                         </div>
 
@@ -43,16 +43,16 @@ const EditRepo = ({ show, handleClose }) => {
                         <div style={{ marginTop: 10 }}>
                             <label>Add Images</label>
                             <div style={{ width: '90%' }}>
-                                <input type="file" className="modalinput" />
+                                <input type="file" className="Admin-modalinput" />
                             </div>
                         </div>
 
 
                     </div>
 
-                    <div className="modalhead">
-                        <button className="modalsavebtn" onClick={handleClose}>ADD</button>
-                        <button className="modalcancelbtn" onClick={handleClose}>Cancel</button>
+                    <div className="Admin-modalhead">
+                        <button className="Admin-modalsavebtn" onClick={handleClose}>ADD</button>
+                        <button className="Admin-modalcancelbtn" onClick={handleClose}>Cancel</button>
                     </div>
 
                 </div>

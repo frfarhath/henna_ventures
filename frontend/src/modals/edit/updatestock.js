@@ -3,7 +3,7 @@ import "../../style/modal.css";
 import { FaTimes } from "react-icons/fa";
 
 const UpdateStock = ({ show, handleClose, passing, handleStockUpdate }) => {
-    const showHideClassName = show ? "modal display-block" : "modal display-none";
+    const showHideClassName = show ? "Admin-modal display-block" : "Admin-modal display-none";
     const [newStock, setNewStock] = useState('');
 
     const handleUpdateStock = () => {
@@ -14,12 +14,12 @@ const UpdateStock = ({ show, handleClose, passing, handleStockUpdate }) => {
     return (
         <div className={showHideClassName}>
             <div style={{ justifyContent: 'center', display: 'flex', marginTop: '3%' }}>
-                <div className="modal-main">
-                    <div className="modalhead">
+                <div className="Admin-modal-main">
+                    <div className="Admin-modalhead">
                         <span>UPDATE STOCK</span>
                         <FaTimes size={22} className="close-icon" onClick={handleClose} />
                     </div>
-                    <div className="modalbody">
+                    <div className="Admin-modalbody">
                         <table>
                             <tbody>
                                 <tr>
@@ -40,7 +40,7 @@ const UpdateStock = ({ show, handleClose, passing, handleStockUpdate }) => {
                             <label style={{ fontWeight: 'bold' }}>Stock</label>
                             <div style={{ width: '90%' }}>
                                 <input
-                                    className="modalinput"
+                                    className="Admin-modalinput"
                                     placeholder='count'
                                     value={newStock}
                                     onChange={(e) => setNewStock(e.target.value)}
@@ -48,7 +48,7 @@ const UpdateStock = ({ show, handleClose, passing, handleStockUpdate }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="modalhead">
+                    <div className="Admin-modalhead">
                         <button className="updatestockbtn" onClick={handleUpdateStock}>Update Stock</button>
                     </div>
                 </div>

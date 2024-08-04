@@ -4,19 +4,19 @@ import "../style/orderModal.css";
 
 const DashboardStock = ({ show, handleClose, passing }) => {
 
-    const showHideClassName = show ? "modal display-block" : "modal display-none";
+    const showHideClassName = show ? "Admin-modal display-block" : "Admin-modal display-none";
 
     return (
         <div className={showHideClassName}>
             <div style={{ justifyContent: 'center', display: 'flex', marginTop: '3%' }}>
 
-                <div className="modal-main">
+                <div className="Admin-modal-main">
 
-                    <div className="modalhead">
+                    <div className="Admin-modalhead">
                         OUT STOCK PRODUCTS
                     </div>
 
-                    <div className="modalbody">
+                    <div className="Admin-modalbody">
 
                         <table>
                             <tbody>
@@ -32,8 +32,8 @@ const DashboardStock = ({ show, handleClose, passing }) => {
 
                     </div>
 
-                    <div className="modalhead">
-                        <button className="modalcancelbtn" onClick={handleClose}>Close</button>
+                    <div className="Admin-modalhead">
+                        <button className="Admin-modalcancelbtn" onClick={handleClose}>Close</button>
                     </div>
 
                 </div>

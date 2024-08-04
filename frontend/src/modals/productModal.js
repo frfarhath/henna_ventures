@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from 'axios';
-import "../style/modal.css";
+// import "../style/modal.css";
 
-import Dropdown from "../components/dropdown";
+import Dropdown from "../components/Admin/dropdown";
 
 const ProductModal = ({ show, handleClose }) => {
 
-    const showHideClassName = show ? "modal display-block" : "modal display-none";
+    const showHideClassName = show ? "Admin-modal display-block" : "Admin-modal display-none";
 
     const [productname, setProductname] = useState('');
     const [description, setDescription] = useState('');
@@ -66,18 +66,18 @@ const ProductModal = ({ show, handleClose }) => {
         <div className={showHideClassName}>
             <div style={{ justifyContent: 'center', display: 'flex' }}>
 
-                <div className="modal-main">
+                <div className="Admin-modal-main">
 
-                    <div className="modalhead">
+                    <div className="Admin-modalhead">
                         ADD PRODUCT
                     </div>
 
-                    <div className="modalbody">
+                    <div className="Admin-modalbody">
 
                         <div>
                             <label>Product Name</label>
                             <div style={{ width: '90%' }}>
-                                <input className="modalinput" placeholder='product' type="text"
+                                <input className="Admin-modalinput" placeholder='product' type="text"
                                     onChange={(e) => setProductname(e.target.value)} value={productname} />
                             </div>
                         </div>
@@ -85,7 +85,7 @@ const ProductModal = ({ show, handleClose }) => {
                         <div style={{ marginTop: 10 }}>
                             <label>Description</label>
                             <div style={{ width: '90%' }}>
-                                <input className="modalinput" placeholder='description' type="text"
+                                <input className="Admin-modalinput" placeholder='description' type="text"
                                     onChange={(e) => setDescription(e.target.value)} value={description} />
                             </div>
                         </div>
@@ -93,7 +93,7 @@ const ProductModal = ({ show, handleClose }) => {
                         <div style={{ marginTop: 10 }}>
                             <label>Price</label>
                             <div style={{ width: '90%' }}>
-                                <input className="modalinput" placeholder='rs.price' type="text"
+                                <input className="Admin-modalinput" placeholder='rs.price' type="text"
                                     onChange={(e) => setPrice(e.target.value)} value={price} />
                             </div>
                         </div>
@@ -108,7 +108,7 @@ const ProductModal = ({ show, handleClose }) => {
                         <div style={{ marginTop: 10 }}>
                             <label>Available Count</label>
                             <div style={{ width: '90%' }}>
-                                <input className="modalinput" placeholder='available count' type="number"
+                                <input className="Admin-modalinput" placeholder='available count' type="number"
                                     onChange={(e) => setCount(e.target.value)} value={count} />
                             </div>
                         </div>
@@ -116,20 +116,20 @@ const ProductModal = ({ show, handleClose }) => {
                         <div style={{ marginTop: 10 }}>
                             <label>Add Images (03)</label>
                             <div style={{ width: '90%' }}>
-                                <input type="file" accept="image/*" className="modalinput"
+                                <input type="file" accept="image/*" className="Admin-modalinput"
                                     onChange={(e) => setImage1(e.target.files[0])} />
-                                <input type="file" accept="image/*" className="modalinput"
+                                <input type="file" accept="image/*" className="Admin-modalinput"
                                     onChange={(e) => setImage2(e.target.files[0])} />
-                                <input type="file" accept="image/*" className="modalinput"
+                                <input type="file" accept="image/*" className="Admin-modalinput"
                                     onChange={(e) => setImage3(e.target.files[0])} />
                             </div>
                         </div>
 
                     </div>
 
-                    <div className="modalhead">
-                        <button className="modalsavebtn" onClick={send}>ADD</button>
-                        <button className="modalcancelbtn" onClick={handleClose}>Cancel</button>
+                    <div className="Admin-modalhead">
+                        <button className="Admin-modalsavebtn" onClick={send}>ADD</button>
+                        <button className="Admin-modalcancelbtn" onClick={handleClose}>Cancel</button>
                     </div>
 
                 </div>
@@ -139,5 +139,4 @@ const ProductModal = ({ show, handleClose }) => {
     );
 
 };
-
-export default ProductModal;
+export default ProductModal;  

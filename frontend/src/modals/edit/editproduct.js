@@ -5,7 +5,7 @@ import Dropdown from "../../components/Admin/dropdown";
 
 const EditProduct = ({ show, handleClose, passing }) => {
 
-    const showHideClassName = show ? "modal display-block" : "modal display-none";
+    const showHideClassName = show ? "Admin-modal display-block" : "Admin-modal display-none";
 
     const data = [
         'Category 1', 'Category 2'
@@ -34,32 +34,32 @@ const EditProduct = ({ show, handleClose, passing }) => {
         <div className={showHideClassName}>
             <div style={{ justifyContent: 'center', display: 'flex'}}>
 
-                <div className="modal-main">
+                <div className="Admin-modal-main">
 
-                    <div className="modalhead">
+                    <div className="Admin-modalhead">
                         EDIT PRODUCT
                     </div>
 
-                    <div className="modalbody">
+                    <div className="Admin-modalbody">
 
                         <div>
                             <label>PRODUCT</label>
                             <div style={{ width: '90%' }}>
-                                <input type="text" className="modalinput" placeholder='product' onChange={(e) => setPname(e.target.value)} value={pname}/>
+                                <input type="text" className="Admin-modalinput" placeholder='product' onChange={(e) => setPname(e.target.value)} value={pname}/>
                             </div>
                         </div>
 
                         <div style={{ marginTop: 10 }}>
                             <label>Description</label>
                             <div style={{ width: '90%' }}>
-                                <input className="modalinput" placeholder='description' onChange={(e) => setDescription(e.target.value)} value={description} />
+                                <input className="Admin-modalinput" placeholder='description' onChange={(e) => setDescription(e.target.value)} value={description} />
                             </div>
                         </div>
 
                         <div style={{ marginTop: 10 }}>
                             <label>Price</label>
                             <div style={{ width: '90%' }}>
-                                <input className="modalinput" placeholder='rs.price' onChange={(e) => setPrice(e.target.value)} value={price} />
+                                <input className="Admin-modalinput" placeholder='rs.price' onChange={(e) => setPrice(e.target.value)} value={price} />
                             </div>
                         </div>
 
@@ -73,25 +73,25 @@ const EditProduct = ({ show, handleClose, passing }) => {
                         <div style={{ marginTop: 10 }}>
                             <label>Available Count</label>
                             <div style={{ width: '90%' }}>
-                                <input className="modalinput" placeholder='available count' onChange={(e) => setAvailable(e.target.value)} value={available} />
+                                <input className="Admin-modalinput" placeholder='available count' onChange={(e) => setAvailable(e.target.value)} value={available} />
                             </div>
                         </div>
 
                         <div style={{ marginTop: 10 }}>
                             <label>Add Images (03)</label>
                             <div style={{ width: '90%' }}>
-                                <input type="file" className="modalinput" />
-                                <input type="file" className="modalinput" />
-                                <input type="file" className="modalinput" />
+                                <input type="file" className="Admin-modalinput" />
+                                <input type="file" className="Admin-modalinput" />
+                                <input type="file" className="Admin-modalinput" />
                             </div>
                         </div>
 
 
                     </div>
 
-                    <div className="modalhead">
-                        <button className="modalsavebtn" onClick={handleClose}>ADD</button>
-                        <button className="modalcancelbtn" onClick={handleClose}>Cancel</button>
+                    <div className="Admin-modalhead">
+                        <button className="Admin-modalsavebtn" onClick={handleClose}>ADD</button>
+                        <button className="Admin-modalcancelbtn" onClick={handleClose}>Cancel</button>
                     </div>
 
                 </div>
