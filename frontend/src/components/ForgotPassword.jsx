@@ -7,6 +7,7 @@ const ForgotPassword = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -24,6 +25,10 @@ const ForgotPassword = () => {
     try {
       await axios.post('http://localhost:8000/api/v1/forgot_password/', { email });
       setOtpSent(true);
+      setShowSuccessMessage(true);
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 3000);
     } catch (error) {
       console.error('Error sending OTP', error);
       alert(`Error sending OTP: ${error.response?.data?.message || 'Unknown error'}`);
@@ -64,6 +69,11 @@ const ForgotPassword = () => {
             >
               Send OTP
             </button>
+            {showSuccessMessage && (
+              <div className="text-green-500 text-center mt-4">
+                OTP sent successfully!
+              </div>
+            )}
           </form>
         ) : (
           <form onSubmit={handleOtpSubmit} className="space-y-4">

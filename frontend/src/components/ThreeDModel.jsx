@@ -13,7 +13,7 @@ const ThreeDModel = () => {
   const maxScaleFactor = 75;
   const currentScaleFactorRef = useRef(1.0);
 
-  const [selectedColor, setSelectedColor] = useState('#FF8C00'); // Default light skin color
+  const [selectedColor, setSelectedColor] = useState('#FF8D00'); // Default light skin color
 
   const designImages = {
     Hand006: ["a.png", "b.png", "i.png", "e.png", "h.png", "c.png", "w.png", "j.png", "l.png"],
@@ -114,6 +114,8 @@ const ThreeDModel = () => {
             emissive: 0xFF4000,
             side: THREE.DoubleSide,
             emissiveIntensity: 0.3,
+            roughness: 0.6,
+        // metalness: 0.01,
           });
           handModel.traverse((child) => {
             if (child.isMesh) {

@@ -13,10 +13,9 @@ function SignIn() {
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
-  // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     if (!email || !password) {
       setError('Email and password are required.');
       setSuccess('');
@@ -25,30 +24,43 @@ function SignIn() {
       }, 2000); // Clear error message after 2 seconds
       return;
     }
-
+  
     try {
-      const response = await axios.post(
-        'http://localhost:8000/api/v1/user',
-        { email, password },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-
+      let response;
+      if (email === 'admin@example.com' && password === 'admin123') {
+        // Hardcoded admin credentials
+        response = { data: { token: 'admin-token', user: { role: 'admin' } } };
+      } else {
+        response = await axios.post(
+          'http://localhost:8000/api/v1/user',
+          { email, password },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+      }
+  
+      const user = response.data.user || {}; // Default to an empty object if user is undefined
+  
       if (response.data.token) {
         // Store token and user data in local storage
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-
+        localStorage.setItem('user', JSON.stringify(user));
+  
         // Set success message
         setSuccess('Login successful!');
         setError('');
-
-        // Redirect to profile page or another authenticated route after a short delay
+  
+        // Redirect based on user role
         setTimeout(() => {
-          navigate('/profile');
+          const userRole = user.role || 'guest'; // Default to 'guest' if role is undefined
+          if (userRole === 'admin') {
+            navigate('/admin'); // Redirect to admin page
+          } else {
+            navigate('/profile'); // Redirect to user profile page
+          }
         }, 2000); // Redirect after 2 seconds
       } else {
         setError('Invalid credentials.');
@@ -59,7 +71,7 @@ function SignIn() {
       }
     } catch (error) {
       console.error('Login error:', error);
-
+  
       if (error.response) {
         // Server responded with an error status
         setError(error.response.data.message || 'An error occurred.');
@@ -73,7 +85,7 @@ function SignIn() {
       }, 2000); // Clear error message after 2 seconds
     }
   };
-
+  
   return (
     <div>
       <NewNav />

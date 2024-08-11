@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import axios from 'axios';
-// import "../style/modal.css";
-
 import Dropdown from "../components/Admin/dropdown";
+import "../style/orderModal.css";
 
 const ProductModal = ({ show, handleClose }) => {
-
-    const showHideClassName = show ? "Admin-modal display-block" : "Admin-modal display-none";
+    const showHideClassName = show ? "fixed inset-0 z-50 overflow-auto bg-smoke-light flex" : "hidden";
 
     const [productname, setProductname] = useState('');
     const [description, setDescription] = useState('');
@@ -16,7 +14,6 @@ const ProductModal = ({ show, handleClose }) => {
     const [image1, setImage1] = useState(null);
     const [image2, setImage2] = useState(null);
     const [image3, setImage3] = useState(null);
-
 
     const data = [
         'Category 1', 'Category 2'
@@ -30,19 +27,17 @@ const ProductModal = ({ show, handleClose }) => {
         e.preventDefault();
 
         try {
+            const formData = new FormData();
+            formData.append("name", productname);
+            formData.append("description", description);
+            formData.append("price", price);
+            formData.append("category", category);
+            formData.append("count", count);
+            formData.append("image1", image1);
+            formData.append("image2", image2);
+            formData.append("image3", image3);
 
-            const postdata = {
-                "name": productname,
-                "description": description,
-                "price": price,
-                "category": category,
-                "count": count,
-                "image1": image1,
-                "image2": image2,
-                "image3": image3,
-            };
-
-            const res = await axios.post('http://localhost:8000/api/admin/addProduct', postdata, {
+            const res = await axios.post('http://localhost:8000/api/admin/addProduct', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
@@ -52,91 +47,62 @@ const ProductModal = ({ show, handleClose }) => {
             console.log(resdata);
             alert('Successfully ! Product Added')
             window.location.reload();
-
         } catch (error) {
             console.log('Main Error', error);
             alert('Failed ! Product Added')
             window.location.reload();
         }
-
     }
-
 
     return (
         <div className={showHideClassName}>
-            <div style={{ justifyContent: 'center', display: 'flex' }}>
-
-                <div className="Admin-modal-main">
-
-                    <div className="Admin-modalhead">
-                        ADD PRODUCT
-                    </div>
-
-                    <div className="Admin-modalbody">
-
-                        <div>
-                            <label>Product Name</label>
-                            <div style={{ width: '90%' }}>
-                                <input className="Admin-modalinput" placeholder='product' type="text"
-                                    onChange={(e) => setProductname(e.target.value)} value={productname} />
-                            </div>
-                        </div>
-
-                        <div style={{ marginTop: 10 }}>
-                            <label>Description</label>
-                            <div style={{ width: '90%' }}>
-                                <input className="Admin-modalinput" placeholder='description' type="text"
-                                    onChange={(e) => setDescription(e.target.value)} value={description} />
-                            </div>
-                        </div>
-
-                        <div style={{ marginTop: 10 }}>
-                            <label>Price</label>
-                            <div style={{ width: '90%' }}>
-                                <input className="Admin-modalinput" placeholder='rs.price' type="text"
-                                    onChange={(e) => setPrice(e.target.value)} value={price} />
-                            </div>
-                        </div>
-
-                        <div style={{ marginTop: 10 }}>
-                            <label>Category</label>
-                            <div style={{ width: '95%' }}>
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+            <div className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full m-auto">
+                <div className="bg-gray-200 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div className="sm:flex sm:items-start">
+                        <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                            <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4 bg-gray-100 text-center p-2">ADD PRODUCT</h3>
+                            <form onSubmit={send}>
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-gray-700">Product Name</label>
+                                    <input type="text" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="product" value={productname} onChange={(e) => setProductname(e.target.value)} />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-gray-700">Description</label>
+                                    <input type="text" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="description" value={description} onChange={(e) => setDescription(e.target.value)} />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-gray-700">Price</label>
+                                    <input type="text" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="rs.price" value={price} onChange={(e) => setPrice(e.target.value)} />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-gray-700">Category</label>
+                                    <div style={{ width: '95%' }}>
                                 <Dropdown data={data} onSelectChange={handleSelectChange} />
-                            </div>
-                        </div>
 
-                        <div style={{ marginTop: 10 }}>
-                            <label>Available Count</label>
-                            <div style={{ width: '90%' }}>
-                                <input className="Admin-modalinput" placeholder='available count' type="number"
-                                    onChange={(e) => setCount(e.target.value)} value={count} />
                             </div>
+                                </div>   
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-gray-700">Available Count</label>
+                                    <input type="number" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="available count" value={count} onChange={(e) => setCount(e.target.value)} />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-gray-700">Add Images (03)</label>
+                                    <input type="file" accept="image/*" className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:border-indigo-500" onChange={(e) => setImage1(e.target.files[0])} />
+                                    <input type="file" accept="image/*" className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:border-indigo-500" onChange={(e) => setImage2(e.target.files[0])} />
+                                    <input type="file" accept="image/*" className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:border-indigo-500" onChange={(e) => setImage3(e.target.files[0])} />
+                                </div>
+                                <div className="Admin-modalhead">
+                                    <button className="Admin-modalsavebtn" onClick={send}>ADD</button>
+                                    <button className="Admin-modalcancelbtn" onClick={handleClose}>Cancel</button>
+                                </div>
+                            </form>
                         </div>
-
-                        <div style={{ marginTop: 10 }}>
-                            <label>Add Images (03)</label>
-                            <div style={{ width: '90%' }}>
-                                <input type="file" accept="image/*" className="Admin-modalinput"
-                                    onChange={(e) => setImage1(e.target.files[0])} />
-                                <input type="file" accept="image/*" className="Admin-modalinput"
-                                    onChange={(e) => setImage2(e.target.files[0])} />
-                                <input type="file" accept="image/*" className="Admin-modalinput"
-                                    onChange={(e) => setImage3(e.target.files[0])} />
-                            </div>
-                        </div>
-
                     </div>
-
-                    <div className="Admin-modalhead">
-                        <button className="Admin-modalsavebtn" onClick={send}>ADD</button>
-                        <button className="Admin-modalcancelbtn" onClick={handleClose}>Cancel</button>
-                    </div>
-
                 </div>
-
             </div>
         </div>
     );
-
 };
-export default ProductModal;  
+
+export default ProductModal

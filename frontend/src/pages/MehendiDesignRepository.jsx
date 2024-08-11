@@ -3,27 +3,12 @@ import { motion } from 'framer-motion';
 import { FaSearch } from 'react-icons/fa';
 import NewNav from '../components/NewNav';
 import Footer from "../components/Footer";
-import axios from 'axios'; // Import axios
+import axios from 'axios';
 
-// Import images
-import img from '../images/collections/Indian1.jpg';
-import img1 from '../images/collections/indian2.jpg';
-import img2 from '../images/collections/indian3.jpg';
-import img3 from '../images/collections/Indian4.jpg';
-import img4 from '../images/collections/indian5.jpg';
-import img5 from '../images/collections/indian6.jpg';
-import img6 from '../images/collections/indian7.jpg';
-
-// Mock data
+// Mock data (still useful for initial state)
 const mehendiDesigns = [
-  { id: 1, name: 'Elegant Swirls', category: 'Traditional', image: img },
-  { id: 2, name: 'Modern Art', category: 'Modern', image: img1 },
-  { id: 3, name: 'Arabic Beauty', category: 'Arabic', image: img2 },
-  { id: 4, name: 'Bridal Bliss', category: 'Bridal', image: img3 },
-  { id: 5, name: 'Elegant Swirls', category: 'Traditional', image: img4 },
-  { id: 6, name: 'Modern Art', category: 'Modern', image: img5 },
-  { id: 7, name: 'Arabic Beauty', category: 'Arabic', image: img6 },
-  // Add more designs as needed
+  { id: 1, name: 'Elegant Swirls', category: 'Traditional', image: 'path/to/local/image.jpg' },
+  // other mock designs...
 ];
 
 const MehendiGallery = () => {
@@ -67,7 +52,7 @@ const MehendiGallery = () => {
   return (
     <div className="repo-page" style={{ backgroundColor: 'white' }}>
       {/* Navbar */}
-      <NewNav/>
+      <NewNav />
       <div className="services-page">
         <header className="service-header">
           <div className="service-overlay">
@@ -106,7 +91,7 @@ const MehendiGallery = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredDesigns.concat(adminCollections).map((design) => (
               <motion.div
-                key={design.id}
+                key={design._id || design.id} // Use MongoDB _id for key
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform duration-200 flex flex-col items-center"
