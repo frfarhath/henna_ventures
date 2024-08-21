@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa'; // Import the icon
-import { Link } from 'react-router-dom'; // Import Link for navigation
+import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate for navigation
 import Footer from "../components/Footer";
 import NewNav from '../components/NewNav';
 
 const Package = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const packages = [
     {
@@ -49,6 +50,17 @@ const Package = () => {
     }
   ];
 
+  // Handle "Book Now" button click
+  const handleBookNow = () => {
+    const token = localStorage.getItem('token'); // Check for token in localStorage
+    if (!token) {
+      alert('Please sign in to book a package.'); // Prompt user to sign in if no token found
+      navigate('/signin'); // Navigate to the SignIn page
+    } else {
+      navigate('/appointment/packages'); // Navigate to the Booking page if token is found
+    }
+  };
+
   return (
     <div className="repo-page" style={{ backgroundColor: 'white' }}>
       {/* Navbar */}
@@ -65,7 +77,7 @@ const Package = () => {
           {/* Container for the button aligned to the right */}
           <div className="flex justify-end w-full px-4">
             <Link to="/individual-package" className="mb-9 py-2 px-6 text-white bg-[#AF8F6F] rounded-md hover:bg-[#543310]">
-              Individual Packages
+              View Individual Packages
             </Link>
           </div>
           <div className="flex flex-col md:flex-row md:space-x-4">
@@ -93,7 +105,10 @@ const Package = () => {
                     </li>
                   ))}
                 </ul>
-                <button className={`w-full py-2 px-4 text-white rounded-md ${pkg.buttonColor} ${pkg.hoverColor}`}>
+                <button 
+                  className={`w-full py-2 px-4 text-white rounded-md ${pkg.buttonColor} ${pkg.hoverColor}`}
+                  onClick={handleBookNow} // Attach click handler
+                >
                   Book Now
                 </button>
               </div>

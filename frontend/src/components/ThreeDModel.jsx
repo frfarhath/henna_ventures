@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -7,6 +8,8 @@ import NewNav from '../components/NewNav';
 import Footer from '../components/Footer';
 
 const ThreeDModel = () => {
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
   const containerRef = useRef(null);
   const objectsRef = useRef({});
   const handModelRef = useRef(null);
@@ -166,31 +169,52 @@ const ThreeDModel = () => {
   }, [selectedColor]);
 
   const onImageClick = (part, designUrl) => {
-    const objects = objectsRef.current;
+    try {
+      const token = localStorage.getItem('token');
+      console.log('Retrieved token:', token);
+  
+      if (!token) {
+        navigate('/signin', { state: { message: 'Please log in to add designs to your collection.' } });
+        return;
+      }
 
-    if (objects[part]) {
-      const textureLoader = new THREE.TextureLoader();
-      textureLoader.load(designUrl, (texture) => {
-        texture.wrapS = THREE.RepeatWrapping;
-        texture.wrapT = THREE.RepeatWrapping;
-        texture.repeat.set(1, 1); // Adjust the repeating values as necessary
-
-        const selectedMesh = objects[part];
-
-        const material = new THREE.MeshStandardMaterial({
-          map: texture,
-          color: selectedMesh.material.color, // Preserve original color
-          emissive: selectedMesh.material.emissive, // Preserve original emissive color
-          side: selectedMesh.material.side,
-          emissiveIntensity: selectedMesh.material.emissiveIntensity,
-        });
-
-        selectedMesh.material = material;
-        selectedMesh.material.needsUpdate = true;
-      });
+  
+      const objects = objectsRef.current;
+  
+      if (objects[part]) {
+        const textureLoader = new THREE.TextureLoader();
+        textureLoader.load(
+          designUrl,
+          (texture) => {
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            texture.repeat.set(1, 1); // Adjust the repeating values as necessary
+  
+            const selectedMesh = objects[part];
+  
+            const material = new THREE.MeshStandardMaterial({
+              map: texture,
+              color: selectedMesh.material.color, // Preserve original color
+              emissive: selectedMesh.material.emissive, // Preserve original emissive color
+              side: selectedMesh.material.side,
+              emissiveIntensity: selectedMesh.material.emissiveIntensity,
+            });
+  
+            selectedMesh.material = material;
+            selectedMesh.material.needsUpdate = true;
+          },
+          null, // onProgress callback
+          (error) => {
+            console.error(`Error loading texture: ${designUrl}`, error);
+            setError('An error occurred while applying the design. Please try again later.');
+          }
+        );
+      }
+    } catch (error) {
+      console.error('Error in onImageClick:', error);
+      setError('An error occurred while applying the design. Please try again later.');
     }
   };
-
   const onSizeChange = (event) => {
     currentScaleFactorRef.current = parseFloat(event.target.value);
     const handModel = handModelRef.current;
