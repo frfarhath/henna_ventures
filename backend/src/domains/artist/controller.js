@@ -8,14 +8,8 @@ const path = require('path');
 const verifyToken = require('./../../middleware/auth');
 const catchAsyncError = require('./../../middleware/catchAsyncError');
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
-});
+const storage = multer.memoryStorage(); // Use memoryStorage to handle files in memory
+
 
 // Configure file filter
 const fileFilter = (req, file, cb) => {
@@ -36,20 +30,59 @@ const upload = multer({
 exports.upload = upload;
 
 exports.registerArtist = async (req, res) => {
-    try {
-        const { full_name, phone, email, location, nearest_customers } = req.body;
-        const previous_work = req.files['previous_work'][0].path;
-        const e_certificate = req.files['e_certificate'][0].path;
+  try {
+      const { full_name, phone, email, location, nearest_customers } = req.body;
+      const previous_work = {
+          data: req.files['previous_work'][0].buffer,
+          contentType: req.files['previous_work'][0].mimetype
+      };
+      const e_certificate = {
+          data: req.files['e_certificate'][0].buffer,
+          contentType: req.files['e_certificate'][0].mimetype
+      };
 
-        const newArtist = new Artist({ 
-            full_name, phone, email, location, previous_work, e_certificate, nearest_customers 
-        });
+      const newArtist = new Artist({ 
+          full_name, phone, email, location, previous_work, e_certificate, nearest_customers 
+      });
 
-        await newArtist.save();
-        res.status(201).json({ message: 'Artist registered successfully' });
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
+      await newArtist.save();
+      res.status(201).json({ message: 'Artist registered successfully' });
+  } catch (error) {
+      res.status(400).json({ error: error.message });
+  }
+};
+exports.downloadFile = async (req, res) => {
+  try {
+      const { artistId, fileType } = req.params;
+      const artist = await Artist.findById(artistId);
+
+      if (!artist) {
+          return res.status(404).json({ message: 'Artist not found' });
+      }
+
+      let file;
+      if (fileType === 'previous_work') {
+          file = artist.previous_work;
+      } else if (fileType === 'e_certificate') {
+          file = artist.e_certificate;
+      } else {
+          return res.status(400).json({ message: 'Invalid file type requested' });
+      }
+
+      console.log("File Data:", file.data);
+      console.log("File Content Type:", file.contentType);
+      console.log("File Filename:", file.filename);
+
+      if (!file.data || !file.contentType) {
+          return res.status(400).json({ message: 'File data or content type is missing' });
+      }
+
+      res.set('Content-Type', file.contentType);
+      res.set('Content-Disposition', `attachment; filename="${file.filename}"`);
+      res.send(file.data);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
 };
 
 exports.approveArtist = async (req, res) => {

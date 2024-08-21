@@ -33,7 +33,11 @@ const userSchema = new mongoose.Schema({
     token: {
         type: String,
         default: null
-    }
+    },
+    collections: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'repository', // Refers to the RepoModel
+    }]
     // role: {
     //     type: String,
     //     enum: ['user', 'admin'], 

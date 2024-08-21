@@ -114,11 +114,22 @@ class Artist extends Component {
                                                 <td>{item.email}</td>
                                                 <td>{item.location}</td>
                                                 <td style={{ textAlign: 'center', color: 'blue', padding: 0 }}>
-                                                    Download
-                                                </td>
-                                                <td style={{ textAlign: 'center', color: 'blue', padding: 0 }}>
-                                                    Download
-                                                </td>
+    <a
+        href={`http://localhost:8000/api/v1/artist/download/${item._id}/previous_work`}
+        style={{ color: 'blue', textDecoration: 'underline' }}
+    >
+        Download
+    </a>
+</td>
+<td style={{ textAlign: 'center', color: 'blue', padding: 0 }}>
+    <a
+        href={`http://localhost:8000/api/v1/artist/download/${item._id}/e_certificate`}
+        style={{ color: 'blue', textDecoration: 'underline' }}
+    >
+        Download
+    </a>
+</td>
+
                                                 <td style={{ justifyContent: 'center', display: 'flex' }}>
                                                     <FaCheck
                                                         size={22}

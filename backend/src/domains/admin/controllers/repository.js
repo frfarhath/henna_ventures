@@ -2,39 +2,50 @@ const RepoModel = require('../models/repository');
 const multer = require('multer');
 const fs = require("fs");
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "uploads");
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.originalname);
-    },
-});
-
-const upload = multer({ storage }).single('repoImage');
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage }).single('repoImage');
 
 exports.postRepo = async (req, res) => {
-    upload(req, res, (err) => {
+    upload(req, res, async (err) => {
         if (err) {
             console.log(err);
-        } else {
-            const newRepo = new RepoModel({
-                name: req.body.name,
-                category: req.body.category,
-                image: req.file.filename
-            });
-            newRepo.save()
-                .then(() => res.send('Successfully uploaded'))
-                .catch((err) => console.log(err));
+            return res.status(500).json({ message: "Error uploading file" });
+        }
+        
+        const newRepo = new RepoModel({
+            name: req.body.name,
+            category: req.body.category,
+            image: {
+                data: req.file.buffer,
+                contentType: req.file.mimetype
+            }
+        });
+
+        try {
+            await newRepo.save();
+            res.status(200).json({ message: 'Successfully uploaded' });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: "Error saving to database" });
         }
     });
 };
 
 exports.getRepo = async (req, res) => {
-    const repos = await RepoModel.find();
-    res.json(repos);
+    try {
+        const repos = await RepoModel.find();
+        const reposWithBase64 = repos.map(repo => ({
+            _id: repo._id,
+            name: repo.name,
+            category: repo.category,
+            image: repo.image.data ? `data:${repo.image.contentType};base64,${repo.image.data.toString('base64')}` : null
+        }));
+        res.json(reposWithBase64);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error fetching from database" });
+    }
 };
-
 exports.putRepo = async (req, res) => {
     upload(req, res, async (err) => {
         if (err) {

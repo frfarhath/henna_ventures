@@ -9,6 +9,7 @@ const packageController = require('../domains/userdahboard/controllers/package')
 const ratingController = require('../domains/userdahboard/controllers/rating');
 const profileController = require('../domains/userdahboard/controllers/profile');
 const artistController = require('../domains/userdahboard/controllers/artist');
+const verifyToken = require('../middleware/auth');
 
 
 router.get('/getIndividual', individualController.getIndividual);
@@ -32,7 +33,8 @@ router.put('/updateProfile/:id', storage, profileController.putProfile);
 router.get('/findProfile/:id', profileController.findProfile);
 
 
-router.get('/getCollection', collectionController.getCollection);
+router.post('/addToCollection', verifyToken,collectionController.addToCollection);
+router.get('/getCollection', verifyToken,collectionController.getCollection);
 router.get('/getOrder', orderController.getOrder);
 router.get('/getArtist', artistController.getArtist);
 

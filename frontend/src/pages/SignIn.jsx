@@ -27,7 +27,7 @@ function SignIn() {
   
     try {
       let response;
-      if (email === 'admin@example.com' && password === 'admin123') {
+      if (email === 'adminhenna00@gmail.com' && password === 'admin123') {
         // Hardcoded admin credentials
         response = { data: { token: 'admin-token', user: { role: 'admin' } } };
       } else {
@@ -74,7 +74,7 @@ function SignIn() {
   
       if (error.response) {
         // Server responded with an error status
-        setError(error.response.data.message || 'An error occurred.');
+        setError(error.response.data.message || 'Invalid credentials!');
       } else {
         // No response received
         setError('Network error. Please try again.');

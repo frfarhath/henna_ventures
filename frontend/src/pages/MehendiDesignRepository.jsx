@@ -4,51 +4,63 @@ import { FaSearch } from 'react-icons/fa';
 import NewNav from '../components/NewNav';
 import Footer from "../components/Footer";
 import axios from 'axios';
-
-// Mock data (still useful for initial state)
-const mehendiDesigns = [
-  { id: 1, name: 'Elegant Swirls', category: 'Traditional', image: 'path/to/local/image.jpg' },
-  // other mock designs...
-];
+import { useNavigate } from 'react-router-dom';
 
 const MehendiGallery = () => {
-  const [search, setSearch] = useState('');
-  const [category, setCategory] = useState('');
-  const [collection, setCollection] = useState([]);
-  const [adminCollections, setAdminCollections] = useState([]); // State to store admin collections
+    const [search, setSearch] = useState('');
+    const [category, setCategory] = useState('');
+    const [adminCollections, setAdminCollections] = useState([]);
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    // Fetch admin collections on component mount
-    const fetchAdminCollections = async () => {
+    useEffect(() => {
+        const fetchAdminCollections = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/api/v1/admin/getrepo');
+                setAdminCollections(response.data);
+            } catch (error) {
+                console.error('Error fetching admin collections:', error);
+            }
+        };
+        fetchAdminCollections();
+    }, []);
+
+    const filteredDesigns = adminCollections.filter((design) =>
+        (design.name.toLowerCase().includes(search.toLowerCase()) ||
+            design.category.toLowerCase().includes(search.toLowerCase())) &&
+        (category ? design.category === category : true)
+    );
+
+    const addToCollection = async (design) => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/admin/getrepo');
-        setAdminCollections(response.data);
+          const token = localStorage.getItem('token');
+          console.log('Retrieved token:', token);
+  
+          if (!token) {
+              alert('Please log in to add designs to your collection.');
+              navigate('/signin');
+              return;
+          }
+  
+          console.log('Sending request with design ID:', design._id);
+          const response = await axios.post('http://localhost:8000/api/v1/individual/addToCollection', 
+              { designId: design._id },
+              { headers: { Authorization: `Bearer ${token}` } }
+          );
+  
+          console.log('Server response:', response.data);
+          if (response.status === 200) {
+              alert('Design added to your collection successfully!');
+          }
       } catch (error) {
-        console.error('Error fetching admin collections:', error);
+          console.error('Error adding design to collection:', error.response?.data || error.message);
+          if (error.response && error.response.status === 401) {
+              alert('Your session has expired. Please log in again.');
+              navigate('/signin');
+          } else {
+              alert('Failed to add design to collection.');
+          }
       }
-    };
-    fetchAdminCollections();
-  }, []);
-
-  const filteredDesigns = mehendiDesigns.filter((design) =>
-    (design.name.toLowerCase().includes(search.toLowerCase()) ||
-      design.category.toLowerCase().includes(search.toLowerCase())) &&
-    (category ? design.category === category : true)
-  );
-
-  const addToCollection = async (design) => {
-    try {
-      const response = await axios.post('http://localhost:8000/api/admin/repoupload', { design });
-      if (response.status === 200) {
-        setCollection([...collection, design]);
-        alert('Design added to collection successfully!');
-      }
-    } catch (error) {
-      console.error('Error adding design to collection:', error);
-      alert('Failed to add design to collection.');
-    }
   };
-
   return (
     <div className="repo-page" style={{ backgroundColor: 'white' }}>
       {/* Navbar */}
@@ -89,14 +101,18 @@ const MehendiGallery = () => {
             </select>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {filteredDesigns.concat(adminCollections).map((design) => (
+            {filteredDesigns.map((design) => (
               <motion.div
-                key={design._id || design.id} // Use MongoDB _id for key
+                key={design._id} // Use _id from MongoDB
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform duration-200 flex flex-col items-center"
               >
-                <img src={design.image} alt={design.name} className="w-full h-72 object-cover" />
+                <img
+                  src={design.image}
+                  alt={design.name}
+                  className="w-full h-72 object-cover"
+                />
                 <div className="p-3 flex-grow flex flex-col justify-between items-center">
                   <div className="text-center">
                     <h3 className="text-lg font-semibold mb-1">{design.name}</h3>

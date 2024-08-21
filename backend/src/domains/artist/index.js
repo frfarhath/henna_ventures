@@ -9,7 +9,7 @@ router.post('/register', artistController.upload.fields([
     { name: 'previous_work', maxCount: 1 },
     { name: 'e_certificate', maxCount: 1 }
 ]), artistController.registerArtist);
-
+router.get('/download/:artistId/:fileType', artistController.downloadFile);
 router.post('/approve/:artistId', artistController.approveArtist);
 router.post('/login', artistController.loginArtist);
 router.get('/', artistController.getAllArtists); // Ensure this line is included
