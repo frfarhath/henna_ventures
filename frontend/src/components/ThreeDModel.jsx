@@ -8,7 +8,7 @@ import NewNav from '../components/NewNav';
 import Footer from '../components/Footer';
 
 const ThreeDModel = () => {
-  const [error, setError] = useState('');
+  const [setError] = useState('');
   const navigate = useNavigate();
   const containerRef = useRef(null);
   const objectsRef = useRef({});
