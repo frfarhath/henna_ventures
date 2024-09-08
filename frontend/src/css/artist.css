@@ -291,8 +291,8 @@ h3 {
   background-color: #633b0b;
 }
 
-/* Modal Styling */
-.modal {
+/* Artist-modal Styling */
+.Artist-modal {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -408,14 +408,14 @@ input[type="password"]:focus {
   border-radius: 4px;
   transition: background-color 0.3s ease, color 0.3s ease;
 } */
-.modal-header {
+.Artist-modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.modal-header h3 {
+.Artist-modal-header h3 {
   margin: 0;
 }
 
@@ -426,22 +426,22 @@ input[type="password"]:focus {
   cursor: pointer;
 }
 
-.modal form {
+.Artist-modal form {
   display: flex;
   flex-direction: column;
 }
 
-.modal form label {
+.Artist-modal form label {
   margin-bottom: 10px;
 }
 
-.modal form input {
+.Artist-modal form input {
   margin-top: 5px;
   padding: 5px;
   font-size: 14px;
 }
 
-.modal form button {
+.Artist-modal form button {
   margin-top: 10px;
   padding: 10px;
   background-color: #804f0e;
@@ -452,7 +452,7 @@ input[type="password"]:focus {
   font-size: 14px;
 }
 
-.modal form button:hover {
+.Artist-modal form button:hover {
   background-color: #633b0b;
 }
 
@@ -517,7 +517,7 @@ input[type="password"]:focus {
   border-radius: 4px;
   transition: background-color 0.3s ease;
 }
-.modal {
+.Artist-modal {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -770,7 +770,7 @@ input[type="password"]:focus {
 }
 
 
-.modal {
+.Artist-modal {
   width: 90%;
   max-width: 400px;
 }
@@ -778,7 +778,7 @@ input[type="password"]:focus {
 .overlay {
   background-color: rgba(0, 0, 0, 0.75);
 }
-.modal-overlay {
+.Artist-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -790,7 +790,7 @@ input[type="password"]:focus {
   align-items: center;
 }
 
-.modal-contentt {
+.Artist-modal-contentt {
   background: white;
   padding: 20px;
   border-radius: 8px;
@@ -800,7 +800,7 @@ input[type="password"]:focus {
   position: relative;
 }
 
-.modal-close-button {
+.Artist-modal-close-button {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -810,37 +810,37 @@ input[type="password"]:focus {
   cursor: pointer;
 }
 
-.modal-header {
+.Artist-modal-header {
   margin-bottom: 20px;
   text-align: center;
 }
 
-.modal-table {
+.Artist-modal-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.modal-table td {
+.Artist-modal-table td {
   padding: 7px;
   border: 1px solid #804f0e;
   text-align: left;
 }
 
-.modal-table td:first-child {
+.Artist-modal-table td:first-child {
   background-color: white;
 }
 
-.modal-table tr:nth-child(even) td {
+.Artist-modal-table tr:nth-child(even) td {
   background-color: #d2b48c;
 }
 
 @media (max-width: 480px) {
-  .modal-contentt {
+  .Artist-modal-contentt {
     width: 95%;
     padding: 15px;
   }
 
-  .modal-table td {
+  .Artist-modal-table td {
     padding: 8px;
   }
 }
