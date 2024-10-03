@@ -7,13 +7,13 @@ const RequestModal = ({ request, onClose }) => {
   if (!request) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-contentt" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close-button" onClick={onClose}>
+    <div className="Artist-modal-overlay" onClick={onClose}>
+      <div className="Artist-modal-contentt" onClick={(e) => e.stopPropagation()}>
+        <button className="Artist-modal-close-button" onClick={onClose}>
           <FontAwesomeIcon icon={faTimes} />
         </button>
 
-        <table className="modal-table">
+        <table className="Artist-modal-table">
         <h3 className="font-comic text-2xl mb-[-10px] text-center">Detailed Information</h3>
           <br />
           <tbody>

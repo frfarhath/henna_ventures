@@ -199,14 +199,14 @@ export default function Appointments({ selectedDate }) {
         isOpen={modalIsOpen}
         onRequestClose={onClose}
         contentLabel="Edit Appointment"
-        className="modal"
+        className="Artist-modal"
         overlayClassName="overlay"
       >
-        <div className="modal-overlay" onClick={onClose}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <table className="modal-table">
+        <div className="Artist-modal-overlay" onClick={onClose}>
+          <div className="Artist-modal-content" onClick={(e) => e.stopPropagation()}>
+            <table className="Artist-modal-table">
             <h3 className="font-comic text-2xl mb-[-10px] text-center">Edit Appointment</h3>
-              <button className="modal-close-button" onClick={onClose}>
+              <button className="Artist-modal-close-button" onClick={onClose}>
                 <FontAwesomeIcon icon={faTimes} />
               </button>
 

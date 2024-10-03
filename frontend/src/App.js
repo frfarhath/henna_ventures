@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { UserProvider } from './components/UserContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import AdminProtectedRoute from './components/AdminProtectedRoute';
 import "./css/style.css";
 import VerifyOTP from './components/verifyOTP';
 import ForgotPassword from './components/ForgotPassword';
@@ -83,7 +85,9 @@ function App() {
           <Route path="changepassword" element={<ChangePassword />} />
           <Route path="/MehendiDesignRepository" element={<MehendiDesignRepository />} />
           
-          
+            {/* Admin Protected Routes */}
+        
+            
           <Route path="/Admin" element={<Dashboard />} />
           <Route path="/Products" element={<Product />} />
           <Route path="/Order" element={<Order />} />
@@ -93,8 +97,16 @@ function App() {
           <Route path="/Summary" element={<Summary />} />
           <Route path="/Review" element={<Review />} />
           <Route path="/DisplayMessages" element={<DisplayMessages />} />
+          
           {/* Routes that need the Sidebar */}
-          <Route element={<UserDashboardLayout />}>
+          <Route
+              element={
+                <ProtectedRoute> {/* Protect all user routes by requiring authentication */}
+                  <UserDashboardLayout />
+                </ProtectedRoute>
+              }
+            >
+         
             <Route path="profile" element={<Profile />} />
             <Route path="orders" element={<Orders />} />
             <Route path="appointment" element={<Appointment />} />

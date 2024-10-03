@@ -32,12 +32,12 @@ const ProductModal1 = ({ product, onClose }) => {
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close-button" onClick={onClose}>
+    <div className="Artist-modal-overlay" onClick={onClose}>
+      <div className="Artist-modal-content" onClick={(e) => e.stopPropagation()}>
+        <button className="Artist-modal-close-button" onClick={onClose}>
           <FontAwesomeIcon icon={faTimes} />
         </button>
-        <div className="modal-left">
+        <div className="Artist-modal-left">
           <div className="slider">
             <button className="slider-button prev" onClick={prevImage}>
               &#10094;
@@ -45,14 +45,14 @@ const ProductModal1 = ({ product, onClose }) => {
             <img
               src={product.images[currentImageIndex]}
               alt={product.name}
-              className="modal-product-image"
+              className="Artist-modal-product-image"
             />
             <button className="slider-button next" onClick={nextImage}>
               &#10095;
             </button>
           </div>
         </div>
-        <div className="modal-right">
+        <div className="Artist-modal-right">
         <h3 className="font-comic text-2xl mb-[-10px] text-center">{product.name}</h3>
           <br />
           <p className="text-model">{product.productdes}</p>
