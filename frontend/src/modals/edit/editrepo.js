@@ -12,7 +12,7 @@ const EditRepo = ({ show, handleClose, passing }) => {
     const [image, setImage] = useState(null);
 
     const data = [
-        'Category 1', 'Category 2'
+         'Indian', 'Pakistani', 'Arabic', 'Indo-Arabic', 'African', 'Moroccan', 'Western', 'Indo-Western'
     ];
 
 
