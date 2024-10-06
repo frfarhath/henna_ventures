@@ -27,89 +27,65 @@ class Product extends Component {
             showupdate: false,
             fetchArray: [],
             loading: true,
-
-            passingArray: {}
+            passingArray: {},
+            searchTerm: '',
         };
     }
-
-    showModal = () => {
-        this.setState({ show: true });
-    }
-
-    showEdit = (item) => {
-        this.setState({
-            showedit: true,
-            passingArray: { ...item }
-        });
-    }
-
-    showUpdate = (item) => {
-        this.setState({
-            showupdate: true,
-            passingArray: { ...item }
-        });
-    }
-
-    hideModal = () => {
-        this.setState({ show: false });
-    }
-
-    hideEdit = () => {
-        this.setState({ showedit: false });
-    }
-
-    hideUpdate = () => {
-        this.setState({ showupdate: false });
-    }
-
 
     componentDidMount() {
-
-        const fetchData = async () => {
-            try {
-                const res = await axios.get('http://localhost:8000/api/v1/admin/getProduct');
-                const resdata = await res.data;
-
-                this.setState({
-                    fetchArray: resdata,
-                    loading: false
-                });
-
-            } catch (error) {
-                console.log('Main Error', error);
-            }
-        };
-        fetchData();
+        this.fetchData();
     }
 
-    handleDlete = async (id) => {
-
+    fetchData = async () => {
         try {
-
-            const res = await axios.delete(`http://localhost:8000/api/v1/admin/deleteProduct/${id}`);
-
-            const resdata = await res.data;
-            console.log(resdata);
-            alert('Successfully ! Product Deleting')
-            window.location.reload();
-
+            const res = await axios.get('http://localhost:8000/api/v1/admin/getProduct');
+            this.setState({
+                fetchArray: res.data,
+                loading: false
+            });
         } catch (error) {
             console.log('Main Error', error);
-            alert('Failed ! Product Deleting')
-            window.location.reload();
+            this.setState({ loading: false });
         }
-
     };
 
+    showModal = () => this.setState({ show: true });
+    hideModal = () => this.setState({ show: false });
+
+    showEdit = (item) => this.setState({ showedit: true, passingArray: { ...item } });
+    hideEdit = () => this.setState({ showedit: false });
+
+    showUpdate = (item) => this.setState({ showupdate: true, passingArray: { ...item } });
+    hideUpdate = () => this.setState({ showupdate: false });
+
+    handleDelete = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8000/api/v1/admin/deleteProduct/${id}`);
+            alert('Successfully deleted product');
+            this.fetchData(); // Refresh the data instead of reloading the page
+        } catch (error) {
+            console.log('Delete Error', error);
+            alert('Failed to delete product');
+        }
+    };
+
+    handleSearch = (event) => {
+        this.setState({ searchTerm: event.target.value });
+    };
 
     render() {
+        const { loading, fetchArray, show, showedit, showupdate, passingArray, searchTerm } = this.state;
+
+        const filteredProducts = fetchArray.filter(item =>
+            item.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
         return (
             <div className='body' style={{ backgroundColor: '#ffffff' }}>
                 <SideBar />
                 <div className='content'>
                     <Head />
                     <div className='conbody'>
-
                         <div className='producthead'>
                             <h3 className='productheadtxt'>PRODUCTS</h3>
                         </div>
@@ -121,14 +97,21 @@ class Product extends Component {
                             </div>
                             <div className='search'>
                                 <IoSearchOutline size={22} style={{ color: 'black' }} />
-                                <input className='searchinpu' placeholder='search by product name' />
+                                <input 
+                                    className='searchinpu' 
+                                    placeholder='search by product name' 
+                                    value={searchTerm}
+                                    onChange={this.handleSearch}
+                                />
                             </div>
                         </div>
 
-
                         <div className='producttable'>
-
-                            {!this.state.loading && (
+                            {loading ? (
+                                <div style={{ marginTop: '2rem' }}>
+                                    <Loading />
+                                </div>
+                            ) : (
                                 <table>
                                     <thead>
                                         <tr>
@@ -142,20 +125,18 @@ class Product extends Component {
                                             <th>ACTION</th>
                                         </tr>
                                     </thead>
-
                                     <tbody>
-                                        {this.state.fetchArray.map((item, index) => {
-
-                                            const base64String = btoa(
-                                                String.fromCharCode(...new Uint8Array(item.image1.data.data))
-                                            );
+                                        {filteredProducts.map((item, index) => {
+                                            const imageUrl = item.image1 && item.image1.data 
+                                                ? `data:${item.image1.contentType};base64,${this.arrayBufferToBase64(item.image1.data.data)}`
+                                                : ''; // Provide a default image or placeholder
 
                                             return (
-                                                <tr key={index}>
+                                                <tr key={item._id}>
                                                     <td>{index + 1}</td>
                                                     <td style={{ justifyContent: 'center', display: 'flex' }}>
                                                         <div className='productimgcard'>
-                                                            <img src={`data:image/png;base64,${base64String}`} alt="" className='productimg' />
+                                                            {imageUrl && <img src={imageUrl} alt="" className='productimg' />}
                                                         </div>
                                                     </td>
                                                     <td>{item.name}</td>
@@ -167,34 +148,34 @@ class Product extends Component {
                                                         <div style={{ display: 'flex' }} className='action'>
                                                             <FaEdit size={22} style={{ marginRight: 5 }} className='FaEdit' onClick={() => this.showEdit(item)} />
                                                             <FaCartPlus size={22} color='green' style={{ marginRight: 5 }} className='FaEdit' onClick={() => this.showUpdate(item)} />
-                                                            <MdDelete size={22} className='MdDelete' onClick={() => this.handleDlete(item._id)} />
+                                                            <MdDelete size={22} className='MdDelete' onClick={() => this.handleDelete(item._id)} />
                                                         </div>
                                                     </td>
                                                 </tr>
-                                            )
-
+                                            );
                                         })}
                                     </tbody>
                                 </table>
                             )}
-
-                            {this.state.loading && (
-                                <div style={{ marginTop: '2rem' }}>
-                                    <Loading />
-                                </div>
-                            )}
-
                         </div>
-
                     </div>
                 </div>
 
-                <ProductModal show={this.state.show} handleClose={this.hideModal} />
-                <EditProduct show={this.state.showedit} handleClose={this.hideEdit} passing={this.state.passingArray} />
-                <UpdateStock show={this.state.showupdate} handleClose={this.hideUpdate} passing={this.state.passingArray} />
-
+                <ProductModal show={show} handleClose={this.hideModal} />
+                <EditProduct show={showedit} handleClose={this.hideEdit} passing={passingArray} />
+                <UpdateStock show={showupdate} handleClose={this.hideUpdate} passing={passingArray} />
             </div>
         );
+    }
+
+    arrayBufferToBase64(buffer) {
+        let binary = '';
+        const bytes = new Uint8Array(buffer);
+        const len = bytes.byteLength;
+        for (let i = 0; i < len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return btoa(binary);
     }
 }
 
