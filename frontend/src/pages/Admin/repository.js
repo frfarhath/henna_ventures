@@ -144,7 +144,10 @@ class Repository extends Component {
         this.setState({ showrepo: false });
     }
     // ... (other methods remain the same)
-
+    showModal = () => {
+        this.setState({ show: true });
+    }
+    
     render() {
         const { fetchArray, loading, error, show, showrepo, passingArray } = this.state;
 
