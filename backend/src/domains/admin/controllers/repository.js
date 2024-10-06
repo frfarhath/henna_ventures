@@ -2,62 +2,76 @@ const RepoModel = require('../models/repository');
 const multer = require('multer');
 const fs = require("fs");
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage }).single('repoImage');
+
+const Storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "uploads");
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    },
+});
+
+const upload = multer({
+    storage: Storage
+}).single('repoImage')
+
 
 exports.postRepo = async (req, res) => {
-    upload(req, res, async (err) => {
+    upload(req, res, (err) => {
         if (err) {
-            console.log(err);
-            return res.status(500).json({ message: "Error uploading file" });
+            console.log(err)
         }
-        
-        const newRepo = new RepoModel({
-            name: req.body.name,
-            category: req.body.category,
-            image: {
-                data: req.file.buffer,
-                contentType: req.file.mimetype
-            }
-        });
-
-        try {
-            await newRepo.save();
-            res.status(200).json({ message: 'Successfully uploaded' });
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({ message: "Error saving to database" });
+        else {
+            const newRepo = new RepoModel({
+                name: req.body.name,
+                category: req.body.category,
+                image: {
+                    data: fs.readFileSync('uploads/' + req.file.filename),
+                    contentType: 'image/png',
+                }
+            })
+            newRepo.save()
+                .then(() => res.send('successfully uploaded'))
+                .catch((err) => console.log(err));
         }
     });
 };
 
 exports.getRepo = async (req, res) => {
     try {
-        const repos = await RepoModel.find();
-        const reposWithBase64 = repos.map(repo => ({
-            _id: repo._id,
-            name: repo.name,
-            category: repo.category,
-            image: repo.image.data ? `data:${repo.image.contentType};base64,${repo.image.data.toString('base64')}` : null
+        const blogs = await RepoModel.find();
+
+        // Convert image data to Base64
+        const blogsWithImages = blogs.map(blog => ({
+            ...blog._doc, // Spread the original blog properties
+            image: `data:${blog.image.contentType};base64,${blog.image.data.toString('base64')}` // Convert Buffer to Base64
         }));
-        res.json(reposWithBase64);
+
+        res.json(blogsWithImages);
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Error fetching from database" });
+        res.status(500).json({ message: error.message });
     }
 };
+
+
 exports.putRepo = async (req, res) => {
+
     upload(req, res, async (err) => {
         if (err) {
-            console.log(err);
-        } else {
+            console.log(err)
+        }
+        else {
             try {
                 const updateRepo = await RepoModel.findByIdAndUpdate(
                     req.params.id,
                     {
                         name: req.body.name,
                         category: req.body.category,
-                        image: req.file.filename
+                        image: {
+                            data: fs.readFileSync('uploads/' + req.file.filename),
+                            contentType: 'image/png',
+                        }
                     },
                     { new: true }
                 );
@@ -65,14 +79,17 @@ exports.putRepo = async (req, res) => {
             } catch (err) {
                 res.status(400).json({ message: err.message });
             }
+
         }
     });
+
 };
 
 exports.deleteRepo = async (req, res) => {
+
     try {
-        const deletedRepo = await RepoModel.findByIdAndDelete(req.params.id);
-        if (!deletedRepo) {
+        const deletedPost = await RepoModel.findByIdAndDelete(req.params.id);
+        if (!deletedPost) {
             return res.status(404).json({ message: 'Repo not found' });
         }
         res.json({ message: 'Repo deleted successfully' });
@@ -80,3 +97,4 @@ exports.deleteRepo = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+

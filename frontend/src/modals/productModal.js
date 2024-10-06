@@ -37,7 +37,7 @@ const ProductModal = ({ show, handleClose }) => {
             formData.append("image2", image2);
             formData.append("image3", image3);
 
-            const res = await axios.post('http://localhost:8000/api/admin/addProduct', formData, {
+            const res = await axios.post('http://localhost:8000/api/v1/admin/addProduct', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },

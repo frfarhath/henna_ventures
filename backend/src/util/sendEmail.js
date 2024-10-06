@@ -1,15 +1,13 @@
 const nodemailer = require("nodemailer");
 require('dotenv').config();
 
-const { AUTH_EMAIL, AUTH_PASS } = process.env;
+const { AUTH_EMAIL, AUTH_PASS } = process.env; // AUTH_PASS should be the App Password, not your Gmail password if 2FA is enabled
 
 let transporter = nodemailer.createTransport({
-    host: "smtp-mail.outlook.com",
-    port: 587,
-    secure: false,
+    service: 'gmail', // Use Gmail's SMTP service
     auth: {
         user: AUTH_EMAIL,
-        pass: AUTH_PASS,
+        pass: AUTH_PASS, // Use App Password here if using 2FA
     },
     tls: {
         rejectUnauthorized: false
@@ -19,7 +17,7 @@ let transporter = nodemailer.createTransport({
 // Test transporter
 transporter.verify((error, success) => {
     if (error) {
-        console.log('Error connecting to Outlook SMTP server:', error);
+        console.log('Error connecting to Gmail SMTP server:', error);
     } else {
         console.log("Ready to send emails");
         console.log('Success:', success);

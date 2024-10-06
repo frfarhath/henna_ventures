@@ -9,7 +9,6 @@ const artistController = require('../domains/admin/controllers/artist');
 const orderController = require('../domains/admin/controllers/order');
 const ReviewController = require('../domains/admin/controllers/review');
 const MessageController = require('../domains/admin/controllers/message');
-const loginController = require('../domains/admin/controllers/login');
 
 
 router.post('/repoupload', repoController.postRepo);
@@ -32,15 +31,15 @@ router.delete('/deleteAppoinmentIndividual/:id', appoinmentController.deleteAppo
 router.get('/getConfirmAppoinmentPackage', appoinmentController.getConfirmAppoinmentPackage);
 router.get('/getConfirmAppoinmentIndividual', appoinmentController.getConfirmAppoinmentIndividual);
 
-// @route   POST api/admin/login
-// @desc    Login admin & get token
-// @access  Public
-router.post('/login', loginController.loginAdmin);
 
 router.get('/getArtist', artistController.getArtist);
 router.get('/getConfirmArtist', artistController.getConfirmArtist);
-router.post('/addConfirmArtist',storage, artistController.postConfirmArtist);
 router.delete('/deleteArtist/:id', artistController.deleteArtist);
+
+//
+router.post('/sendMail',storage, artistController.mail);
+router.post('/removeConfirmArtist',storage, artistController.removeConfirmArtist);
+//
 
 router.get('/getOrder', orderController.getOrder);
 router.post('/addOrder',storage, orderController.postOrder);

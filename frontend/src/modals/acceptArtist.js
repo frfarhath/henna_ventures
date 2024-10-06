@@ -24,6 +24,7 @@ const AcceptArtist = ({ show, handleClose, passing }) => {
         try {
 
             const postdata = {
+                "id": receivedArray._id,
                 "fullname": receivedArray.full_name,
                 "phone": receivedArray.phone,
                 "email": receivedArray.email,
@@ -33,9 +34,10 @@ const AcceptArtist = ({ show, handleClose, passing }) => {
                 "is_approved": 'true',
                 "username": username,
                 "password": password,
+                "pass": password,
             };
 
-            const res = await axios.post('http://localhost:8000/api/admin/addConfirmArtist', postdata, {
+            const res = await axios.post('http://localhost:8000/api/v1/admin/sendMail', postdata, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
@@ -43,12 +45,12 @@ const AcceptArtist = ({ show, handleClose, passing }) => {
 
             const resdata = await res.data;
             console.log(resdata);
-            alert('Successfully ! Artist Added')
+            alert('Successfully ! Artist Approved')
             window.location.reload();
 
         } catch (error) {
             console.log('Main Error', error);
-            alert('Failed ! Artist Added')
+            alert('Failed ! Artist Approved')
             window.location.reload();
         }
 
