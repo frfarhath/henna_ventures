@@ -23,8 +23,8 @@ const Footer = () => {
     {
       id: "phone",
       icon: <FaPhoneAlt size={20} />,
-      title: "0743883870",
-      link: "",
+      title: "Whatsapp",
+      link: "https://l.instagram.com/?u=https%3A%2F%2Fchat.whatsapp.com%2FDfNCe5vRfVcJ9yHEVQvJvU&e=AT2FHHwyToqDDjDfAm24rp01geOCo5jRuQw37fZIhmTQkXnzaa1njiTfxpIRLwFS1BXIPPv4Q5upSyWXBj0Sz6BkkpfJpo23",
     },
     {
       id: "email",
@@ -42,7 +42,7 @@ const Footer = () => {
       id: "instagram",
       icon: <FaInstagram size={20} />,
       title: "Instagram",
-      link: "",
+      link: "https://www.instagram.com/henna_ventures/",
     },
   ];
 
