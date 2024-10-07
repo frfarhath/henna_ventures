@@ -26,21 +26,25 @@ const RatingAndReview = () => {
     }
   };
 
-  const fetchArtists = async () => {
+  const fetchData2 = async () => {
+
     try {
+
       const res = await axios.get('http://localhost:8000/api/v1/individual/getArtist');
       const resdata = await res.data;
       setArtistArray(resdata);
-      setLoading(false);
+      setLoading(false)
+
     } catch (error) {
       console.log('Main Error', error);
     }
-  };
 
+  };
+  
   useEffect(() => {
     if (user && user._id) {
       fetchData();
-      fetchArtists();
+      fetchData2();
     }
   }, [user]);
 
@@ -134,17 +138,17 @@ const RatingAndReview = () => {
           ></textarea>
         </div>
 
+        
         <div className="mb-4">
           <label className="block text-[#804f0e]">Artist:</label>
           <select className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-[#804f0e]"
             onChange={(e) => setArtist(e.target.value)} value={artist}>
             <option value="">-- Select Artist --</option>
             {artistArray.map((item, index) => (
-              <option key={index} value={item.full_name}>{item.full_name}</option>
+              <option key={index} value={item.fullname}>{item.fullname}</option>
             ))}
           </select>
         </div>
-
         <button
           className="bg-[#804f0e] text-white py-2 px-4 rounded hover:bg-[#6d3d0b] transition duration-300"
           type="submit">

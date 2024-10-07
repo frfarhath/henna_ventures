@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { FaEye } from 'react-icons/fa';
 import Loading from '../../components/User Dashboard/Loading';
-
+import OrderView from "./modals/OrderView";
 const Order = () => {
 
   const [fetchArray, setFetchArray] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [show, setShow] = useState(false);
+  const [passingArray, setPassingArray] = useState({});
+
 
   useEffect(() => {
 
@@ -27,9 +31,19 @@ const Order = () => {
 
   }, []);
 
+  const showModal = (order) => {
+    setShow(true);
+    setPassingArray(order);
+  }
+
+  const hideModal = () => {
+    setShow(false)
+  }
+
 
   return (
     <div className="container mx-auto px-4 py-8 font-serif">
+
       <h1 className="text-2xl font-bold mb-6 text-[#804f0e]">My Orders</h1>
 
       {!loading && (
@@ -39,7 +53,6 @@ const Order = () => {
               <tr className="w-full bg-[#f5f0eb] border-b">
                 <th className="py-3 px-2 sm:px-6 text-left text-[#804f0e] text-xs sm:text-base" style={{ textAlign: 'center' }}>Order ID</th>
                 <th className="py-3 px-2 sm:px-6 text-left text-[#804f0e] text-xs sm:text-base" style={{ textAlign: 'center' }}>Number of Items</th>
-                <th className="py-3 px-2 sm:px-6 text-left text-[#804f0e] text-xs sm:text-base" style={{ textAlign: 'center' }}>Amount</th>
                 <th className="py-3 px-2 sm:px-6 text-left text-[#804f0e] text-xs sm:text-base" style={{ textAlign: 'center' }}>Status</th>
                 <th className="py-3 px-2 sm:px-6 text-left text-[#804f0e] text-xs sm:text-base" style={{ textAlign: 'center' }}>Actions</th>
               </tr>
@@ -50,8 +63,7 @@ const Order = () => {
                 <tr key={order.id} className="border-b" style={{ textAlign: 'center' }}>
                   <td className="py-3 px-2 sm:px-6 text-[#804f0e] text-xs sm:text-base">{order.orderid}</td>
                   <td className="py-3 px-2 sm:px-6 text-[#804f0e] text-xs sm:text-base">{order.quantity}</td>
-                  <td className="py-3 px-2 sm:px-6 text-[#804f0e] text-xs sm:text-base">$469.07</td>
-
+                  
                   <td className={`py-3 px-2 sm:px-6 ${order.status === '1' ? 'text-green-600' : 'text-red-600'} text-xs sm:text-base`}>
                     {order.status === '1' && (
                       <div>
@@ -66,7 +78,8 @@ const Order = () => {
                   </td>
 
                   <td className="py-3 px-2 sm:px-6">
-                    <button className="bg-[#804f0e] text-white py-1 sm:py-2 px-2 sm:px-4 rounded hover:bg-[#663b0b] transition-colors duration-300">
+                    <button className="bg-[#804f0e] text-white py-1 sm:py-2 px-2 sm:px-4 rounded hover:bg-[#663b0b] transition-colors duration-300"
+                      onClick={() => showModal(order)}>
                       <FaEye />
                     </button>
                   </td>
@@ -87,11 +100,14 @@ const Order = () => {
             </div>
           </div>
         </div>
+
       )}
 
       {loading && (
         <Loading />
       )}
+
+      <OrderView show={show} handleClose={hideModal} passing={passingArray} />
 
     </div>
   );

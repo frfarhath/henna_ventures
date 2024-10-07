@@ -1,6 +1,6 @@
-const ArtistModel = require('../models/artist');
+const ConfirmArtistModel = require('../models/confirmArtist')
 
 exports.getArtist = async (req, res) => {
-    const blogs = await ArtistModel.find();
+    const blogs = await ConfirmArtistModel.find();
     res.json(blogs);
 };

@@ -85,20 +85,21 @@ const MehendiGallery = () => {
               <FaSearch className="absolute top-3 right-3 text-gray-500" />
             </div>
             <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="border p-2 rounded"
-            >
-              <option value="">All Categories</option>
-              <option value="Traditional">Indian</option>
-              <option value="Modern">Pakistani</option>
-              <option value="Arabic">Arabic</option>
-              <option value="Bridal">Indo-Arabic</option>
-              <option value="Traditional">African</option>
-              <option value="Modern">Moroccan</option>
-              <option value="Arabic">Western</option>
-              <option value="Bridal">Indo-Western</option>
-            </select>
+  value={category}
+  onChange={(e) => setCategory(e.target.value)}
+  className="border p-2 rounded"
+>
+  <option value="">All Categories</option>
+  <option value="Indian">Indian</option>
+  <option value="Pakistani">Pakistani</option>
+  <option value="Arabic">Arabic</option>
+  <option value="Indo-Arabic">Indo-Arabic</option>
+  <option value="African">African</option>
+  <option value="Moroccan">Moroccan</option>
+  <option value="Western">Western</option>
+  <option value="Indo-Western">Indo-Western</option>
+</select>
+
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredDesigns.map((design) => (

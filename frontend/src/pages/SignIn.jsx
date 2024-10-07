@@ -12,79 +12,63 @@ function SignIn() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
   
     if (!email || !password) {
       setError('Email and password are required.');
       setSuccess('');
-      setTimeout(() => {
-        setError('');
-      }, 2000); // Clear error message after 2 seconds
+      setTimeout(() => setError(''), 2000);
       return;
     }
   
     try {
       let response;
+      let isAdmin = false;
       if (email === 'adminhenna00@gmail.com' && password === 'admin123') {
         // Hardcoded admin credentials
+        isAdmin = true;
         response = { data: { token: 'admin-token', user: { role: 'admin' } } };
       } else {
         response = await axios.post(
           'http://localhost:8000/api/v1/user',
           { email, password },
           {
-            headers: {
-              'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
           }
         );
       }
   
-      const user = response.data.user || {}; // Default to an empty object if user is undefined
+      const user = response.data.user || {};
   
       if (response.data.token) {
-        // Store token and user data in local storage
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify({...user, isAdmin}));
   
-        // Set success message
         setSuccess('Login successful!');
         setError('');
   
-        // Redirect based on user role
         setTimeout(() => {
-          const userRole = user.role || 'guest'; // Default to 'guest' if role is undefined
-          if (userRole === 'admin') {
-            navigate('/admin'); // Redirect to admin page
+          if (isAdmin) {
+            navigate('/Admin'); // Note the capital 'A' to match your route
           } else {
-            navigate('/profile'); // Redirect to user profile page
+            navigate('/profile');
           }
-        }, 2000); // Redirect after 2 seconds
+        }, 2000);
       } else {
         setError('Invalid credentials.');
         setSuccess('');
-        setTimeout(() => {
-          setError('');
-        }, 2000); // Clear error message after 2 seconds
+        setTimeout(() => setError(''), 2000);
       }
     } catch (error) {
       console.error('Login error:', error);
-  
-      if (error.response) {
-        // Server responded with an error status
-        setError(error.response.data.message || 'Invalid credentials!');
-      } else {
-        // No response received
-        setError('Network error. Please try again.');
-      }
+      setError(error.response?.data?.message || 'Network error. Please try again.');
       setSuccess('');
-      setTimeout(() => {
-        setError('');
-      }, 2000); // Clear error message after 2 seconds
+      setTimeout(() => setError(''), 2000);
     }
   };
+  
   
   return (
     <div>

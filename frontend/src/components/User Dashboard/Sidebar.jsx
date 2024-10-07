@@ -1,10 +1,20 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaBoxOpen, FaSignOutAlt, FaStar, FaCalendarAlt, FaClipboardList } from 'react-icons/fa';
 import UserContext from '../../components/UserContext';
 
 const Sidebar = () => {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  // Logout function
+  const handleLogout = () => {
+    // Remove token from localStorage (or wherever it's stored)
+    localStorage.removeItem('token'); // Adjust if your token is stored in a different place (like sessionStorage)
+
+    // Redirect to the login page
+    navigate('/signin');
+  };
 
   if (!user) {
     return <div>Loading...</div>;
@@ -44,10 +54,13 @@ const Sidebar = () => {
           </Link>
 
           <div>
-            <Link to="/" className="flex items-center text-[#804f0e] hover:text-white hover:bg-[#804f0e] p-2 rounded-lg transition duration-300">
+            <button
+              onClick={handleLogout}
+              className="flex items-center text-[#804f0e] hover:text-white hover:bg-[#804f0e] p-2 rounded-lg transition duration-300"
+            >
               <FaSignOutAlt className="mr-3" />
               Logout
-            </Link>
+            </button>
           </div>
         </nav>
       </div>

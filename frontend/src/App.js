@@ -88,15 +88,17 @@ function App() {
             {/* Admin Protected Routes */}
         
             
+            <Route element={<AdminProtectedRoute />}>
           <Route path="/Admin" element={<Dashboard />} />
           <Route path="/Products" element={<Product />} />
           <Route path="/Order" element={<Order />} />
-          <Route path="/Appoinment" element={<Appoinment />} />
+          <Route path="/Appointment" element={<Appointment />} />
           <Route path="/Repository" element={<Repository />} />
           <Route path="/Artist" element={<Artist />} />
           <Route path="/Summary" element={<Summary />} />
           <Route path="/Review" element={<Review />} />
           <Route path="/DisplayMessages" element={<DisplayMessages />} />
+        </Route>
           
           {/* Routes that need the Sidebar */}
           <Route
