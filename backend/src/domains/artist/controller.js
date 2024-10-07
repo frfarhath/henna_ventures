@@ -1,5 +1,5 @@
 const Artist = require('./model');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const ConfirmArtistModel = require('../admin/models/confirmArtist');
 const createToken = require("./../../util/createToken");
 const sendEmail = require('../../util/sendEmail');
@@ -97,6 +97,7 @@ exports.approveArtist = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
+
         artist.username = username;
         artist.password = hashedPassword;
         artist.is_approved = true;
@@ -125,42 +126,48 @@ exports.getAllArtists = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
-
-// Controller function to handle artist login
 exports.loginArtist = async (req, res) => {
-    try {
+  try {
       const { username, password } = req.body;
-  
-      const confirmartist = await ConfirmArtistModel.findOne({ username });
-      if (!confirmartist || !confirmartist.is_approved) {
-        return res.status(401).json({ message: "Invalid credentials or account not approved" });
+      console.log(`Attempting login for username: ${username}`);
+
+      const artist = await ConfirmArtistModel.findOne({ username });
+      if (!artist) {
+          console.log(`No artist found with username: ${username}`);
+          return res.status(401).json({ message: "Invalid credentials" });
       }
-  
-      const isMatch = await bcrypt.compare(password, confirmartist.password);
+
+      console.log(`Artist found: ${artist._id}`);
+      console.log(`Stored hashed password: ${artist.password}`);
+
+      const isMatch = await artist.comparePassword(password);
+      console.log(`Password match result: ${isMatch}`);
+
       if (!isMatch) {
-        return res.status(401).json({ message: "Invalid credentials" });
+          return res.status(401).json({ message: "Invalid credentials" });
       }
-  
       // Create user token with artistId
-      const tokenData = { artistId: confirmartist._id, email: confirmartist.email };
+      const tokenData = { artistId: artist._id, email: artist.email };
       const token = await createToken(tokenData);
   
+
+      // If the password is correct, create and send a token
+   
       res.status(200).json({ token, message: "Login successful" });
-    } catch (error) {
-      console.error(error);
+  } catch (error) {
+      console.error("Login error:", error);
       res.status(500).json({ error: error.message });
-    }
-  };
-  
-  
-// Controller function to change artist's password
+  }
+};
 exports.changePassword = [
-  verifyToken, // Ensure the user is authenticated
+  verifyToken,
   async (req, res) => {
-    const { oldPassword, password, confirmPassword } = req.body;
+    console.log('Change password request received');
+    const { oldPassword, newPassword, confirmPassword } = req.body;
 
     // Check if all necessary fields are provided
-    if (!oldPassword || !password || !confirmPassword) {
+    if (!oldPassword || !newPassword || !confirmPassword) {
+      console.log('Missing required fields');
       return res.status(400).json({
         success: false,
         message: "Please provide old password, new password, and confirm password",
@@ -168,7 +175,8 @@ exports.changePassword = [
     }
 
     // Check if new password and confirm password match
-    if (password !== confirmPassword) {
+    if (newPassword !== confirmPassword) {
+      console.log('New password and confirm password do not match');
       return res.status(400).json({
         success: false,
         message: "New password and confirm password do not match",
@@ -177,33 +185,38 @@ exports.changePassword = [
 
     try {
       // Find the current artist by their ID
-      const confirmartist = await ConfirmArtistModel.findById(req.currentUser.artistId).select("+password");
-      if (!confirmartist) {
+      console.log(`Searching for artist with ID: ${req.currentUser.artistId}`);
+      const artist = await ConfirmArtistModel.findById(req.currentUser.artistId);
+      if (!artist) {
+        console.log(`No artist found with ID: ${req.currentUser.artistId}`);
         return res.status(404).json({
           success: false,
           message: "Artist not found",
         });
       }
 
+      console.log(`Changing password for artist: ${artist.username}`);
+
       // Compare old password with stored password
-      const isPasswordMatched = await bcrypt.compare(oldPassword, confirmartist.password);
-      if (!isPasswordMatched) {
+      const isPasswordCorrect = await artist.comparePassword(oldPassword);
+      if (!isPasswordCorrect) {
+        console.log('Old password is incorrect');
         return res.status(400).json({
           success: false,
           message: "Old password is incorrect",
         });
       }
 
-      // Hash the new password and update it in the database
-      const hashedPassword = await bcrypt.hash(password, 10);
-      confirmartist.password = hashedPassword;
+      // Set the new password
+      artist.password = newPassword;
 
       // Save the updated artist record
-      await confirmartist.save();
+      await artist.save();
+      console.log(`Password successfully changed for artist: ${artist.username}`);
 
-      // Generate a new token for the user if needed
-      const tokenData = { artistId: confirmartist._id, email: confirmartist.email };
-      const token = await createToken(tokenData);
+      // Generate a new token for the user
+      const token = createToken({ artistId: artist._id, email: artist.email });
+      console.log('New token generated');
 
       // Return success response with a new token
       res.status(200).json({
@@ -218,5 +231,4 @@ exports.changePassword = [
     }
   },
 ];
-  
   module.exports = exports;

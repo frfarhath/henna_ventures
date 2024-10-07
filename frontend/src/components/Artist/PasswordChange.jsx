@@ -3,7 +3,7 @@ import "../../css/artist.css";
 import axios from "axios";
 
 export default function PasswordChange() {
-  const [currentPassword, setCurrentPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -20,29 +20,39 @@ export default function PasswordChange() {
     }
 
     try {
-      const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
-      console.log("Token from localStorage:", token);
+      const token = localStorage.getItem("token");
+console.log("Token from localStorage:", token ? "Token exists" : "No token found");
 
       const config = {
         headers: { Authorization: `Bearer ${token}` },
       };
-
       const response = await axios.put(
-        "http://localhost:8000/api/v1/artist/password/change", // Make sure this matches your backend route
-        { oldPassword: currentPassword, password: newPassword, confirmPassword },
+        "http://localhost:8000/api/v1/artist/password/change",
+        { oldPassword: oldPassword, newPassword: newPassword, confirmPassword:confirmPassword },
         config
       );
-      
-
       console.log("Response from backend:", response.data);
 
+      
+
       setMessage(response.data.message);
-      setCurrentPassword("");
+      setOldPassword("");
       setNewPassword("");
       setConfirmPassword("");
     } catch (error) {
-      console.error("Error changing password:", error);
-      setError(error.response?.data?.message || "Something went wrong");
+      
+        console.error("Error changing password:", error);
+        if (error.response) {
+          console.error("Response data:", error.response.data);
+          console.error("Response status:", error.response.status);
+          console.error("Response headers:", error.response.headers);
+        } else if (error.request) {
+          console.error("No response received:", error.request);
+        } else {
+          console.error("Error setting up request:", error.message);
+        }
+        setError(error.response?.data?.message || "Something went wrong");
+      
     }
   };
 
@@ -58,15 +68,15 @@ export default function PasswordChange() {
             {error && <div className="error-message">{error}</div>}
             <form onSubmit={handleChangePassword}>
               <div className="form-floating">
-                <label htmlFor="currentPassword">Current Password</label>
+                <label htmlFor="oldPassword">Current Password</label>
                 <input
                   type="password"
                   className="form-control"
-                  id="currentPassword"
+                  id="oldPassword"
                   placeholder="Current Password"
                   style={{ width: "90%" }}
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  value={oldPassword}
+                  onChange={(e) => setOldPassword(e.target.value)}
                 />
               </div>
               <br />
