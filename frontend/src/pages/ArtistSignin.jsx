@@ -20,7 +20,6 @@ function SignIn() {
   const submitForm = async (e) => {
     e.preventDefault();
 
-    // Perform client-side validation
     if (!formData.username || !formData.password) {
       setError('All fields are required.');
       return;
@@ -29,10 +28,10 @@ function SignIn() {
     try {
       const response = await axios.post('http://localhost:8000/api/v1/artist/login', formData);
 
-     
-        if (response.status === 200) {
-          const token = response.data.token;
-          localStorage.setItem('token', token); // Store token in localStorage
+      if (response.status === 200) {
+        const token = response.data.token;
+        localStorage.setItem('token', token);
+        localStorage.setItem('userType', 'artist'); // Add this line to store user type
         navigate('/artistdashboard');
       }
     } catch (error) {

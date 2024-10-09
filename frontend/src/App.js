@@ -5,6 +5,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { UserProvider } from './components/UserContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminProtectedRoute from './components/AdminProtectedRoute';
+import ArtistProtectedRoute from './components/ArtistProtectedRoute';
 import "./css/style.css";
 import VerifyOTP from './components/verifyOTP';
 import ForgotPassword from './components/ForgotPassword';
@@ -45,7 +46,7 @@ import MyCollection from './components/User Dashboard/MyCollection';
 import Dashboard from './pages/Admin/dashboard';
 import Product from './pages/Admin/product';
 import Order from './pages/Admin/orders';
-import Appoinment from './pages/Admin/appoinment';
+// import Appoinment from './pages/Admin/appoinment';
 import Repository from './pages/Admin/repository';
 import Artist from './pages/Admin/artist';
 import Summary from './pages/Admin/summary';
@@ -74,20 +75,34 @@ function App() {
           <Route path="package" element={<Package />} />
           <Route path="Designs" element={<Designs />} />
           <Route path="product" element={<ProductPage />} />
-          <Route path="giftbox" element={<SelectGiftBox />} />
+
+          <Route element={<ArtistProtectedRoute />}>
+          <Route path="artistdashboard" element={<ArtistDashboard />} />
+          <Route path="requestpage" element={<RequestPage />} />
+          <Route path="changepassword" element={<ChangePassword />} />
+        </Route>
+         
+          <Route path="/MehendiDesignRepository" element={<MehendiDesignRepository />} />
+          
+            {/* Admin Protected Routes */}
+        
+            <Route element={<ProtectedRoute />}>
+            <Route element={<UserDashboardLayout />}>
+            <Route path="profile" element={<Profile />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="appointment" element={<Appointment />} />
+            <Route path="/appointment/individual" element={<AppointmentForm />} />
+            <Route path="/appointment/packages" element={<PackageForm />} />
+            <Route path="ratings" element={<Rating />} />
+            <Route path="collection" element={<MyCollection />} />
+            <Route path="giftbox" element={<SelectGiftBox />} />
           <Route path="selectgift" element={<SelectGift />} />
           <Route path="selectcard" element={<SelectCard />} />
           <Route path="message" element={<Message />} />
           <Route path="cart" element={<Cart />} />
           <Route path="checkoutinfo" element={<CheckoutInfo />} />
-          <Route path="artistdashboard" element={<ArtistDashboard />} />
-          <Route path="requestpage" element={<RequestPage />} />
-          <Route path="changepassword" element={<ChangePassword />} />
-          <Route path="/MehendiDesignRepository" element={<MehendiDesignRepository />} />
-          
-            {/* Admin Protected Routes */}
-        
-            
+            </Route>
+            </Route>
             <Route element={<AdminProtectedRoute />}>
           <Route path="/Admin" element={<Dashboard />} />
           <Route path="/Products" element={<Product />} />
@@ -100,24 +115,9 @@ function App() {
           <Route path="/DisplayMessages" element={<DisplayMessages />} />
         </Route>
           
-          {/* Routes that need the Sidebar */}
-          <Route
-              element={
-                <ProtectedRoute> {/* Protect all user routes by requiring authentication */}
-                  <UserDashboardLayout />
-                </ProtectedRoute>
-              }
-            >
-         
-            <Route path="profile" element={<Profile />} />
-            <Route path="orders" element={<Orders />} />
-            <Route path="appointment" element={<Appointment />} />
-            <Route path="/appointment/individual" element={<AppointmentForm />} />
-            <Route path="/appointment/packages" element={<PackageForm />} />
-            <Route path="ratings" element={<Rating />} />
-            <Route path="collection" element={<MyCollection />} />
+          
+            
 
-          </Route>
         </Routes>
       </Router>
       
