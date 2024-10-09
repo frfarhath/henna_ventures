@@ -1,44 +1,45 @@
-import React, { useState } from "react";
-import NewNav from "../../components/NewNav";
-import Footer from "../../components/Footer";
+import React from "react";
 import "../../css/product.css";
 import Package from "../../components/Product/Package";
 import imgpackage1 from "../../images/Products/package1.jpg";
 import imgpackage2 from "../../images/Products/package2.jpg";
 import imgpackage3 from "../../images/Products/package3.jpg";
 import imgpackage4 from "../../images/Products/package4.jpg";
-import ProgressBar from "../../components/Product/ProgressBar";
-import GoBackFooter from "../../components/Product/GoBackFooter";
 
-export default function SelectGiftBox(value) {
-  const [total, setTotal] = useState(1000);
+const packageArray = [
+  {
+    img: imgpackage1,
+    name: "Brown | CardBoard Box",
+    price: 400,
+  },
+  {
+    img: imgpackage2,
+    name: "White | CardBoard Box",
+    price: 400,
+  },
+  {
+    img: imgpackage3,
+    name: "Pink | CardBoard Box",
+    price: 600,
+  },
+  {
+    img: imgpackage4,
+    name: "Light Blue | CardBoard Box",
+    price: 600,
+  },
+];
 
-  const handleNext = () => {
-    console.log("Next button clicked");
-    window.location.href = "http://localhost:3000/selectgift";
-  };
-
-  const handleBack = () => {
-    console.log("Go Back button clicked");
-    window.location.href = "http://localhost:3000/product";
-  };
-
+export default function SelectGiftBox() {
   return (
-    <div>
-      <NewNav />
-      <h2 className="font-comic text-4xl mb-[20px] mt-5 text-left pl-8">Select Gift Box</h2>
-      <ProgressBar value={0.25} />
-      <div className="product-grid">
-        <Package imgpackage={imgpackage1} productname="Brown | CardBoard Box" />
-        <Package imgpackage={imgpackage2} productname="White | CardBoard Box" />
-        <Package imgpackage={imgpackage3} productname="Pink | CardBoard Box" />
+    <div className="product-grid">
+      {packageArray.map((item, index) => (
         <Package
-          imgpackage={imgpackage4}
-          productname="Light Blue | CardBoard Box"
+          key={index}
+          imgpackage={item.img}
+          productname={item.name}
+          price={item.price}
         />
-      </div>
-      <GoBackFooter total={total} onNext={handleNext} onBack={handleBack} />
-      <Footer />
+      ))}
     </div>
   );
 }

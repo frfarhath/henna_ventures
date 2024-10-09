@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import NewNav from "../../components/NewNav";
-import Footer from "../../components/Footer";
+import React from "react";
 import "../../css/product.css";
 import CardSelect from "../../components/Product/CardSelect";
 import imgwish1 from "../../images/CustomizedGift/wish1.jpg";
@@ -15,43 +13,24 @@ import imgwish9 from "../../images/CustomizedGift/wish9.jpg";
 import imgwish10 from "../../images/CustomizedGift/wish10.jpg";
 import imgwishlogo from "../../images/CustomizedGift/wish-logo.jpg";
 import imgwishnone from "../../images/CustomizedGift/wish-none.jpg";
-import ProgressBar from "../../components/Product/ProgressBar";
-import GoBackFooter from "../../components/Product/GoBackFooter";
 
 export default function SelectCard(value) {
-  const [total, setTotal] = useState(1000);
-
-  const handleNext = () => {
-    console.log("Next button clicked");
-    window.location.href = "http://localhost:3000/message";
-  };
-
-  const handleBack = () => {
-    console.log("Go Back button clicked");
-    window.location.href = "http://localhost:3000/selectgift";
-  };
-
   return (
     <div>
-      <NewNav />
-      <h2 className="font-comic text-4xl mb-[20px] mt-5 text-left pl-8">Select Wish Card</h2>
-      <ProgressBar value={0.75} />
       <div className="product-grid">
-        <CardSelect imgwish={imgwish1} />
-        <CardSelect imgwish={imgwish2} />
-        <CardSelect imgwish={imgwish3} />
-        <CardSelect imgwish={imgwish4} />
-        <CardSelect imgwish={imgwish5} />
-        <CardSelect imgwish={imgwish6} />
-        <CardSelect imgwish={imgwish7} />
-        <CardSelect imgwish={imgwish8} />
-        <CardSelect imgwish={imgwish9} />
-        <CardSelect imgwish={imgwish10} />
-        <CardSelect imgwish={imgwishlogo} />
-        <CardSelect imgwish={imgwishnone} />
+        <CardSelect imgwish={imgwish1} type={1} />
+        <CardSelect imgwish={imgwish2} type={2} />
+        <CardSelect imgwish={imgwish3} type={3} />
+        <CardSelect imgwish={imgwish4} type={4} />
+        <CardSelect imgwish={imgwish5} type={5} />
+        <CardSelect imgwish={imgwish6} type={6} />
+        <CardSelect imgwish={imgwish7} type={7} />
+        <CardSelect imgwish={imgwish8} type={8} />
+        <CardSelect imgwish={imgwish9} type={9} />
+        <CardSelect imgwish={imgwish10} type={10} />
+        <CardSelect imgwish={imgwishlogo} type={11} />
+        <CardSelect imgwish={imgwishnone} type={12} />
       </div>
-      <GoBackFooter total={total} onNext={handleNext} onBack={handleBack} />
-      <Footer />
     </div>
   );
 }

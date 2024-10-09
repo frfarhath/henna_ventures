@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import NewNav from "../../components/NewNav";
-import Footer from "../../components/Footer";
 import "../../css/product.css";
 import GiftProductCard from "../../components/Product/GiftProductCard";
 import imgproduct1 from "../../images/Products/Product1.jpg";
@@ -18,109 +16,107 @@ import imgproduct16 from "../../images/Products/cusprod08.jpg";
 import imgproduct17 from "../../images/Products/cusprod09.jpg";
 import imgproduct18 from "../../images/Products/cusprod10.jpg";
 import imgproduct19 from "../../images/Products/cusprod12.jpg";
-import ProgressBar from "../../components/Product/ProgressBar";
-import GoBackFooter from "../../components/Product/GoBackFooter";
-import {
-  faShoppingCart,
-  faGift,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchBar from "../../components/Product/SearchBar";
+import CustomGiftBoxModel from "../../components/Product/CustomGiftBoxModel";
+import { useDispatch, useSelector } from "react-redux";
+import { removeProduct } from "../../state/giftBoxSlice";
+
+const productsList = [
+  {
+    img: imgproduct1,
+    name: "Ultra-Dark Henna Cone",
+    price: 250,
+    category: "Henna Products",
+  },
+  {
+    img: imgproduct2,
+    name: "Henna Aftercare Balm",
+    price: 170,
+    category: "Henna Products",
+  },
+  {
+    img: imgproduct3,
+    name: "Henna Selant",
+    price: 170,
+    category: "Henna Products",
+  },
+  {
+    img: imgproduct4,
+    name: "Nail Cone",
+    price: 200,
+    category: "Henna Products",
+  },
+  { img: imgproduct12, name: "Mehendi Tray", price: 3000, category: "Haldi" },
+  {
+    img: imgproduct13,
+    name: "Wooden Couple Monogram",
+    price: 2300,
+    category: "Anniversary",
+  },
+  {
+    img: imgproduct9,
+    name: "Letter Monogram-Black",
+    price: 1800,
+    category: "Engagement",
+  },
+  {
+    img: imgproduct10,
+    name: "Nikah Glass Stand",
+    price: 1600,
+    category: "Wedding",
+  },
+  {
+    img: imgproduct11,
+    name: "5D Wooden Memo Frame",
+    price: 2800,
+    category: "Birthday",
+  },
+  {
+    img: imgproduct14,
+    name: "Wooden Engagement Plaque",
+    price: 2200,
+    category: "Engagement",
+  },
+  {
+    img: imgproduct15,
+    name: "Wooden-Hexagon Candle Stand",
+    price: 1150,
+    category: "Haldi",
+  },
+  {
+    img: imgproduct16,
+    name: "Resin Coaster - Wooden Ring",
+    price: 1200,
+    category: "Graduation",
+  },
+  {
+    img: imgproduct17,
+    name: "Wooden Bangle Stand",
+    price: 2400,
+    category: "Haldi",
+  },
+  {
+    img: imgproduct18,
+    name: "Resin Coaster Clock",
+    price: 1200,
+    category: "Birthday",
+  },
+  {
+    img: imgproduct19,
+    name: "3D Decor Frame",
+    price: 950,
+    category: "Anniversary",
+  },
+];
 
 export default function SelectGift() {
-  const products = [
-    {
-      img: imgproduct1,
-      name: "Ultra-Dark Henna Cone",
-      price: 250,
-      category: "Henna Products",
-    },
-    {
-      img: imgproduct2,
-      name: "Henna Aftercare Balm",
-      price: 170,
-      category: "Henna Products",
-    },
-    {
-      img: imgproduct3,
-      name: "Henna Selant",
-      price: 170,
-      category: "Henna Products",
-    },
-    {
-      img: imgproduct4,
-      name: "Nail Cone",
-      price: 200,
-      category: "Henna Products",
-    },
-    { img: imgproduct12, name: "Mehendi Tray", price: 3000, category: "Haldi" },
-    {
-      img: imgproduct13,
-      name: "Wooden Couple Monogram",
-      price: 2300,
-      category: "Anniversary",
-    },
-    {
-      img: imgproduct9,
-      name: "Letter Monogram-Black",
-      price: 1800,
-      category: "Engagement",
-    },
-    {
-      img: imgproduct10,
-      name: "Nikah Glass Stand",
-      price: 1600,
-      category: "Wedding",
-    },
-    {
-      img: imgproduct11,
-      name: "5D Wooden Memo Frame",
-      price: 2800,
-      category: "Birthday",
-    },
-    {
-      img: imgproduct14,
-      name: "Wooden Engagement Plaque",
-      price: 2200,
-      category: "Engagement",
-    },
-    {
-      img: imgproduct15,
-      name: "Wooden-Hexagon Candle Stand",
-      price: 1150,
-      category: "Haldi",
-    },
-    {
-      img: imgproduct16,
-      name: "Resin Coaster - Wooden Ring",
-      price: 1200,
-      category: "Graduation",
-    },
-    {
-      img: imgproduct17,
-      name: "Wooden Bangle Stand",
-      price: 2400,
-      category: "Haldi",
-    },
-    {
-      img: imgproduct18,
-      name: "Resin Coaster Clock",
-      price: 1200,
-      category: "Birthday",
-    },
-    {
-      img: imgproduct19,
-      name: "3D Decor Frame",
-      price: 950,
-      category: "Anniversary",
-    },
-  ];
-
-  const [total, setTotal] = useState(1000);
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const { products } = useSelector((state) => state.giftBox);
+  const dispatch = useDispatch();
+  const [filteredProducts, setFilteredProducts] = useState(productsList);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [product, setProduct] = useState(null);
+  const [, setIsPopupOpen] = useState(false);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -143,38 +139,15 @@ export default function SelectGift() {
     setFilteredProducts(filtered);
   };
 
-  const handleClickButton1 = () => {
-    console.log("View Gift Box");
-  };
-
-  const handleClickButton2 = () => {
-    console.log("Go to Cart button clicked");
-    window.location.href = "http://localhost:3000/cart";
-  };
-
-  const handleNext = () => {
-    console.log("Next button clicked");
-    window.location.href = "http://localhost:3000/selectcard";
-  };
-
-  const handleBack = () => {
-    console.log("Go Back button clicked");
-    window.location.href = "http://localhost:3000/giftbox";
-  };
-
   return (
     <div>
-      <NewNav />
-      <h2 className="font-comic text-4xl mb-[20px] mt-5 text-left pl-8">Select Gift Items</h2>
-      <ProgressBar value={0.5} />
       <div className="header">
-        <div className="separater">
+        <div className="flex flex-col sm:flex-row w-full justify-between xl:ps-16">
           <SearchBar onSearch={handleSearch} />
-          <button className="gift-button" onClick={handleClickButton1}>
-            <FontAwesomeIcon icon={faGift} />
-            View Gift Box
-          </button>
-          <select className="filter" onChange={handleCategoryChange}>
+          <select
+            className="filter me-5 xl:me-20"
+            onChange={handleCategoryChange}
+          >
             <option value="All">All</option>
             <option value="Henna Products">Henna Products</option>
             <option value="Wedding">Wedding</option>
@@ -184,11 +157,36 @@ export default function SelectGift() {
             <option value="Anniversary">Anniversary</option>
             <option value="Graduation">Garduation</option>
           </select>
-          <button className="cart-button" onClick={handleClickButton2}>
-            <FontAwesomeIcon icon={faShoppingCart} /> Go to Cart
-          </button>
         </div>
       </div>
+
+      {/* selected items */}
+      <div className="flex gap-3 flex-wrap border-2 mx-4 rounded-md p-3 xl:mx-20">
+        {products.map((product, index) => (
+          <div key={index} className="selected-item w-32 h-32 relative">
+            <img
+              src={productsList.find((p) => p.name === product.name).img}
+              alt={product.name}
+              className="rounded-md w-full h-28 object-cover"
+            />
+            {/* close button */}
+            <button
+              className="absolute top-1 right-1 h-6 w-6 bg-black text-white rounded-full p-0.5"
+              onClick={() => dispatch(removeProduct(product.name))}
+            >
+              &times;
+            </button>
+            {/* quantity */}
+            <p className="bg-black text-center text-white rounded-b-md w-full">
+              Qty : {product.quantity}
+            </p>
+          </div>
+        ))}
+        {products?.length === 0 && (
+          <p className="text-center py-1 w-full mb-0">No products selected</p>
+        )}
+      </div>
+
       <div className="product-grid">
         {filteredProducts.map((product, index) => (
           <GiftProductCard
@@ -197,11 +195,20 @@ export default function SelectGift() {
             productname={product.name}
             productdes={product.category}
             price={product.price}
+            onViewProduct={() => {
+              setProduct(product);
+              setIsPopupOpen(true);
+            }}
           />
         ))}
       </div>
-      <GoBackFooter total={total} onNext={handleNext} onBack={handleBack} />
-      <Footer />
+      <CustomGiftBoxModel
+        product={product}
+        onClose={() => {
+          setProduct(null);
+          setIsPopupOpen(false);
+        }}
+      />
     </div>
   );
 }
