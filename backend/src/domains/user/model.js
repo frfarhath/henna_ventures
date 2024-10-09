@@ -37,12 +37,13 @@ const userSchema = new mongoose.Schema({
     collections: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'repository', // Refers to the RepoModel
-    }]
-    // role: {
-    //     type: String,
-    //     enum: ['user', 'admin'], 
-    //     default: 'user',
-    // }
+    }],
+    userType: {
+        type: String,
+        enum: ['user', 'artist', 'admin'], // Add all possible user types
+        default: 'user',
+        required: true
+    }
 });
 
 module.exports = mongoose.model('User', userSchema);

@@ -145,7 +145,7 @@ const AppointmentForm = () => {
           </div>
 
           <div>
-            <label className="block mb-2 text-[#804f0e]">Date of Wedding:</label>
+            <label className="block mb-2 text-[#804f0e]">Appointment Date</label>
             <input className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-[#804f0e]" type="date"
               placeholder="DD/MM/YYYY" onChange={(e) => setWedding(e.target.value)} value={wedding} />
           </div>
