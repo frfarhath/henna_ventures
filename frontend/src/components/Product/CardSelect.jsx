@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../css/product.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons"; // Import green tick icon from Font Awesome
+import { useDispatch, useSelector } from "react-redux";
+import { addCard, removeCard } from "../../state/giftBoxSlice";
+
 export default function GiftProductCard(props) {
-  const [isSelected, setIsSelected] = useState(false); // State to track card selection
+  const { card } = useSelector((state) => state.giftBox);
+  const dispatch = useDispatch();
+
+  const isSelected = card === props?.type;
 
   const toggleSelection = () => {
-    setIsSelected(!isSelected); // Toggle selection state
+    props.type !== 12 ? dispatch(addCard(props.type)) : dispatch(removeCard());
   };
 
   return (
