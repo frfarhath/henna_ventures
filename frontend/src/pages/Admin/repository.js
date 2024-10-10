@@ -147,7 +147,14 @@ class Repository extends Component {
     showModal = () => {
         this.setState({ show: true });
     }
-    
+    hideModal = () => {
+        this.setState({ show: false });
+    }
+
+    showModal = () => {
+        this.setState({ show: true });
+    }
+
     render() {
         const { fetchArray, loading, error, show, showrepo, passingArray } = this.state;
 
@@ -200,10 +207,10 @@ class Repository extends Component {
                                                 <td>{item.name}</td>
                                                 <td>{item.category}</td>
                                                 <td>
-                            <div style={{ display: 'flex', justifyContent: 'center' }} className='action'>
-                                <FaEdit size={22} style={{ marginRight: 5 }} className='FaEdit' onClick={() => this.showEdit(item)} />
-                                <MdDelete size={22} className='MdDelete' onClick={() => this.handleDelete(item._id)} />
-                            </div>
+                                                    <div style={{ display: 'flex', justifyContent: 'center' }} className='action'>
+                                                        <FaEdit size={22} style={{ marginRight: 5 }} className='FaEdit' onClick={() => this.showEdit(item)} />
+                                                        <MdDelete size={22} className='MdDelete' onClick={() => this.handleDelete(item._id)} />
+                                                    </div>
                                                 </td>
                                             </tr>
                                         ))}
@@ -218,7 +225,7 @@ class Repository extends Component {
                 <RepositoryModal show={show} handleClose={this.hideModal} />
                 <EditRepo show={showrepo} handleClose={this.hideRepo} passing={passingArray} />
             </div>
-        )
+        );
     }
 }
 

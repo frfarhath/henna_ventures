@@ -6,14 +6,13 @@ const RepositoryModal = ({ show, handleClose }) => {
     const showHideClassName = show ? "Admin-modal display-block" : "Admin-modal display-none";
 
     const [name, setName] = useState('');
-    const [category, setCategory] = useState('');
+    const [category, setCategory] = useState('Indian');
     const [image, setImage] = useState(null);
 
     const data = [
         'Indian', 'Pakistani', 'Arabic', 'Indo-Arabic', 'African', 'Moroccan', 'Western', 'Indo-Western'
     ];
 
-    // Memoize the handleSelectChange function to avoid unnecessary re-renders
     const handleSelectChange = useCallback((selected) => {
         console.log('Selected category:', selected);
         setCategory(selected);
@@ -90,6 +89,7 @@ const RepositoryModal = ({ show, handleClose }) => {
                         <div style={{ marginTop: 10 }}>
                             <label>Category</label>
                             <div style={{ width: '95%' }}>
+
                                 <select onChange={(e) => setCategory(e.target.value)} value={category}>
                                     {data.map((option, index) => (
                                         <option key={index} value={option}>
@@ -97,6 +97,7 @@ const RepositoryModal = ({ show, handleClose }) => {
                                         </option>
                                     ))}
                                 </select>
+
                             </div>
                         </div>
 

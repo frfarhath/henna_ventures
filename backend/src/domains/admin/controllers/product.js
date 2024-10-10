@@ -19,87 +19,91 @@ const multipleUpload = upload.fields([{ name: 'image1' }, { name: 'image2' }, { 
 
 
 exports.postProduct = async (req, res) => {
-
     multipleUpload(req, res, (err) => {
-
         if (err) {
-            console.log(err)
-        }
-        else {
+            console.log(err);
+            return res.status(500).send('Error uploading files');
+        } else {
             const newRepo = new ProductModel({
                 name: req.body.name,
                 description: req.body.description,
                 price: req.body.price,
                 category: req.body.category,
                 count: req.body.count,
-                image1: {
+                image1: req.files.image1 ? {
                     data: fs.readFileSync('uploads/' + req.files.image1[0].filename),
                     contentType: 'image/png',
-                },
-                image2: {
+                } : null,
+                image2: req.files.image2 ? {
                     data: fs.readFileSync('uploads/' + req.files.image2[0].filename),
                     contentType: 'image/png',
-                },
-                image3: {
+                } : null,
+                image3: req.files.image3 ? {
                     data: fs.readFileSync('uploads/' + req.files.image3[0].filename),
                     contentType: 'image/png',
-                },
-            })
+                } : null,
+            });
+
             newRepo.save()
-                .then(() => res.send('successfully uploaded'))
-                .catch((err) => console.log(err));
+                .then(() => res.send('Successfully uploaded product'))
+                .catch((err) => {
+                    console.log(err);
+                    res.status(500).send('Error saving product');
+                });
         }
-    })
-
+    });
 };
-
 exports.getProduct = async (req, res) => {
     const blogs = await ProductModel.find();
     res.json(blogs);
 };
 
+
 exports.putProduct = async (req, res) => {
-
     multipleUpload(req, res, async (err) => {
-
         if (err) {
-            console.log(err)
-        }
-        else {
+            console.log(err);
+            return res.status(500).send('Error uploading files');
+        } else {
             try {
-                const updateRepo = await ProductModel.findByIdAndUpdate(
-                    req.params.id,
-                    {
-                        name: req.body.name,
-                        description: req.body.description,
-                        price: req.body.price,
-                        category: req.body.category,
-                        count: req.body.count,
-                        image1: {
-                            data: fs.readFileSync('uploads/' + req.files.image1[0].filename),
-                            contentType: 'image/png',
-                        },
-                        image2: {
-                            data: fs.readFileSync('uploads/' + req.files.image2[0].filename),
-                            contentType: 'image/png',
-                        },
-                        image3: {
-                            data: fs.readFileSync('uploads/' + req.files.image3[0].filename),
-                            contentType: 'image/png',
-                        }
-                    },
-                    { new: true }
-                );
+                const updateData = {
+                    name: req.body.name,
+                    description: req.body.description,
+                    price: req.body.price,
+                    category: req.body.category,
+                    count: req.body.count,
+                };
+
+                if (req.files.image1) {
+                    updateData.image1 = {
+                        data: fs.readFileSync('uploads/' + req.files.image1[0].filename),
+                        contentType: 'image/png',
+                    };
+                }
+
+                if (req.files.image2) {
+                    updateData.image2 = {
+                        data: fs.readFileSync('uploads/' + req.files.image2[0].filename),
+                        contentType: 'image/png',
+                    };
+                }
+
+                if (req.files.image3) {
+                    updateData.image3 = {
+                        data: fs.readFileSync('uploads/' + req.files.image3[0].filename),
+                        contentType: 'image/png',
+                    };
+                }
+
+                const updateRepo = await ProductModel.findByIdAndUpdate(req.params.id, updateData, { new: true });
                 res.json(updateRepo);
             } catch (err) {
                 res.status(400).json({ message: err.message });
             }
-
         }
-
     });
-
 };
+
 
 exports.stockUpdate = async (req, res) => {
 

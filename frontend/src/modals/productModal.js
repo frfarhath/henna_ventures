@@ -94,7 +94,8 @@ const ProductModal = ({ show, handleClose }) => {
                                 </div>
                                 <div className="Admin-modalhead">
                                     <button className="Admin-modalsavebtn" onClick={send}>ADD</button>
-                                    <button className="Admin-modalcancelbtn" onClick={handleClose}>Cancel</button>
+                                    <button className="Admin-modalcancelbtn" onClick={(e) => { e.preventDefault(); handleClose(); }}>Cancel</button>
+
                                 </div>
                             </form>
                         </div>
