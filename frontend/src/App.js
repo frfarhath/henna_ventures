@@ -5,6 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { UserProvider } from "./components/UserContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
+import ArtistProtectedRoute from './components/ArtistProtectedRoute';
 import "./css/style.css";
 import VerifyOTP from "./components/verifyOTP";
 import ForgotPassword from "./components/ForgotPassword";
@@ -39,6 +40,7 @@ import PackageForm from "./components/User Dashboard/PackageForm";
 import MyCollection from "./components/User Dashboard/MyCollection";
 
 import Dashboard from "./pages/Admin/dashboard";
+import AppointmentDetails from './pages/Admin/appoinment';
 import Product from "./pages/Admin/product";
 import Order from "./pages/Admin/orders";
 import Repository from "./pages/Admin/repository";
@@ -71,14 +73,12 @@ function App() {
             <Route path="Designs" element={<Designs />} />
             <Route path="product" element={<ProductPage />} />
 
-            <Route path="giftbox" element={<CustomGiftBox />} />
-
-            <Route path="cart" element={<Cart />} />
-            <Route path="checkoutinfo" element={<CheckoutInfo />} />
-
+           
+            <Route element={<ArtistProtectedRoute />}>
             <Route path="artistdashboard" element={<ArtistDashboard />} />
             <Route path="requestpage" element={<RequestPage />} />
             <Route path="changepassword" element={<ChangePassword />} />
+            </Route>
             <Route
               path="/MehendiDesignRepository"
               element={<MehendiDesignRepository />}
@@ -89,7 +89,7 @@ function App() {
               <Route path="/Admin" element={<Dashboard />} />
               <Route path="/Products" element={<Product />} />
               <Route path="/Order" element={<Order />} />
-              <Route path="/Appointment" element={<Appointment />} />
+              <Route path="/AppointmentDetails" element={<AppointmentDetails />} />
               <Route path="/Repository" element={<Repository />} />
               <Route path="/Artist" element={<Artist />} />
               <Route path="/Summary" element={<Summary />} />
@@ -97,15 +97,13 @@ function App() {
               <Route path="/DisplayMessages" element={<DisplayMessages />} />
             </Route>
 
-            {/* Routes that need the Sidebar */}
-            <Route
-              element={
-                <ProtectedRoute>
-                  {/* Protect all user routes by requiring authentication */}
-                  <UserDashboardLayout />
-                </ProtectedRoute>
-              }
-            >
+            <Route element={<ProtectedRoute />}>
+           
+            <Route path="giftbox" element={<CustomGiftBox />} />
+
+            <Route path="cart" element={<Cart />} />
+            <Route path="checkoutinfo" element={<CheckoutInfo />} />
+            <Route element={<UserDashboardLayout />}>
               <Route path="profile" element={<Profile />} />
               <Route path="orders" element={<Orders />} />
               <Route path="appointment" element={<Appointment />} />
@@ -116,6 +114,7 @@ function App() {
               <Route path="/appointment/packages" element={<PackageForm />} />
               <Route path="ratings" element={<Rating />} />
               <Route path="collection" element={<MyCollection />} />
+            </Route>
             </Route>
           </Routes>
         </Router>
