@@ -128,42 +128,35 @@ exports.getAllArtists = async (req, res) => {
 };
 exports.loginArtist = async (req, res) => {
   try {
-    const { username, password } = req.body;
-    console.log(`Attempting login for username: ${username}`);
+      const { username, password } = req.body;
+      console.log(`Attempting login for username: ${username}`);
 
-    const artist = await ConfirmArtistModel.findOne({ username });
-    if (!artist) {
-      console.log(`No artist found with username: ${username}`);
-      return res.status(401).json({ message: "Invalid credentials" });
-    }
+      const artist = await ConfirmArtistModel.findOne({ username });
+      if (!artist) {
+          console.log(`No artist found with username: ${username}`);
+          return res.status(401).json({ message: "Invalid credentials" });
+      }
 
-    console.log(`Artist found: ${artist._id}`);
-    console.log(`Stored hashed password: ${artist.password}`);
+      console.log(`Artist found: ${artist._id}`);
+      console.log(`Stored hashed password: ${artist.password}`);
 
-    const isMatch = await artist.comparePassword(password);
-    console.log(`Password match result: ${isMatch}`);
+      const isMatch = await artist.comparePassword(password);
+      console.log(`Password match result: ${isMatch}`);
 
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid credentials" });
-    }
+      if (!isMatch) {
+          return res.status(401).json({ message: "Invalid credentials" });
+      }
+      // Create user token with artistId
+      const tokenData = { artistId: artist._id, email: artist.email };
+      const token = await createToken(tokenData);
+  
 
-    // Create user token with artistId and userType
-    const tokenData = { 
-      artistId: artist._id, 
-      email: artist.email,
-      userType: 'artist'  // Explicitly set the user type
-    };
-    const token = await createToken(tokenData);
-
-    // Send the token and user type in the response
-    res.status(200).json({ 
-      token, 
-      userType: 'artist',
-      message: "Login successful" 
-    });
+      // If the password is correct, create and send a token
+   
+      res.status(200).json({ token, message: "Login successful" });
   } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).json({ error: error.message });
+      console.error("Login error:", error);
+      res.status(500).json({ error: error.message });
   }
 };
 exports.changePassword = [

@@ -1,15 +1,18 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { useContext } from 'react';
+import UserContext from './UserContext';
+import { Navigate } from 'react-router-dom';
 
-const ProtectedRoute = () => {
+
+const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token');
   
   if (!token) {
     // Redirect to login if the user is not authenticated
-    return <Navigate to="/signin" replace />;
+    return <Navigate to="/signin" />;
   }
 
-  // If authenticated, render the child routes
-  return <Outlet />;
+  // If authenticated, allow access to the route
+  return children;
 };
 
 export default ProtectedRoute;

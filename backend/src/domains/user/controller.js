@@ -18,12 +18,8 @@ const authenticateUser = async (data) => {
             throw new Error("Invalid password entered!");
         }
 
-        // Create user token with userType
-        const tokenData = { 
-            userId: fetchedUser._id, 
-            email,
-            userType: 'user' // Assuming this is for regular users
-        };
+        // Create user token
+        const tokenData = { userId: fetchedUser._id, email };
         const token = await createToken(tokenData);
 
         // Assign user token
@@ -33,7 +29,6 @@ const authenticateUser = async (data) => {
         // Return user without password
         const userToReturn = fetchedUser.toObject();
         delete userToReturn.password;
-        userToReturn.userType = 'user'; // Add userType to the returned object
         return userToReturn;
     } catch (error) {
         console.error('Error authenticating user:', error);
@@ -61,7 +56,6 @@ const createNewUser = async (data) => {
             password: hashedPassword,
             phone,
             verified: false, // Ensure new users are not verified by default
-            userType: 'user' // Add userType field
         });
 
         // Save user

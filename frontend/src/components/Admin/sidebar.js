@@ -27,7 +27,7 @@ class SideBar extends Component {
             <BsFillGridFill size={22} className="icon3" />
             <h5 className='siderowtxt'>PRODUCTS</h5>
           </Link>
-          <Link className='siderow' to='/AppointmentDetails'>
+          <Link className='siderow' to='/Appoinment'>
             <IoCalendar size={22} className="icon3" />
             <h5 className='siderowtxt'>APPOINMENTS</h5>
           </Link>
