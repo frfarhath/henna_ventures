@@ -1,48 +1,56 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-    fullname: {
-        type: String,
-        required: true
+  fullname: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  verified: {
+    type: Boolean,
+    default: false,
+  },
+  profileImage: {
+    type: String, // Store image URL or path
+    default: null,
+  },
+  address: {
+    type: String,
+    default: null,
+  },
+  token: {
+    type: String,
+    default: null,
+  },
+  collections: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "repository", // Refers to the RepoModel
     },
-    email: {
-        type: String,
-        required: true,
-        unique: true
+  ],
+  cart: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "cart",
     },
-    password: {
-        type: String,
-        required: true
-    },
-    phone: {
-        type: String,
-        required: true
-    },
-    verified: {
-        type: Boolean,
-        default: false
-    },
-    profileImage: {
-        type: String, // Store image URL or path
-        default: null
-    },
-    address: {
-        type: String,
-        default: null
-    },
-    token: {
-        type: String,
-        default: null
-    },
-    collections: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'repository', // Refers to the RepoModel
-    }]
-    // role: {
-    //     type: String,
-    //     enum: ['user', 'admin'], 
-    //     default: 'user',
-    // }
+  ],
+  // role: {
+  //     type: String,
+  //     enum: ['user', 'admin'],
+  //     default: 'user',
+  // }
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);

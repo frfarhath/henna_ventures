@@ -70,7 +70,7 @@ const CustomGiftBox = () => {
       {/* if current is 3 */}
       {current === 3 && <SelectCard />}
       {/* if current is 4 */}
-      {current === 4 && <Message />}
+      {current > 3 && <Message />}
 
       {/* if current is 2 */}
       <GoBackFooter

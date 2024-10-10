@@ -63,6 +63,12 @@ const giftBoxSlice = createSlice({
     removeMessage: (state) => {
       state.message = null;
     },
+    clearAll: (state) => {
+      state.giftBox = initialState.giftBox;
+      state.products = [];
+      state.card = 12;
+      state.message = null;
+    },
   },
 });
 
@@ -77,5 +83,6 @@ export const {
   removeCard,
   addMessage,
   removeMessage,
+  clearAll,
 } = giftBoxSlice.actions;
 export default giftBoxSlice.reducer;

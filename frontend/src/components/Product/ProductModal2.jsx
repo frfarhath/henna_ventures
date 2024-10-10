@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../../css/product.css";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 
 const ProductModal2 = ({ product, onClose }) => {
   const [quantity, setQuantity] = useState(1);
@@ -32,9 +33,53 @@ const ProductModal2 = ({ product, onClose }) => {
     );
   };
 
+  const addToCart = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return;
+    }
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    await axios
+      .post(
+        "http://localhost:8000/api/v1/user/cart",
+        {
+          product: {
+            type: "PRODUCT",
+            giftBox: null,
+            products: [
+              {
+                name: product.name,
+                price: product.price,
+                quantity: quantity,
+                text: message,
+              },
+            ],
+            card: null,
+            message: null,
+          },
+        },
+        config
+      )
+      .then((res) => {
+        alert(res.data.message);
+      })
+      .catch((error) => {
+        console.error("Error adding product to cart:", error);
+        alert("Server Error adding product to cart");
+      });
+  };
+
   return (
     <div className="Artist-modal-overlay" onClick={onClose}>
-      <div className="Artist-modal-content" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="Artist-modal-content"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button className="Artist-modal-close-button" onClick={onClose}>
           <FontAwesomeIcon icon={faTimes} />
         </button>
@@ -54,7 +99,9 @@ const ProductModal2 = ({ product, onClose }) => {
           </div>
         </div>
         <div className="Artist-modal-right">
-        <h3 className="font-comic text-2xl mb-[-10px] text-center">{product.name}</h3>
+          <h3 className="font-comic text-2xl mb-[-10px] text-center">
+            {product.name}
+          </h3>
           <br />
           <p className="text-model">{product.productdes}</p>
           <p className="text-model">LKR {product.price}</p>
@@ -76,7 +123,9 @@ const ProductModal2 = ({ product, onClose }) => {
               +
             </button>
           </div>
-          <button className="add-to-cart-button">Add to Cart</button>
+          <button onClick={addToCart} className="add-to-cart-button">
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>
