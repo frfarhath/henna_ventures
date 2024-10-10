@@ -1,180 +1,150 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import "../../style/dashboard.css";
-import "../../style/product.css";
-import SideBar from '../../components/Admin/sidebar';
-import Head from '../../components/Admin/head';
-import StandardProductModal from '../../modals/StandardProductModal';
-import CustomizedGiftBoxModal from '../../modals/CustomizedGiftBoxModal';
 import { FaEye } from 'react-icons/fa';
 import Loading from '../../components/Admin/loading';
+import OrderView from '../../modals/orderView';
+import SideBar from '../../components/Admin/sidebar';
+import Head from '../../components/Admin/head';
+import "../../style/dashboard.css";
+import "../../style/product.css";
 
-class Order extends Component {
-    constructor(props) {
-        super(props);
+const Order = () => {
+  const [fetchArray, setFetchArray] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [show, setShow] = useState(false);
+  const [passingArray, setPassingArray] = useState({});
 
-        this.state = {
-            showStandardModal: false,
-            showCustomizedModal: false,
-            fetchArray: [],
-            loading: true,
-            passingArray: {},
-        };
-    }
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
-    // Show Standard Product Modal
-    showStandardModal = (item) => {
-        this.setState({
-            showStandardModal: true,
-            passingArray: { ...item },
-        });
-    };
-
-    // Show Customized Gift Box Modal
-    showCustomizedModal = (item) => {
-        this.setState({
-            showCustomizedModal: true,
-            passingArray: { ...item },
-        });
-    };
-
-    // Hide both Modals
-    hideModals = () => {
-        this.setState({
-            showStandardModal: false,
-            showCustomizedModal: false,
-        });
-    };
-
-    // Fetch order data from API on component mount
-    componentDidMount() {
-        const fetchData = async () => {
-            try {
-                const res = await axios.get('http://localhost:8000/api/v1/admin/getOrder');
-                const resdata = await res.data;
-
-                this.setState({
-                    fetchArray: resdata,
-                    loading: false,
-                });
-            } catch (error) {
-                console.log('Main Error', error);
-            }
-        };
-        fetchData();
-    }
-
-    // Handle order status change
-// Handle order status change
-handleChange = async (orderId, event) => {
-    const updatedStatus = event.target.value;
-
+  const fetchOrders = async () => {
     try {
-        // Use backticks to wrap the URL for template literals
-        await axios.put(`http://localhost:8000/api/v1/admin/updateOrderStatus/${orderId}`, { status: updatedStatus });
-        this.setState((prevState) => ({
-            fetchArray: prevState.fetchArray.map(order =>
-                order._id === orderId ? { ...order, status: updatedStatus } : order
-            ),
-        }));
+      const res = await axios.get('http://localhost:8000/api/v1/individual/getOrder');
+      console.log('Fetched Orders:', res.data);
+      const resdata = res.data || [];
+      setFetchArray(resdata);
     } catch (error) {
-        console.log('Error updating status:', error);
+      console.error('Error fetching orders:', error);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const showModal = (order) => {
+    console.log('Showing modal for order:', order);
+    setShow(true);
+    setPassingArray(order);
+  };
+
+  const hideModal = () => {
+    setShow(false);
+  };
+
+  const handleStatusChange = async (orderId, newStatus) => {
+    try {
+      const postdata = { "status": newStatus };
+      await axios.put(`http://localhost:8000/api/v1/individual/updateOrder/${orderId}`, postdata);
+      alert('Successfully updated order status!');
+      // Update the local state to reflect the change
+      setFetchArray(prevArray => 
+        prevArray.map(order => 
+          order._id === orderId ? { ...order, status: newStatus } : order
+        )
+      );
+    } catch (error) {
+      console.error('Error updating order status:', error);
+      alert('Failed to update order status.');
+    }
+  };
+
+  const statusOptions = [
+    { value: '0', label: 'Pending' },
+    { value: '1', label: 'Delivered' }
+  ];
+
+  const getStatusStyle = (status) => {
+    return status === '0'
+      ? { backgroundColor: 'rgb(168, 150, 19)', color: 'white' }
+      : { backgroundColor: 'green', color: 'white', padding: '0.2rem', borderRadius: '0.5rem' };
+  };
+
+  return (
+    <div className='body'>
+      <SideBar />
+      <div className='content'>
+        <Head />
+        <div className='conbody'>
+          <div className='producthead'>
+            <h3 className='productheadtxt'>ORDERS</h3>
+          </div>
+          <div className='producttable'>
+            {!loading ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Customer Name</th>
+                    <th>Address</th>
+                    <th>Contact</th>
+                    <th>Type</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {fetchArray.length > 0 ? (
+                    fetchArray.map((order) => (
+                      <tr key={order._id}>
+                        <td>{order._id}</td>
+                        <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+                        <td>{order.name}</td>
+                        <td>{order.address}</td>
+                        <td>{order.contact}</td>
+                        <td>{order.type}</td>
+                        <td>{order.products ? order.products.length : (order.giftBox ? 1 : 0)}</td>
+                        <td>
+                          ${order.type === 'PRODUCT'
+                            ? order.products.reduce((total, product) => total + product.price * product.quantity, 0).toFixed(2)
+                            : order.giftBox.price.toFixed(2)}
+                        </td>
+                        <td>
+                          <select 
+                            value={order.status} 
+                            onChange={(e) => handleStatusChange(order._id, e.target.value)} 
+                            className="Admin-modalinput" 
+                            style={getStatusStyle(order.status)}>
+                            {statusOptions.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
+                        </td>
+                        <td>
+                          <FaEye onClick={() => showModal(order)} style={{ cursor: 'pointer' }} />
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="10" style={{ textAlign: 'center' }}>No orders found.</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            ) : (
+              <Loading />
+            )}
+          </div>
+        </div>
+      </div>
+      <OrderView show={show} handleClose={hideModal} passing={passingArray} />
+    </div>
+  );
 };
-
-    render() {
-        const statusOptions = [
-            { status: 0, label: 'Pending' },
-            { status: 1, label: 'Delivered' },
-        ];
-
-        return (
-            <div className='body'>
-                <SideBar />
-                <div className='content'>
-                    <Head />
-                    <div className='conbody'>
-                        <div className='producthead'>
-                            <h3 className='productheadtxt'>ORDERS</h3>
-                        </div>
-                        <div className='producttable'>
-                            {!this.state.loading ? (
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Order ID</th>
-                                            <th>Date</th>
-                                            <th>Customer Name</th>
-                                            <th>Address</th>
-                                            <th>Contact</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {this.state.fetchArray.map((item, index) => (
-                                            <tr key={index}>
-                                                <td>{item.orderid}</td>
-                                                <td>{item.date}</td>
-                                                <td>{item.name}</td>
-                                                <td>{item.address}</td>
-                                                <td>{item.contact}</td>
-                                                <td>
-                                                    {item.status === '0' ? (
-                                                        <select
-                                                            value={item.status}
-                                                            onChange={(e) => this.handleChange(item._id, e)}
-                                                            className="Admin-modalinput"
-                                                            style={{ backgroundColor: 'rgb(168, 150, 19)', color: 'white' }}>
-                                                            {statusOptions.map((option, index) => (
-                                                                <option key={index} value={option.status}>
-                                                                    {option.label}
-                                                                </option>
-                                                            ))}
-                                                        </select>
-                                                    ) : (
-                                                        <div style={{ backgroundColor: 'green', color: 'white', borderRadius: '0.5rem', textAlign: 'center', padding: '0.2rem' }}>
-                                                            Delivered
-                                                        </div>
-                                                    )}
-                                                </td>
-                                                <td>
-                                                    <FaEye onClick={() => {
-                                                        // Check the type and show the appropriate modal
-                                                        item.productType === 'normal'
-                                                            ? this.showStandardModal(item)
-                                                            : this.showCustomizedModal(item);
-                                                    }} style={{ cursor: 'pointer' }} />
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            ) : (
-                                <div style={{ marginTop: '2rem' }}>
-                                    <Loading />
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-
-                {/* Modal for Standard Products */}
-                <StandardProductModal
-                    show={this.state.showStandardModal}
-                    handleClose={this.hideModals}
-                    productDetails={this.state.passingArray}
-                />
-
-                {/* Modal for Customized Gift Box */}
-                <CustomizedGiftBoxModal
-                    show={this.state.showCustomizedModal}
-                    handleClose={this.hideModals}
-                    productDetails={this.state.passingArray}
-                />
-            </div>
-        );
-    }
-}
 
 export default Order;

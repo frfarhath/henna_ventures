@@ -1,7 +1,7 @@
 const express = require('express');
 const storage = require('../domains/helpers/storage');
 const router = express.Router();
-
+const { getOrders, getOrderById, updateOrderStatus, deleteOrder} = require("../domains/userdahboard/controllers/orderController");
 const collectionController = require('../domains/userdahboard/controllers/collection');
 const orderController = require('../domains/userdahboard/controllers/order');
 const individualController = require('../domains/userdahboard/controllers/individual');
@@ -35,8 +35,12 @@ router.get('/findProfile/:id', profileController.findProfile);
 
 router.post('/addToCollection', verifyToken,collectionController.addToCollection);
 router.get('/getCollection', verifyToken,collectionController.getCollection);
-router.get('/getOrder', orderController.getOrder);
+// router.get('/getOrder', orderController.getOrder);
 router.get('/getArtist', artistController.getArtist);
 
+router.get("/getOrder", getOrders);
+router.get("/getOrder/:id", getOrderById);
 
+router.put("/updateOrder", updateOrderStatus);
+router.delete("/deleteOrder/:orderId", deleteOrder);
 module.exports = router;
