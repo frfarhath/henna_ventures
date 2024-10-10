@@ -73,7 +73,12 @@ const CustomGiftBox = () => {
       {current === 4 && <Message />}
 
       {/* if current is 2 */}
-      <GoBackFooter total={total} onNext={handleNext} onBack={handleBack} />
+      <GoBackFooter
+        current={current}
+        total={total}
+        onNext={handleNext}
+        onBack={handleBack}
+      />
       <Footer />
     </div>
   );
