@@ -11,6 +11,8 @@ const path = require("path");
 const verifyToken = require("./../../middleware/auth");
 const bcrypt = require("bcrypt");
 const { Cart } = require("../userdahboard/models/cart");
+const { Orders } = require("../userdahboard/models/orders");
+const md5 = require("md5");
 
 // Protected route example
 router.get("/private_data", auth, (req, res) => {
@@ -267,5 +269,137 @@ router.put("/cart/:cartId", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 });
+
+// create order
+router.post("/order", verifyToken, async (req, res) => {
+  try {
+    const userId = req.currentUser.userId;
+    const { items, recipientName, recipientAddress, recipientContact } =
+      req.body;
+    let total = 0;
+    let orderIds = [];
+    const cartRecords = await Cart.find({ _id: { $in: items } });
+    // get cart details from cart using item array
+    for (const cartItem of cartRecords) {
+      cartItem?.products?.forEach((cart) => {
+        total += cart.price * cart.quantity;
+      });
+
+      // add gift box price (if available)
+      if (cartItem?.type === "GIFT_BOX") {
+        total += cartItem?.giftBox?.price;
+      }
+
+      // save item in order collection
+      let order;
+
+      if (cartItem?.type === "GIFT_BOX") {
+        order = new Orders({
+          type: cartItem?.type,
+          giftBox: cartItem?.giftBox,
+          products: cartItem?.products,
+          card: cartItem?.card,
+          message: cartItem?.message,
+          total: total,
+          recipientName,
+          recipientAddress,
+          recipientContact,
+        });
+      } else {
+        order = new Orders({
+          type: cartItem?.type,
+          products: cartItem?.products,
+          card: cartItem?.card,
+          total: total,
+          recipientName,
+          recipientAddress,
+          recipientContact,
+        });
+      }
+
+      await order.save();
+      // add order id to orderIds array
+      orderIds.push(order._id);
+      // delete cart item from Cart collection
+      await Cart.findByIdAndDelete(item);
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // delete pending session after 15 minutes
+    setTimeout(() => {
+      deletePendingOrder(orderIds);
+    }, 15 * 60 * 1000);
+
+    // generate payment hashes
+    const hash = await md5(
+      process.env.PAYHERE_MERCHANT_ID +
+        orderIds[0] +
+        total.toFixed(2) +
+        "LKR" +
+        md5(process.env.PAYHERE_SECRET).toUpperCase()
+    ).toUpperCase();
+
+    res.status(200).json({
+      message: "Order created successfully",
+      orderIds,
+      payment: {
+        merchant_id: process.env.PAYHERE_MERCHANT_ID,
+        return_url: process.env.PAYHERE_RETURN_URL,
+        cancel_url: process.env.PAYHERE_CANCEL_URL,
+        notify_url: process.env.PAYHERE_NOTIFY_URL,
+        order_id: orderIds[0],
+        items: "Order",
+        currency: "LKR",
+        amount: total.toFixed(2),
+        first_name: recipientName,
+        last_name: "",
+        email: user.email,
+        phone: recipientContact,
+        address: recipientAddress,
+        city: "",
+        country: "",
+        hash: hash,
+      },
+    });
+  } catch (error) {
+    console.error("Error creating order:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// complete order
+router.post("/order/complete", async (req, res) => {
+  try {
+    const { orderIds } = req.body;
+    // update order status to PAID
+    orderIds?.forEach(async (id) => {
+      await Orders.findByIdAndUpdate(id, { status: "PAID" });
+    });
+
+    res.status(200).json({ message: "Order completed successfully" });
+  } catch (error) {
+    console.error("Error completing order:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// delete pending session
+const deletePendingOrder = async (ids) => {
+  ids?.forEach((id) => {
+    // get order details from order using item array
+    const order = Orders.findById(id);
+    // check if status is PENDING
+    if (order.status === "PENDING") {
+      // delete order record
+      Orders.findByIdAndDelete(id);
+    }
+  });
+
+  return true;
+};
 
 module.exports = router;

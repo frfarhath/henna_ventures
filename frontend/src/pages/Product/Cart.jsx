@@ -158,14 +158,12 @@ const Cart = () => {
   }, [handleGetCart]);
 
   const handleCheckout = () => {
-    console.log("Checkout clicked");
-    window.location.href = "http://localhost:3000/checkoutinfo";
-    const selectedItems = cartItems.filter((item) => item.selected);
-    if (selectedItems.length > 0) {
-      alert("Checking out with selected items");
-    } else {
-      alert("No items selected for checkout");
+    // check ids array is empty
+    if (selectedIds?.length === 0) {
+      alert("Select at least one item");
+      return;
     }
+    navigate("/checkoutinfo", { state: { ids: selectedIds } });
   };
 
   return (
