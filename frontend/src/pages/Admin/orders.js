@@ -100,10 +100,11 @@ const Order = () => {
                     fetchArray.map((order) => (
                       <tr key={order._id}>
                         <td>{order._id}</td>
-                        <td>{new Date(order.createdAt).toLocaleDateString()}</td>
-                        <td>{order.name}</td>
-                        <td>{order.address}</td>
-                        <td>{order.contact}</td>
+                        <td>{new Date(order.date).toLocaleDateString()}</td>
+                        <td>{order.recipientName}</td>
+<td>{order.recipientAddress}</td>
+<td>{order.recipientContact}</td>
+
                         <td>{order.type}</td>
                         <td>{order.products ? order.products.length : (order.giftBox ? 1 : 0)}</td>
                         <td>

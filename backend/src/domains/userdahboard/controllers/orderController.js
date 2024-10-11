@@ -1,9 +1,9 @@
-const { Cart } = require("../models/cart");
+const { Orders } = require("../models/orders");
 
 // Fetch all orders
 exports.getOrders = async (req, res) => {
   try {
-    const orders = await Cart.find(); // Fetches all orders from the database
+    const orders = await Orders.find(); // Fetches all orders from the database
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json({ message: "Error fetching orders", error });
@@ -16,7 +16,7 @@ exports.updateOrderStatus = async (req, res) => {
     const { orderId, status } = req.body;
 
     try {
-        const order = await Cart.findByIdAndUpdate(orderId, { status }, { new: true });
+        const order = await Orders.findByIdAndUpdate(orderId, { status }, { new: true });
         if (!order) {
             return res.status(404).json({ message: "Order not found" });
         }
@@ -32,7 +32,7 @@ exports.deleteOrder = async (req, res) => {
     const { orderId } = req.params;
 
     try {
-        const order = await Cart.findByIdAndDelete(orderId);
+        const order = await Orders.findByIdAndDelete(orderId);
         if (!order) {
             return res.status(404).json({ message: "Order not found" });
         }
@@ -48,7 +48,7 @@ exports.deleteOrder = async (req, res) => {
 exports.getOrderById = async (req, res) => {
   try {
     const { id } = req.params;
-    const order = await Cart.findById(id);
+    const order = await Orders.findById(id);
 
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
