@@ -16,7 +16,8 @@ const ProductModal = ({ show, handleClose }) => {
     const [image3, setImage3] = useState(null);
 
     const data = [
-        'Category 1', 'Category 2'
+        'Henna Products', 'Wedding', 'Engagement', 'Haldi', ' Birthday', 'Anniversary', ' Graduation', 'Other'
+        
     ];
 
     const handleSelectChange = (selected) => {

@@ -39,6 +39,7 @@ class Product extends Component {
     fetchData = async () => {
         try {
             const res = await axios.get('http://localhost:8000/api/v1/admin/getProduct');
+            console.log('API response:', res.data); // Log the API response
             this.setState({
                 fetchArray: res.data,
                 loading: false
@@ -62,7 +63,7 @@ class Product extends Component {
         try {
             await axios.delete(`http://localhost:8000/api/v1/admin/deleteProduct/${id}`);
             alert('Successfully deleted product');
-            this.fetchData(); // Refresh the data instead of reloading the page
+            this.fetchData();
         } catch (error) {
             console.log('Delete Error', error);
             alert('Failed to delete product');
@@ -127,9 +128,7 @@ class Product extends Component {
                                     </thead>
                                     <tbody>
                                         {filteredProducts.map((item, index) => {
-                                            const imageUrl = item.image1 && item.image1.data 
-                                                ? `data:${item.image1.contentType};base64,${this.arrayBufferToBase64(item.image1.data.data)}`
-                                                : ''; // Provide a default image or placeholder
+                                            const imageUrl = item.image1 || ''; // Use a default image URL if needed
 
                                             return (
                                                 <tr key={item._id}>
@@ -166,16 +165,6 @@ class Product extends Component {
                 <UpdateStock show={showupdate} handleClose={this.hideUpdate} passing={passingArray} />
             </div>
         );
-    }
-
-    arrayBufferToBase64(buffer) {
-        let binary = '';
-        const bytes = new Uint8Array(buffer);
-        const len = bytes.byteLength;
-        for (let i = 0; i < len; i++) {
-            binary += String.fromCharCode(bytes[i]);
-        }
-        return btoa(binary);
     }
 }
 
