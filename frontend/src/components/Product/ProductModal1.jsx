@@ -76,47 +76,66 @@ const ProductModal1 = ({ product, onClose }) => {
   return (
     <div className="Artist-modal-overlay" onClick={onClose}>
       <div
-        className="Artist-modal-content"
+        className="Artist-modal-content flex flex-col gap-y-3 items-center"
         onClick={(e) => e.stopPropagation()}
       >
         <button className="Artist-modal-close-button" onClick={onClose}>
           <FontAwesomeIcon icon={faTimes} />
         </button>
-        <div className="Artist-modal-left">
-          <div className="slider">
-            <button className="slider-button prev" onClick={prevImage}>
+
+        <h3 className="font-comic text-2xl mb-0 text-center">{product.name}</h3>
+        <div className="flex gap-x-3 w-full">
+          <div className="relative w-1/2">
+            <button
+              className="slider-button !m-1 !h-8 start-0 flex items-center justify-center !w-10"
+              onClick={prevImage}
+            >
               &#10094;
             </button>
             <img
               src={product.images[currentImageIndex]}
               alt={product.name}
-              className="Artist-modal-product-image"
+              className="rounded-md max-h-60 object-cover w-full bg-gray-300 flex justify-center items-center h-full"
             />
-            <button className="slider-button next" onClick={nextImage}>
+            <button
+              className="absolute !m-1 slider-button end-0 !h-8 flex items-center justify-center !w-10"
+              onClick={nextImage}
+            >
               &#10095;
             </button>
           </div>
-        </div>
-        <div className="Artist-modal-right">
-          <h3 className="font-comic text-2xl mb-[-10px] text-center">
-            {product.name}
-          </h3>
-          <br />
-          <p className="text-model">{product.productdes}</p>
-          <p className="text-model">LKR {product.price}</p>
-          <div className="product-quantity">
-            <button onClick={decrementQuantity} className="quantity-button">
-              -
-            </button>
-            <input type="number" min="1" value={quantity} readOnly />
-            <button onClick={incrementQuantity} className="quantity-button">
-              +
-            </button>
+          <div className="w-1/2">
+            <p className="font-medium mb-1">
+              Price : LKR {product.price} / 1 Pcs
+            </p>
+            <p className="text-model py-2">{product.productdes}</p>
+            <div className="product-quantity w-full mt-3">
+              <button
+                onClick={decrementQuantity}
+                className="!h-10 !w-10 p-0 text-white"
+              >
+                -
+              </button>
+              <input
+                type="number"
+                min="1"
+                value={quantity}
+                readOnly
+                className="!w-32"
+              />
+              <button
+                onClick={incrementQuantity}
+                className="!h-10 !w-10 p-0 text-white"
+              >
+                +
+              </button>
+            </div>
           </div>
-          <button onClick={addToCart} className="add-to-cart-button">
-            Add to Cart
-          </button>
         </div>
+
+        <button onClick={addToCart} className="add-to-cart-button">
+          Add to Cart
+        </button>
       </div>
     </div>
   );
