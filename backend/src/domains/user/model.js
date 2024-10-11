@@ -46,6 +46,12 @@ const userSchema = new mongoose.Schema({
       ref: "cart",
     },
   ],
+  orders: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "orders",
+    },
+  ],
   // role: {
   //     type: String,
   //     enum: ['user', 'admin'],
