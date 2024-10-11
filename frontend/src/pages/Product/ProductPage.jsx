@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NewNav from "../../components/NewNav";
 import ProductCard from "../../components/Product/ProductCard";
 import ProductModal1 from "../../components/Product/ProductModal1";
@@ -28,6 +28,7 @@ import imgproduct20 from "../../images/Products/Product9.jpeg";
 import { faShoppingCart, faGift } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchBar from "../../components/Product/SearchBar";
+import axios from "axios";
 
 export default function ProductPage() {
   const products = [
@@ -230,6 +231,21 @@ export default function ProductPage() {
       );
     }
   };
+
+  const getProduct = async () => {
+    await axios
+      .get("http://localhost:8000/api/v1/admin/getProduct")
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch(() => {
+        console.log("Error fetching products");
+      });
+  };
+
+  useEffect(() => {
+    getProduct();
+  }, []);
 
   return (
     <div>
