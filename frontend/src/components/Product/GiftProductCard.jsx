@@ -16,7 +16,11 @@ export default function GiftProductCard(props) {
 
   return (
     <div className="product-card">
-      <img src={imgmehendi} alt="Product1" className="product-image" />
+      <img
+        src={imgmehendi}
+        alt="Product1"
+        className="product-image max-h-60 object-cover"
+      />
       <p className="product-name">{productname}</p>
       {(productdes === "Henna Products" || productdes === "Reselling") && (
         <div className="add-button-container">

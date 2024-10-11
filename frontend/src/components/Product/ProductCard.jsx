@@ -12,7 +12,7 @@ export default function ProductCard({
 }) {
   return (
     <div className="product-card">
-      <img src={imgmehendi} alt={productname} className="product-image" />
+      <img src={imgmehendi} alt={productname} className="product-image max-h-60 object-cover" />
       <p className="product-name">{productname}</p>
       <p className="product-description">{productdes}</p>
       <div className="product-price">LKR {price}</div>
