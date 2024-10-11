@@ -321,7 +321,7 @@ router.post("/order", verifyToken, async (req, res) => {
       // add order id to orderIds array
       orderIds.push(order._id);
       // delete cart item from Cart collection
-      await Cart.findByIdAndDelete(item);
+      await Cart.findByIdAndDelete(cartItem._id);
     }
 
     const user = await User.findById(userId);
@@ -383,6 +383,25 @@ router.post("/order/complete", async (req, res) => {
     res.status(200).json({ message: "Order completed successfully" });
   } catch (error) {
     console.error("Error completing order:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// get orders by logged user
+router.get("/orders", verifyToken, async (req, res) => {
+  try {
+    const userId = req.currentUser.userId;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const orders = await User.findById(userId).populate("orders_");
+    res.status(200).json({
+      orders: orders.orders_,
+    });
+  } catch (error) {
+    console.error("Error fetching orders:", error);
     res.status(500).json({ message: "Server Error" });
   }
 });
