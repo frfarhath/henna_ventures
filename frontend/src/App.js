@@ -4,8 +4,6 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { UserProvider } from "./components/UserContext";
 import ProtectedRoute from "./components/ProtectedRoute";
-import AdminProtectedRoute from "./components/AdminProtectedRoute";
-import ArtistProtectedRoute from "./components/ArtistProtectedRoute";
 import "./css/style.css";
 import VerifyOTP from "./components/verifyOTP";
 import ForgotPassword from "./components/ForgotPassword";
@@ -71,8 +69,7 @@ function App() {
             <Route path="individual-package" element={<IndPackage />} />
             <Route path="package" element={<Package />} />
             <Route path="Designs" element={<Designs />} />
-
-            <Route element={<ArtistProtectedRoute />}>
+            <Route element={<ProtectedRoute allowedRoles={['artist']} />}>
               <Route path="artistdashboard" element={<ArtistDashboard />} />
               <Route path="requestpage" element={<RequestPage />} />
               <Route path="changepassword" element={<ChangePassword />} />
@@ -83,7 +80,9 @@ function App() {
             />
 
             {/* Admin Protected Routes */}
-            <Route element={<AdminProtectedRoute />}>
+            
+        {/* Protected admin route */}
+        <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
               <Route path="/Admin" element={<Dashboard />} />
               <Route path="/Products" element={<Product />} />
               <Route path="/Order" element={<Order />} />
@@ -98,7 +97,9 @@ function App() {
               <Route path="/DisplayMessages" element={<DisplayMessages />} />
             </Route>
 
-            <Route element={<ProtectedRoute />}>
+          
+        {/* Protected user route */}
+        <Route element={<ProtectedRoute allowedRoles={['user']} />}>
               <Route path="giftbox" element={<CustomGiftBox />} />
               <Route path="product" element={<ProductPage />} />
               <Route path="cart" element={<Cart />} />

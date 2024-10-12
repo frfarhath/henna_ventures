@@ -126,37 +126,46 @@ exports.getAllArtists = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
 exports.loginArtist = async (req, res) => {
   try {
-      const { username, password } = req.body;
-      console.log(`Attempting login for username: ${username}`);
+    const { username, password } = req.body;
+    console.log(`Attempting login for username: ${username}`);
 
-      const artist = await ConfirmArtistModel.findOne({ username });
-      if (!artist) {
-          console.log(`No artist found with username: ${username}`);
-          return res.status(401).json({ message: "Invalid credentials" });
+    const artist = await ConfirmArtistModel.findOne({ username });
+    if (!artist) {
+      console.log(`No artist found with username: ${username}`);
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    console.log(`Artist found: ${artist._id}`);
+    console.log(`Stored hashed password: ${artist.password}`);
+
+    const isMatch = await artist.comparePassword(password);
+    console.log(`Password match result: ${isMatch}`);
+
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    // Create user token with artistId
+    const tokenData = { artistId: artist._id, email: artist.email, role: 'artist' };
+    const token = await createToken(tokenData);
+
+    // If the password is correct, create and send a token
+    res.status(200).json({ 
+      token, 
+      message: "Login successful",
+      user: {
+        id: artist._id,
+        username: artist.username,
+        email: artist.email,
+        role: 'artist'
       }
-
-      console.log(`Artist found: ${artist._id}`);
-      console.log(`Stored hashed password: ${artist.password}`);
-
-      const isMatch = await artist.comparePassword(password);
-      console.log(`Password match result: ${isMatch}`);
-
-      if (!isMatch) {
-          return res.status(401).json({ message: "Invalid credentials" });
-      }
-      // Create user token with artistId
-      const tokenData = { artistId: artist._id, email: artist.email };
-      const token = await createToken(tokenData);
-  
-
-      // If the password is correct, create and send a token
-   
-      res.status(200).json({ token, message: "Login successful" });
+    });
   } catch (error) {
-      console.error("Login error:", error);
-      res.status(500).json({ error: error.message });
+    console.error("Login error:", error);
+    res.status(500).json({ error: error.message });
   }
 };
 exports.changePassword = [

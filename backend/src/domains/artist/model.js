@@ -16,6 +16,11 @@ const artistSchema = new mongoose.Schema({
         filename: String
 
     },
+    role: {
+        type: String,
+        enum: ['artist'],
+        default: 'user',
+      },
     nearest_customers: { type: Boolean, default: false },
     is_approved: { type: Boolean, default: false },
     username: { type: String },

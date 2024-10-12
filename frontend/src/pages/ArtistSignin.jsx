@@ -7,6 +7,7 @@ import NewNav from '../components/NewNav';
 import Footer from '../components/Footer';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 
+
 function SignIn() {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
@@ -20,7 +21,6 @@ function SignIn() {
   const submitForm = async (e) => {
     e.preventDefault();
 
-    // Perform client-side validation
     if (!formData.username || !formData.password) {
       setError('All fields are required.');
       return;
@@ -29,16 +29,17 @@ function SignIn() {
     try {
       const response = await axios.post('http://localhost:8000/api/v1/artist/login', formData);
 
-     
-        if (response.status === 200) {
-          const token = response.data.token;
-          localStorage.setItem('token', token); // Store token in localStorage
+      if (response.status === 200) {
+        const { token, user } = response.data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
         navigate('/artistdashboard');
       }
     } catch (error) {
-      setError('Login failed. Please check your credentials and try again.');
+      setError(error.response?.data?.message || 'Login failed. Please check your credentials and try again.');
     }
   };
+
 
   return (
     <div>

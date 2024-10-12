@@ -70,5 +70,32 @@ const createNewUser = async (data) => {
         throw error;
     }
 };
+// New function for admin authentication
+const authenticateAdmin = async (data) => {
+    try {
+      const { email, password } = data;
+  
+      if (email !== process.env.ADMIN_EMAIL || password !== process.env.ADMIN_PASSWORD) {
+        throw new Error("Invalid admin credentials");
+      }
+  
+      // Create a token for the admin
+      const tokenData = { isAdmin: true, email: process.env.ADMIN_EMAIL,role: 'admin' };
+      const token = await createToken(tokenData);
+  
+      // Return an admin user object
+      return {
+        email: process.env.ADMIN_EMAIL,
+        isAdmin: true,
+        token: token,
+         role: 'admin'
+      };
+    } catch (error) {
+      console.error("Admin authentication error:", error.message);
+      throw error;
+    }
+  };
 
-module.exports = { createNewUser, authenticateUser };
+
+module.exports = { createNewUser, authenticateUser, authenticateAdmin };
+

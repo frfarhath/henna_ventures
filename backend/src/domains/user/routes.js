@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("./model");
-const { createNewUser, authenticateUser } = require("./controller");
+const { createNewUser, authenticateUser, authenticateAdmin } = require("./controller");
 const auth = require("./../../middleware/auth");
 const {
   sendVerificationOTPEmail,
@@ -24,20 +24,28 @@ router.get("/private_data", auth, (req, res) => {
 // Signin route
 router.post("/", async (req, res) => {
   try {
-    console.log("Request body:", req.body); // Log the request body
-    let { email, password } = req.body;
+    console.log("Request body:", req.body);
+    let { email, password, isAdminLogin } = req.body;
     email = email.trim();
     password = password.trim();
     if (!(email && password)) {
       throw new Error("Empty credentials supplied!");
     }
-    const authenticatedUser = await authenticateUser({ email, password });
-    res.status(200).json(authenticatedUser);
+
+    let authenticatedUser;
+    if (isAdminLogin) {
+      authenticatedUser = await authenticateAdmin({ email, password });
+    } else {
+      authenticatedUser = await authenticateUser({ email, password });
+    }
+    
+    res.status(200).json({ user: authenticatedUser, token: authenticatedUser.token });
   } catch (error) {
-    console.error("SignIn error:", error.message); // Log the error for debugging
+    console.error("SignIn error:", error.message);
     res.status(400).json({ error: error.message });
   }
 });
+
 
 // Signup route
 router.post("/signup", async (req, res) => {

@@ -6,13 +6,14 @@ import NewNav from '../components/NewNav';
 import Footer from '../components/Footer';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 
+
 function SignIn() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const navigate = useNavigate();
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
   
@@ -24,53 +25,43 @@ function SignIn() {
     }
   
     try {
-      let response;
-      let isAdmin = false;
-      if (email === 'adminhenna00@gmail.com' && password === 'admin123') {
-        // Hardcoded admin credentials
-        isAdmin = true;
-        response = { data: { token: 'admin-token', user: { role: 'admin' } } };
-      } else {
-        response = await axios.post(
-          'http://localhost:8000/api/v1/user',
-          { email, password },
-          {
-            headers: { 'Content-Type': 'application/json' },
-          }
-        );
-      }
+      const response = await fetch('http://localhost:8000/api/v1/user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password, isAdminLogin: email.includes('admin') }),
+      });
+
+      const data = await response.json();
   
-      const user = response.data.user || {};
-  
-      if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('user', JSON.stringify({...user, isAdmin}));
+      if (response.ok && data.token) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user || {}));
   
         setSuccess('Login successful!');
         setError('');
   
-        setTimeout(() => {
-          if (isAdmin) {
-            navigate('/Admin'); // Note the capital 'A' to match your route
-          } else {
-            navigate('/profile');
-          }
-        }, 2000);
+          setTimeout(() => {
+            if (email.includes('admin')) {
+              navigate('/admin');
+            } else {
+              navigate('/profile');
+            }
+          }, 2000);
       } else {
-        setError('Invalid credentials.');
+        setError(data.error || 'Invalid credentials.');
         setSuccess('');
         setTimeout(() => setError(''), 2000);
       }
     } catch (error) {
       console.error('Login error:', error);
-      setError(error.response?.data?.message || 'Network error. Please try again.');
+      setError('Network error. Please try again.');
       setSuccess('');
       setTimeout(() => setError(''), 2000);
     }
   };
-  
-  
-  return (
+    return (
     <div>
       <NewNav />
       <div className='signContainer'>
