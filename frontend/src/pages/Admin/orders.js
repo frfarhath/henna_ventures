@@ -47,8 +47,8 @@ const Order = () => {
       await axios.put(`http://localhost:8000/api/v1/individual/updateOrder/${orderId}`, postdata);
       alert('Successfully updated order status!');
       // Update the local state to reflect the change
-      setFetchArray(prevArray => 
-        prevArray.map(order => 
+      setFetchArray(prevArray =>
+        prevArray.map(order =>
           order._id === orderId ? { ...order, status: newStatus } : order
         )
       );
@@ -102,10 +102,9 @@ const Order = () => {
                         <td>{order._id}</td>
                         <td>{new Date(order.date).toLocaleDateString()}</td>
                         <td>{order.recipientName}</td>
-<td>{order.recipientAddress}</td>
-<td>{order.recipientContact}</td>
-
-                        <td>{order.type}</td>
+                        <td>{order.recipientAddress}</td>
+                        <td>{order.recipientContact}</td>
+                         <td>{order.type}</td>
                         <td>{order.products ? order.products.length : (order.giftBox ? 1 : 0)}</td>
                         <td>
                           ${order.type === 'PRODUCT'
@@ -113,10 +112,10 @@ const Order = () => {
                             : order.giftBox.price.toFixed(2)}
                         </td>
                         <td>
-                          <select 
-                            value={order.status} 
-                            onChange={(e) => handleStatusChange(order._id, e.target.value)} 
-                            className="Admin-modalinput" 
+                          <select
+                            value={order.status}
+                            onChange={(e) => handleStatusChange(order._id, e.target.value)}
+                            className="Admin-modalinput"
                             style={getStatusStyle(order.status)}>
                             {statusOptions.map((option) => (
                               <option key={option.value} value={option.value}>

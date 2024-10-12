@@ -32,23 +32,25 @@ class Summary extends Component {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/v1/admin/getOrder');
-                const resdata = await res.data;
-
+                const res = await axios.get('http://localhost:8000/api/v1/individual/getOrder');
+                const resdata = res.data;
+                
                 const subArray = [];
-                resdata.map((item) => {
-                    if (item.status === '1') {
-                        subArray.push({
-                            'title': item.product,
-                            'value': parseInt(item.quantity, 10)
-                        })
+                resdata.forEach((item) => {
+                    if (item.status === 'PENDING') {
+                        item.products.forEach((product) => {
+                            subArray.push({
+                                'title': product.name,
+                                'value': product.quantity
+                            });
+                        });
                     }
                 });
-
+                
                 this.setState({
                     totalOrders: resdata.length,
-                    totalPendings: resdata.length - subArray.length,
-                    totalDeliveries: subArray.length,
+                    totalPendings: resdata.filter(item => item.status === 'PENDING').length,
+                    totalDeliveries: resdata.filter(item => item.status === 'DELIVERED').length,
                 });
 
                 const summarizeProducts = (subArray) => {
