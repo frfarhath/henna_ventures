@@ -24,7 +24,7 @@ const Sidebar = () => {
     <div style={{ backgroundColor: '#f5f0eb' }} className="w-64 p-6 shadow-lg font-serif flex flex-col justify-between">
       <div>
         <div className="flex items-center space-x-4 mb-8">
-          <img src={user.profileImage} alt="Profile" className="w-12 h-12 rounded-full border-2 border-[#804f0e]" />
+          <img src={user.profileImage || '/images/default_avatar.png'} alt="Profile" className="w-12 h-12 rounded-full border-2 border-[#804f0e]" />
           <div>
             <h4 className="font-bold text-[#804f0e]">{user.fullname}</h4>
             <p className="text-sm text-gray-600">{user.email}</p>

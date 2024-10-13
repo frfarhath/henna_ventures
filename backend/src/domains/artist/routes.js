@@ -18,13 +18,12 @@ router.put(
 // Other routes
 router.post("/register", artistController.registerArtist);
 // router.get('/download', artistController.downloadFile);
-router.get("/download/:artistId/:fileType", artistController.downloadFile);
-router.post("/approve/:artistId", artistController.approveArtist);
-router.post("/login", artistController.loginArtist);
-router.get("/artists", artistController.getAllArtists);
-router.get("/protected-route", verifyToken, (req, res) => {
-  // If token is valid and verified, req.currentUser will contain the decoded token payload
-  res.json({ message: "Access granted", currentUser: req.currentUser });
+router.get('/download/:artistId/:fileType', artistController.downloadFile);
+router.post('/login', artistController.loginArtist);
+router.get('/artists', artistController.getAllArtists);
+router.get('/protected-route', verifyToken, (req, res) => {
+    // If token is valid and verified, req.currentUser will contain the decoded token payload
+    res.json({ message: 'Access granted', currentUser: req.currentUser });
 });
 
 module.exports = router;

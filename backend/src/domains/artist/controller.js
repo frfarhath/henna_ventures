@@ -98,38 +98,6 @@ exports.downloadFile = async (req, res) => {
   }
 };
 
-exports.approveArtist = async (req, res) => {
-  try {
-    const { artistId } = req.params;
-    const { username, password } = req.body;
-
-    const artist = await Artist.findById(artistId);
-    if (!artist) {
-      return res.status(404).json({ message: "Artist not found" });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    artist.username = username;
-    artist.password = hashedPassword;
-    artist.is_approved = true;
-
-    await artist.save();
-
-    // Send email
-    const mailOptions = {
-      from: process.env.AUTH_EMAIL,
-      to: artist.email,
-      subject: "Account Approved",
-      text: `Your account has been approved. Your username is ${username} and your password is ${password}`,
-    };
-
-    await sendEmail(mailOptions);
-    res.status(200).json({ message: "Artist approved and email sent" });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
 exports.getAllArtists = async (req, res) => {
   try {
     const artists = await Artist.find({});
