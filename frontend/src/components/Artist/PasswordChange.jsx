@@ -21,45 +21,50 @@ export default function PasswordChange() {
 
     try {
       const token = localStorage.getItem("token");
-console.log("Token from localStorage:", token ? "Token exists" : "No token found");
+      console.log(
+        "Token from localStorage:",
+        token ? "Token exists" : "No token found"
+      );
 
       const config = {
         headers: { Authorization: `Bearer ${token}` },
       };
       const response = await axios.put(
         "http://localhost:8000/api/v1/artist/password/change",
-        { oldPassword: oldPassword, newPassword: newPassword, confirmPassword:confirmPassword },
+        {
+          oldPassword: oldPassword,
+          newPassword: newPassword,
+          confirmPassword: confirmPassword,
+        },
         config
       );
       console.log("Response from backend:", response.data);
-
-      
 
       setMessage(response.data.message);
       setOldPassword("");
       setNewPassword("");
       setConfirmPassword("");
     } catch (error) {
-      
-        console.error("Error changing password:", error);
-        if (error.response) {
-          console.error("Response data:", error.response.data);
-          console.error("Response status:", error.response.status);
-          console.error("Response headers:", error.response.headers);
-        } else if (error.request) {
-          console.error("No response received:", error.request);
-        } else {
-          console.error("Error setting up request:", error.message);
-        }
-        setError(error.response?.data?.message || "Something went wrong");
-      
+      console.error("Error changing password:", error);
+      if (error.response) {
+        console.error("Response data:", error.response.data);
+        console.error("Response status:", error.response.status);
+        console.error("Response headers:", error.response.headers);
+      } else if (error.request) {
+        console.error("No response received:", error.request);
+      } else {
+        console.error("Error setting up request:", error.message);
+      }
+      setError(error.response?.data?.message || "Something went wrong");
     }
   };
 
   return (
     <div className="right-container">
       <div className="main-content">
-      <h3 className="font-comic text-2xl mb-[-10px] text-center">Change Password</h3>
+        <h3 className="font-comic text-2xl mb-[-10px] text-center">
+          Change Password
+        </h3>
         <br />
         <div className="column-2">
           <div className="sub-row"></div>
