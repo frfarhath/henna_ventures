@@ -83,15 +83,12 @@ function SignIn() {
                 />
               </div>
             </div>
-            <div className="flex items-center justify-between mb-4">
-              {/* <label className="inline-flex items-center">
-                <input type="checkbox" className="form-checkbox text-indigo-600" />
-                <span className="ml-2">Remember me</span>
-              </label> */}
+            {/* <div className="flex items-center justify-between mb-4">
+             
               <a href="/forgot-password" className="inline-block align-baseline text-sm text-blue-500 hover:text-blue-800">
                 Forgot Password?
               </a>
-            </div>
+            </div> */}
             <button
               className="login-button text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"

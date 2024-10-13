@@ -13,7 +13,6 @@ router.put('/password/change', verifyToken, upload.none(), authController.protec
 router.post('/register', artistController.registerArtist);
 // router.get('/download', artistController.downloadFile);
 router.get('/download/:artistId/:fileType', artistController.downloadFile);
-router.post('/approve/:artistId', artistController.approveArtist);
 router.post('/login', artistController.loginArtist);
 router.get('/artists', artistController.getAllArtists);
 router.get('/protected-route', verifyToken, (req, res) => {

@@ -14,18 +14,11 @@ const artistSchema = new mongoose.Schema({
         data: Buffer,
         contentType: String,
         filename: String
-
     },
-    role: {
-        type: String,
-        enum: ['artist'],
-        default: 'user',
-      },
     nearest_customers: { type: Boolean, default: false },
     is_approved: { type: Boolean, default: false },
-    username: { type: String },
+    username: { type: String, sparse: true, unique: true },
     password: { type: String }
-    
 });
 
 module.exports = mongoose.model('Artist', artistSchema);
