@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { FaStar, FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
 import Loading from '../../components/User Dashboard/Loading';
@@ -16,37 +16,37 @@ const RatingAndReview = () => {
   const [artistArray, setArtistArray] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchData = async () => {
+  
+  const fetchData = useCallback(async () => {
     try {
       const res = await axios.get(`http://localhost:8000/api/v1/individual/getUserRatings?userId=${user._id}`);
       const resdata = await res.data;
-      setFetchArray(resdata);
+      setFetchArray(Array.isArray(resdata) ? resdata : []);
     } catch (error) {
       console.log('Main Error', error);
     }
-  };
+  }, [user._id]);  // Dependency on user._id
 
-  const fetchData2 = async () => {
-
+  // Memoize fetchData2 using useCallback
+  const fetchData2 = useCallback(async () => {
     try {
-
       const res = await axios.get('http://localhost:8000/api/v1/individual/getArtist');
       const resdata = await res.data;
       setArtistArray(resdata);
-      setLoading(false)
-
+      setLoading(false);
     } catch (error) {
       console.log('Main Error', error);
     }
+  }, []);  // No dependencies
 
-  };
-  
+  // useEffect with fetchData and fetchData2, memoized with useCallback
   useEffect(() => {
     if (user && user._id) {
       fetchData();
       fetchData2();
     }
-  }, [user]);
+  }, [user, fetchData, fetchData2]);  // Dependencies: user, fetchData, fetchData2
+
 
   const handleRatingClick = (ratingValue) => {
     setRating(ratingValue);
@@ -158,27 +158,28 @@ const RatingAndReview = () => {
 
       {!loading && (
         <div>
-          {fetchArray.map((review) => (
-            <div key={review._id} className="p-4 mb-4 bg-white rounded shadow-md animate-fadeIn">
-              <div className="flex justify-between items-center">
-                <div>
-                  <h1 style={{ fontWeight: 'bold', color: 'blue' }}>{review.username}</h1>
-                  <h3 className="text-lg font-bold">Artist: {review.artist}</h3>
-                  <div className="flex items-center">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <FaStar key={star} className={`${review.rate >= star ? 'text-yellow-500' : 'text-gray-400'}`} />
-                    ))}
-                  </div>
-                  <h3 className="text-lg font-bold">{review.title}</h3>
-                  <p>{review.review}</p>
-                  <small className="text-gray-500">{review.date}</small>
-                </div>
-                <button onClick={() => handleReviewDelete(review._id)} className="text-red-600 hover:text-red-800">
-                  <FaTrashAlt />
-                </button>
-              </div>
-            </div>
+         {Array.isArray(fetchArray) && fetchArray.map((review) => (
+  <div key={review._id} className="p-4 mb-4 bg-white rounded shadow-md animate-fadeIn">
+    <div className="flex justify-between items-center">
+      <div>
+        <h1 style={{ fontWeight: 'bold', color: 'blue' }}>{review.username}</h1>
+        <h3 className="text-lg font-bold">Artist: {review.artist}</h3>
+        <div className="flex items-center">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <FaStar key={star} className={`${review.rate >= star ? 'text-yellow-500' : 'text-gray-400'}`} />
           ))}
+        </div>
+        <h3 className="text-lg font-bold">{review.title}</h3>
+        <p>{review.review}</p>
+        <small className="text-gray-500">{review.date}</small>
+      </div>
+      <button onClick={() => handleReviewDelete(review._id)} className="text-red-600 hover:text-red-800">
+        <FaTrashAlt />
+      </button>
+    </div>
+  </div>
+))}
+
         </div>
       )}
 
