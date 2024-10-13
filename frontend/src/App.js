@@ -69,11 +69,13 @@ function App() {
             <Route path="individual-package" element={<IndPackage />} />
             <Route path="package" element={<Package />} />
             <Route path="Designs" element={<Designs />} />
+
             <Route element={<ProtectedRoute allowedRoles={['artist']} />}>
               <Route path="artistdashboard" element={<ArtistDashboard />} />
               <Route path="requestpage" element={<RequestPage />} />
               <Route path="changepassword" element={<ChangePassword />} />
             </Route>
+            
             <Route
               path="/MehendiDesignRepository"
               element={<MehendiDesignRepository />}
