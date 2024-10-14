@@ -1,100 +1,94 @@
 const RepoModel = require('../models/repository');
 const multer = require('multer');
-const fs = require("fs");
+const path = require('path');
 
-
-const Storage = multer.diskStorage({
+const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "uploads");
+        cb(null, 'uploads/');
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname);
-    },
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+    }
 });
 
-const upload = multer({
-    storage: Storage
-}).single('repoImage')
+const upload = multer({ storage: storage }).single('repoImage');
 
-
-exports.postRepo = async (req, res) => {
-    upload(req, res, (err) => {
+exports.postRepo = (req, res) => {
+    upload(req, res, async (err) => {
         if (err) {
-            console.log(err)
+            return res.status(400).json({ message: err.message });
         }
-        else {
+        
+        if (!req.file) {
+            return res.status(400).json({ message: 'No file uploaded' });
+        }
+
+        try {
             const newRepo = new RepoModel({
                 name: req.body.name,
                 category: req.body.category,
-                image: {
-                    data: fs.readFileSync('uploads/' + req.file.filename),
-                    contentType: 'image/png',
-                }
-            })
-            newRepo.save()
-                .then(() => res.send('successfully uploaded'))
-                .catch((err) => console.log(err));
+                image: req.file.path // Store the file path
+            });
+
+            await newRepo.save();
+            res.status(201).json({ message: 'Repository created successfully', repo: newRepo });
+        } catch (error) {
+            res.status(400).json({ message: error.message });
         }
     });
 };
 
 exports.getRepo = async (req, res) => {
     try {
-        const blogs = await RepoModel.find();
-
-        // Convert image data to Base64
-        const blogsWithImages = blogs.map(blog => ({
-            ...blog._doc, // Spread the original blog properties
-            image: `data:${blog.image.contentType};base64,${blog.image.data.toString('base64')}` // Convert Buffer to Base64
-        }));
-
-        res.json(blogsWithImages);
+        const repos = await RepoModel.find();
+        res.json(repos);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
-
-exports.putRepo = async (req, res) => {
-
+exports.putRepo = (req, res) => {
     upload(req, res, async (err) => {
         if (err) {
-            console.log(err)
+            return res.status(400).json({ message: err.message });
         }
-        else {
-            try {
-                const updateRepo = await RepoModel.findByIdAndUpdate(
-                    req.params.id,
-                    {
-                        name: req.body.name,
-                        category: req.body.category,
-                        image: {
-                            data: fs.readFileSync('uploads/' + req.file.filename),
-                            contentType: 'image/png',
-                        }
-                    },
-                    { new: true }
-                );
-                res.json(updateRepo);
-            } catch (err) {
-                res.status(400).json({ message: err.message });
+
+        try {
+            const updateData = {
+                name: req.body.name,
+                category: req.body.category
+            };
+
+            if (req.file) {
+                updateData.image = req.file.path;
             }
 
+            const updatedRepo = await RepoModel.findByIdAndUpdate(
+                req.params.id,
+                updateData,
+                { new: true }
+            );
+
+            if (!updatedRepo) {
+                return res.status(404).json({ message: 'Repository not found' });
+            }
+
+            res.json(updatedRepo);
+        } catch (error) {
+            res.status(400).json({ message: error.message });
         }
     });
-
 };
 
 exports.deleteRepo = async (req, res) => {
-
     try {
-        const deletedPost = await RepoModel.findByIdAndDelete(req.params.id);
-        if (!deletedPost) {
-            return res.status(404).json({ message: 'Repo not found' });
+        const deletedRepo = await RepoModel.findByIdAndDelete(req.params.id);
+        if (!deletedRepo) {
+            return res.status(404).json({ message: 'Repository not found' });
         }
-        res.json({ message: 'Repo deleted successfully' });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.json({ message: 'Repository deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 };
-

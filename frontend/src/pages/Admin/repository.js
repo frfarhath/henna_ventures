@@ -80,29 +80,8 @@ class Repository extends Component {
             return null;
         }
 
-        let imageUrl = '';
-
-        if (typeof item.image === 'string') {
-            imageUrl = item.image;
-        } else if (item.image.data) {
-            try {
-                const binary = atob(item.image.data);
-                const array = new Uint8Array(binary.length);
-                for (let i = 0; i < binary.length; i++) {
-                    array[i] = binary.charCodeAt(i);
-                }
-                const blob = new Blob([array], {type: item.image.contentType || 'image/png'});
-                imageUrl = URL.createObjectURL(blob);
-            } catch (error) {
-                console.error('Error processing image data:', error);
-                return null;
-            }
-        }
-
-        if (!imageUrl) {
-            console.log('Failed to generate image URL for item:', item.name);
-            return null;
-        }
+        // Construct the full URL to the image
+        const imageUrl = `http://localhost:8000/${item.image}`;
 
         return (
             <img 
