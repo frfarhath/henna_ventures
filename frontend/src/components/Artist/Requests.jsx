@@ -5,51 +5,7 @@ import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 export default function Requests() {
-  const initialRequests = [
-    {
-      id: 1,
-      date: "2024-06-10",
-      time: "10:00 AM",
-      clientName: "John Doe",
-      contactNumber: "123-456-7890",
-      mehendiType: "Bridal",
-      district: "District 1",
-      address: "123 Street, City",
-      status: "Pending",
-    },
-    {
-      id: 2,
-      date: "2024-06-11",
-      time: "11:00 AM",
-      clientName: "Jane Smith",
-      contactNumber: "987-654-3210",
-      mehendiType: "Traditional",
-      district: "District 2",
-      address: "456 Avenue, City",
-      status: "Pending",
-    },
-    {
-      id: 3,
-      date: "2024-06-11",
-      time: "11:00 AM",
-      clientName: "Jane Smith",
-      contactNumber: "987-654-3210",
-      mehendiType: "Traditional",
-      district: "District 2",
-      address: "456 Avenue, City",
-      status: "Pending",
-    },
-    // Add more initial requests here
-  ];
-
-  const [requests, setRequests] = useState(initialRequests);
-
-  const handleStatusChange = (id, newStatus) => {
-    const updatedRequests = requests.map((request) =>
-      request.id === id ? { ...request, status: newStatus } : request
-    );
-    setRequests(updatedRequests);
-  };
+  const [requests, setRequests] = useState([]);
 
   const getStatusClass = (status) => {
     switch (status) {
@@ -79,9 +35,10 @@ export default function Requests() {
         { status },
         config
       )
-      .then(({ data }) => {
+      .then(() => {
         alert("Status updated successfully");
       })
+      .then(() => getRequestAppointments())
       .catch(() => {
         alert("Error fetching appointments");
       });
@@ -99,7 +56,7 @@ export default function Requests() {
     await axios
       .get("http://localhost:8000/api/v1/artist/appointments", config)
       .then(({ data }) => {
-        console.log(data);
+        setRequests(data.appointments);
       })
       .catch(() => {
         alert("Error fetching appointments");
@@ -111,7 +68,7 @@ export default function Requests() {
   }, [getRequestAppointments]);
 
   const handleCopy = (request) => {
-    const dataToCopy = `${request.clientName} | ${request.contactNumber} | ${request.mehendiType} | ${request.district} | ${request.address}`;
+    const dataToCopy = `${request.firstname} ${request.lastname} | ${request.phone} | ${request.type_mehendi} | ${request.district} | ${request.address1}, ${request.address2}, ${request.city}`;
     navigator.clipboard.writeText(dataToCopy).then(
       () => {
         alert("Data copied to clipboard!");
@@ -144,28 +101,31 @@ export default function Requests() {
           </thead>
           <tbody>
             {requests.map((request) => (
-              <tr key={request.id}>
-                <td>{request.date}</td>
+              <tr key={request._id}>
+                <td>{request.wedding}</td>
                 <td>{request.time}</td>
-                <td>{request.clientName}</td>
-                <td>{request.contactNumber}</td>
-                <td>{request.mehendiType}</td>
+                <td>
+                  {request.firstname}
+                  {request.lastname}
+                </td>
+                <td>{request.phone}</td>
+                <td>{request.type_mehendi}</td>
                 <td>{request.district}</td>
-                <td>{request.address}</td>
+                <td>
+                  {request.address1},{request.address2},{request.city}
+                </td>
                 <td>
                   <select
                     className={`status-dropdown ${getStatusClass(
                       request.status
                     )}`}
                     value={request.status}
-                    onChange={(e) =>
-                      handleStatusChange(request.id, e.target.value)
-                    }
+                    onChange={(e) => changeStatus(request._id, e.target.value)}
                   >
-                    <option value="Pending">Pending</option>
-                    <option value="Accepted">Accepted</option>
-                    <option value="Completed">Completed</option>
-                    <option value="Declined">Declined</option>
+                    <option value="PENDING">Pending</option>
+                    <option value="ACCEPTED">Accepted</option>
+                    <option value="COMPLETED">Completed</option>
+                    <option value="DECLINED">Declined</option>
                   </select>
                 </td>
                 <td>
