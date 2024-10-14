@@ -40,6 +40,7 @@ const NewNav = () => {
         setIsAuthenticated(true); // Set authentication status to true
         console.log('User profile data fetched successfully:', data);
       } catch (error) {
+        console.error('Error fetching user profile:', error);
         setIsAuthenticated(false); // Set authentication status to false in case of error
       }
     };

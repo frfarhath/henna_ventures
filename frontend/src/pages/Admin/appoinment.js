@@ -278,7 +278,7 @@ class Appoinment extends Component {
                                                         <select value={item.artist} onChange={(e) => this.handleChange(e, item._id)} className="Admin-modalinput">
                                                             <option value="">Select</option>
                                                             {this.state.artistArray.map((item, index) => (
-                                                                <option key={index} value={item._id}>
+                                                                <option key={index} value={item.fullname}>
                                                                     {item.fullname}
                                                                 </option>
                                                             ))}
@@ -310,7 +310,7 @@ class Appoinment extends Component {
                                                         <select value={item.artist} onChange={(e) => this.handleChange2(e, item._id)} className="Admin-modalinput">
                                                             <option value="">Select</option>
                                                             {this.state.artistArray.map((item, index) => (
-                                                                <option key={index} value={item._id}>
+                                                                <option key={index} value={item.fullname}>
                                                                     {item.fullname}
                                                                 </option>
                                                             ))}
