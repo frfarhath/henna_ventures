@@ -233,10 +233,10 @@ exports.getArtistAppointments = [
   verifyToken,
   async (req, res) => {
     try {
-      const appointments = await confirmAppoinmentIndividual.find();
-      // {
-      //   artist: req.currentUser.artistId,
-      // }
+      const appointments = await confirmAppoinmentIndividual.find({
+        artist: req.currentUser.artistId,
+      });
+
       res.status(200).json({ appointments });
     } catch (error) {
       res.status(500).json({ error: error.message });
