@@ -90,7 +90,7 @@ export default function SelectGift() {
         {products.map((product, index) => (
           <div key={index} className="selected-item w-32 h-32 relative">
             <img
-              src={productsArray.find((p) => p.name === product.name).img}
+              src={productsArray.find((p) => p.name === product.name).images[0]}
               alt={product.name}
               className="rounded-md w-full h-28 object-cover"
             />
