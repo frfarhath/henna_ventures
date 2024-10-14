@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../../css/artist.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 
 export default function Requests() {
   const initialRequests = [
@@ -64,52 +63,6 @@ export default function Requests() {
     }
   };
 
-  const changeStatus = async (id, status) => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      return;
-    }
-
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
-    await axios
-      .put(
-        `http://localhost:8000/api/v1/artist/appointments/${id}`,
-        { status },
-        config
-      )
-      .then(({ data }) => {
-        alert("Status updated successfully");
-      })
-      .catch(() => {
-        alert("Error fetching appointments");
-      });
-  };
-
-  const getRequestAppointments = useCallback(async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      return;
-    }
-
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
-    await axios
-      .get("http://localhost:8000/api/v1/artist/appointments", config)
-      .then(({ data }) => {
-        console.log(data);
-      })
-      .catch(() => {
-        alert("Error fetching appointments");
-      });
-  }, []);
-
-  useEffect(() => {
-    getRequestAppointments();
-  }, [getRequestAppointments]);
-
   const handleCopy = (request) => {
     const dataToCopy = `${request.clientName} | ${request.contactNumber} | ${request.mehendiType} | ${request.district} | ${request.address}`;
     navigator.clipboard.writeText(dataToCopy).then(
@@ -125,9 +78,7 @@ export default function Requests() {
   return (
     <div className="right-container">
       <div className="main-content">
-        <h3 className="font-comic text-2xl mb-8 text-center">
-          Appointment Requests
-        </h3>
+        <h3 className="font-comic text-2xl mb-8 text-center">Appointment Requests</h3>
         <table className="timetable">
           <thead>
             <tr>

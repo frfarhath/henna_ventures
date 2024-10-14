@@ -1,22 +1,16 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const multer = require("multer");
+const multer = require('multer');
 const upload = multer();
-const artistController = require("./controller");
-const verifyToken = require("../middleware/auth");
-const authController = require("../middleware/authController");
+const artistController = require('./controller');
+const verifyToken = require('../middleware/auth');
+const authController = require('../middleware/authController');
 
 // Route for changing password
-router.put(
-  "/password/change",
-  verifyToken,
-  upload.none(),
-  authController.protect,
-  artistController.changePassword
-);
+router.put('/password/change', verifyToken, upload.none(), authController.protect, artistController.changePassword);
 
 // Other routes
-router.post("/register", artistController.registerArtist);
+router.post('/register', artistController.registerArtist);
 // router.get('/download', artistController.downloadFile);
 router.get('/download/:artistId/:fileType', artistController.downloadFile);
 router.post('/login', artistController.loginArtist);
