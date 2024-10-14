@@ -37,7 +37,7 @@ const Profile = () => {
         setProfileImage(userData.profileImage);
         setUser(userData);
       } catch (error) {
-        console.error('Error fetching user profile:', error);
+        console.error('Error fetching user profile:');
       }
     };
 
@@ -75,7 +75,7 @@ const Profile = () => {
       alert('PROFILE UPDATED SUCCESSFULLY!');
       navigate('/');
     } catch (error) {
-      console.error('Error updating profile:', error);
+      console.error('Error updating profile:');
       alert('PROFILE UPDATE FAILED!');
     }
   };
