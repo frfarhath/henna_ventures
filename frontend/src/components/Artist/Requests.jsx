@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "../../css/artist.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCopy, faEye, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faTimes } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 export default function Requests() {
@@ -68,22 +68,6 @@ export default function Requests() {
   useEffect(() => {
     getRequestAppointments();
   }, [getRequestAppointments]);
-
-  const handleCopy = (request) => {
-    const address =
-      request.appointment_type === "individual"
-        ? `${request.address1}, ${request.address2}, ${request.city}`
-        : `${request.address}`;
-    const dataToCopy = `${request.firstname} ${request.lastname} | ${request.phone} | ${request.type_mehendi} | ${request.district} | ${address}`;
-    navigator.clipboard.writeText(dataToCopy).then(
-      () => {
-        alert("Data copied to clipboard!");
-      },
-      (err) => {
-        console.error("Could not copy text: ", err);
-      }
-    );
-  };
 
   return (
     <div className="right-container">
@@ -163,12 +147,6 @@ export default function Requests() {
                   >
                     <FontAwesomeIcon icon={faEye} />
                   </button>
-                  <button
-                    className="copy-button"
-                    onClick={() => handleCopy(request)}
-                  >
-                    <FontAwesomeIcon icon={faCopy} />
-                  </button>
                 </td>
               </tr>
             ))}
@@ -198,14 +176,18 @@ const MoreDetailsPopUp = ({ request, setCloseModel }) => {
 
         {/* details */}
         <div className="flex flex-col gap-y-2">
+          <p className="my-0 mb-2 font-medium text-lg">More Details</p>
+
           <p className="my-0">Date :{request.wedding}</p>
           <p className="my-0">Time : {request.time}</p>
           <p className="my-0">
             Client :{request.firstname}
             {request.lastname}
           </p>
-          <p className="my-0">Client Contact :{request.phone}</p>
-          <p className="my-0">Mehendi Type :{request.type_mehendi ?? "N/A"}</p>
+          <p className="my-0">
+            Client Contact :{request.phone} ({request.email})
+          </p>
+          <p className="my-0">City:{request.city}</p>
           <p className="my-0">District :{request.district}</p>
           <p className="my-0">Appointment Type :{request.appointment_type}</p>
           <p className="my-0 capitalize">
@@ -223,6 +205,19 @@ const MoreDetailsPopUp = ({ request, setCloseModel }) => {
               <span className="">{request.address}</span>
             )}
           </p>
+          {request.appointment_type === "individual" && (
+            <>
+              <p className="my-0">Mehendi Type :{request.type_mehendi}</p>
+              <p className="my-0">Mehendi On :{request.mehendi_on}</p>
+              <p className="my-0">Mehendi For :{request.mehendi_for}</p>
+            </>
+          )}
+          {request.appointment_type === "package" && (
+            <>
+              <p className="my-0">Package Type :{request.package_type}</p>
+              <p className="my-0">Design Coverage :{request.design}</p>
+            </>
+          )}
         </div>
       </div>
     </div>
