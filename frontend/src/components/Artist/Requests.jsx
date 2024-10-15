@@ -1,26 +1,28 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "../../css/artist.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import { faCopy, faEye, faTimes } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 export default function Requests() {
   const [requests, setRequests] = useState([]);
+  const [isPopUpShow, setIsPopUpShow] = useState(false);
+  const [selectedRequest, setSelectedRequest] = useState(null);
 
   const getStatusClass = (status) => {
     switch (status) {
-      case "Accepted":
+      case "ACCEPTED":
         return "status-accepted";
-      case "Declined":
+      case "DECLINED":
         return "status-declined";
-      case "Completed":
+      case "COMPLETED":
         return "status-completed";
       default:
         return "status-pending";
     }
   };
 
-  const changeStatus = async (id, status) => {
+  const changeStatus = async (id, status, type) => {
     const token = localStorage.getItem("token");
     if (!token) {
       return;
@@ -32,7 +34,7 @@ export default function Requests() {
     await axios
       .put(
         `http://localhost:8000/api/v1/artist/appointments/${id}`,
-        { status },
+        { status, type },
         config
       )
       .then(() => {
@@ -68,7 +70,11 @@ export default function Requests() {
   }, [getRequestAppointments]);
 
   const handleCopy = (request) => {
-    const dataToCopy = `${request.firstname} ${request.lastname} | ${request.phone} | ${request.type_mehendi} | ${request.district} | ${request.address1}, ${request.address2}, ${request.city}`;
+    const address =
+      request.appointment_type === "individual"
+        ? `${request.address1}, ${request.address2}, ${request.city}`
+        : `${request.address}`;
+    const dataToCopy = `${request.firstname} ${request.lastname} | ${request.phone} | ${request.type_mehendi} | ${request.district} | ${address}`;
     navigator.clipboard.writeText(dataToCopy).then(
       () => {
         alert("Data copied to clipboard!");
@@ -81,6 +87,12 @@ export default function Requests() {
 
   return (
     <div className="right-container">
+      {isPopUpShow && (
+        <MoreDetailsPopUp
+          request={selectedRequest}
+          setCloseModel={setIsPopUpShow}
+        />
+      )}
       <div className="main-content">
         <h3 className="font-comic text-2xl mb-8 text-center">
           Appointment Requests
@@ -96,7 +108,7 @@ export default function Requests() {
               <th>District</th>
               <th>Address</th>
               <th>Status</th>
-              <th>Copy</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -109,10 +121,17 @@ export default function Requests() {
                   {request.lastname}
                 </td>
                 <td>{request.phone}</td>
-                <td>{request.type_mehendi}</td>
+                <td>{request.type_mehendi ?? "N/A"}</td>
                 <td>{request.district}</td>
                 <td>
-                  {request.address1},{request.address2},{request.city}
+                  {request.appointment_type === "individual" && (
+                    <span className="">
+                      {request.address1},{request.address2},{request.city}
+                    </span>
+                  )}
+                  {request.appointment_type === "package" && (
+                    <span className="">{request.address}</span>
+                  )}
                 </td>
                 <td>
                   <select
@@ -120,7 +139,13 @@ export default function Requests() {
                       request.status
                     )}`}
                     value={request.status}
-                    onChange={(e) => changeStatus(request._id, e.target.value)}
+                    onChange={(e) =>
+                      changeStatus(
+                        request._id,
+                        e.target.value,
+                        request.appointment_type
+                      )
+                    }
                   >
                     <option value="PENDING">Pending</option>
                     <option value="ACCEPTED">Accepted</option>
@@ -128,7 +153,16 @@ export default function Requests() {
                     <option value="DECLINED">Declined</option>
                   </select>
                 </td>
-                <td>
+                <td className="flex">
+                  <button
+                    className="copy-button"
+                    onClick={() => {
+                      setSelectedRequest(request);
+                      setIsPopUpShow(true);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faEye} />
+                  </button>
                   <button
                     className="copy-button"
                     onClick={() => handleCopy(request)}
@@ -144,3 +178,53 @@ export default function Requests() {
     </div>
   );
 }
+
+const MoreDetailsPopUp = ({ request, setCloseModel }) => {
+  return (
+    <div
+      className="w-screen h-screen bg-black/10 flex justify-center items-center fixed top-0 start-0 backdrop-blur-sm"
+      onClick={() => setCloseModel(false)}
+    >
+      <div
+        className="bg-white p-5 rounded-md relative w-fit h-fit min-w-80 sm:min-w-96 shadow-lg drop-shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          className="absolute top-2 end-2"
+          onClick={() => setCloseModel(false)}
+        >
+          <FontAwesomeIcon icon={faTimes} />
+        </button>
+
+        {/* details */}
+        <div className="flex flex-col gap-y-2">
+          <p className="my-0">Date :{request.wedding}</p>
+          <p className="my-0">Time : {request.time}</p>
+          <p className="my-0">
+            Client :{request.firstname}
+            {request.lastname}
+          </p>
+          <p className="my-0">Client Contact :{request.phone}</p>
+          <p className="my-0">Mehendi Type :{request.type_mehendi ?? "N/A"}</p>
+          <p className="my-0">District :{request.district}</p>
+          <p className="my-0">Appointment Type :{request.appointment_type}</p>
+          <p className="my-0 capitalize">
+            Status :{request.status.toLowerCase()}
+          </p>
+
+          <p className="my-0">
+            Address :
+            {request.appointment_type === "individual" && (
+              <span className="">
+                {request.address1},{request.address2},{request.city}
+              </span>
+            )}
+            {request.appointment_type === "package" && (
+              <span className="">{request.address}</span>
+            )}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};

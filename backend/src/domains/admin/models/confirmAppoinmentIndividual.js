@@ -68,6 +68,12 @@ const ConfirmAppoinmentIndividualSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  appointment_type: {
+    type: String,
+    enum: ["individual", "package"],
+    default: "individual",
+    required: true,
+  },
 });
 
 module.exports = mongoose.model(

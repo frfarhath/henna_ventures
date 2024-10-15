@@ -21,6 +21,11 @@ router.get(
   verifyToken,
   artistController.getArtistAppointments
 );
+router.get(
+  "/appointments/:date",
+  verifyToken,
+  artistController.getAppointmentByDate
+);
 router.put(
   "/appointments/:appointmentId",
   verifyToken,
