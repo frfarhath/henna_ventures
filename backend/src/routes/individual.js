@@ -35,6 +35,7 @@ router.get('/findProfile/:id', profileController.findProfile);
 
 router.post('/addToCollection', verifyToken,collectionController.addToCollection);
 router.get('/getCollection', verifyToken,collectionController.getCollection);
+router.delete('/removeFromCollection/:designId',verifyToken,collectionController.removeFromCollection);
 // router.get('/getOrder', orderController.getOrder);
 router.get('/getArtist', artistController.getArtist);
 

@@ -1,7 +1,6 @@
 const User = require("../../user/model");
 const RepoModel = require('../../admin/models/repository'); // Assuming this represents designs
 
-// Add a design to the user's collection
 exports.addToCollection = async (req, res) => {
     try {
         console.log('Request body:', req.body);
@@ -10,32 +9,23 @@ exports.addToCollection = async (req, res) => {
         const { designId } = req.body;
         const userId = req.currentUser.userId;
 
-        console.log('Attempting to find user with ID:', userId);
-        
         const user = await User.findById(userId);
         if (!user) {
             console.log('User not found for ID:', userId);
             return res.status(404).json({ message: 'User not found' });
         }
         
-        console.log('User found:', user);
-
-        // Check if the design exists
         const design = await RepoModel.findById(designId);
         if (!design) {
             console.log('Design not found for ID:', designId);
             return res.status(404).json({ message: 'Design not found' });
         }
 
-        console.log('Design found:', design);
-
-        // Check if the design is already in the user's collection
         if (user.collections.includes(designId)) {
             console.log('Design already in collection');
             return res.status(400).json({ message: 'Design already in collection' });
         }
 
-        // Add the design to the user's collection
         user.collections.push(designId);
         await user.save();
 
@@ -47,7 +37,6 @@ exports.addToCollection = async (req, res) => {
     }
 };
 
-// Get all designs in the user's collection
 exports.getCollection = async (req, res) => {
     try {
         if (!req.currentUser || !req.currentUser.userId) {
@@ -56,22 +45,21 @@ exports.getCollection = async (req, res) => {
 
         const userId = req.currentUser.userId;
 
-        const user = await User.findById(userId).populate('collections');
+        const user = await User.findById(userId).populate({
+            path: 'collections',
+            model: RepoModel
+        });
+
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // Transform the image data into Base64 strings
-        const collections = user.collections.map(collection => {
-            const base64Image = collection.image.data
-                ? `data:${collection.image.contentType};base64,${collection.image.data.toString('base64')}`
-                : '';
-            return {
-                name: collection.name,
-                image: base64Image,
-                category: collection.category,
-            };
-        });
+        const collections = user.collections.map(design => ({
+            _id: design._id,
+            name: design.name,
+            image: design.image, // Assuming image is stored as a URL or path
+            category: design.category,
+        }));
 
         res.status(200).json(collections);
     } catch (error) {
@@ -80,22 +68,23 @@ exports.getCollection = async (req, res) => {
     }
 };
 
-
-
-// Remove a design from the user's collection
 exports.removeFromCollection = async (req, res) => {
     try {
         const userId = req.currentUser.userId;
-        const { designId } = req.body;
+        const { designId } = req.params;
+
+        console.log(`Attempting to remove design ${designId} for user ${userId}`);
 
         const user = await User.findById(userId);
         if (!user) {
+            console.log('User not found');
             return res.status(404).json({ message: 'User not found' });
         }
 
         // Check if the design exists in the user's collection
         const index = user.collections.indexOf(designId);
         if (index === -1) {
+            console.log('Design not found in collection');
             return res.status(404).json({ message: 'Design not found in collection' });
         }
 
@@ -103,9 +92,10 @@ exports.removeFromCollection = async (req, res) => {
         user.collections.splice(index, 1);
         await user.save();
 
+        console.log('Design removed successfully');
         res.status(200).json({ message: 'Design removed from collection successfully' });
     } catch (error) {
-        console.error('Detailed error in removeFromCollection:', error);
+        console.error('Error in removeFromCollection:', error);
         res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 };
