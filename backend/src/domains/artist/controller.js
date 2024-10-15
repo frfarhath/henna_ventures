@@ -9,6 +9,7 @@ const path = require("path");
 const verifyToken = require("./../../middleware/auth");
 const catchAsyncError = require("./../../middleware/catchAsyncError");
 const confirmAppoinmentIndividual = require("../admin/models/confirmAppoinmentIndividual");
+const confirmAppoinmentPackage = require("../admin/models/confirmAppoinmentPackage");
 
 const storage = multer.memoryStorage(); // Use memoryStorage to handle files in memory
 
@@ -233,9 +234,16 @@ exports.getArtistAppointments = [
   verifyToken,
   async (req, res) => {
     try {
-      const appointments = await confirmAppoinmentIndividual.find({
+      const IndividualAppointments = await confirmAppoinmentIndividual.find({
         artist: req.currentUser.artistId,
       });
+      // get appointments from appointments package collection
+      const packageAppointments = await confirmAppoinmentPackage.find({
+        artist: req.currentUser.artistId,
+      });
+
+      // combine both individual and package appointment
+      const appointments = [...IndividualAppointments, ...packageAppointments];
 
       res.status(200).json({ appointments });
     } catch (error) {
@@ -248,25 +256,70 @@ exports.updateAppointmentStatus = [
   verifyToken,
   async (req, res) => {
     try {
-      const { status } = req.body;
+      const { status, type } = req.body;
       const { appointmentId } = req.params;
-      const appointment = await confirmAppoinmentIndividual.findById(
-        appointmentId
-      );
-      if (!appointment) {
-        return res.status(404).json({ message: "Appointment not found" });
+
+      if (type === "individual") {
+        const appointment = await confirmAppoinmentIndividual.findById(
+          appointmentId
+        );
+        if (!appointment) {
+          return res.status(404).json({ message: "Appointment not found" });
+        }
+
+        // check status is valid
+        const validStatus = ["ACCEPTED", "DECLINED", "COMPLETED", "PENDING"];
+        if (!validStatus.includes(status)) {
+          return res.status(400).json({ message: "Invalid status" });
+        }
+
+        appointment.status = status;
+        await appointment.save();
+
+        res.status(200).json({ message: "Appointment status updated" });
+      } else {
+        const appointment = await confirmAppoinmentPackage.findById(
+          appointmentId
+        );
+        if (!appointment) {
+          return res.status(404).json({ message: "Appointment not found" });
+        }
+
+        // check status is valid
+        const validStatus = ["ACCEPTED", "DECLINED", "COMPLETED", "PENDING"];
+        if (!validStatus.includes(status)) {
+          return res.status(400).json({ message: "Invalid status" });
+        }
+
+        appointment.status = status;
+        await appointment.save();
+
+        res.status(200).json({ message: "Appointment status updated" });
       }
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+];
 
-      // check status is valid
-      const validStatus = ["ACCEPTED", "DECLINED", "COMPLETED", "PENDING"];
-      if (!validStatus.includes(status)) {
-        return res.status(400).json({ message: "Invalid status" });
-      }
+exports.getAppointmentByDate = [
+  verifyToken,
+  async (req, res) => {
+    try {
+      const { date } = req.params;
+      const IndividualAppointments = await confirmAppoinmentIndividual.find({
+        wedding: date,
+        status: "ACCEPTED",
+      });
+      // get appointments from appointments package collection
+      const packageAppointments = await confirmAppoinmentPackage.find({
+        wedding: date,
+        status: "ACCEPTED",
+      });
 
-      appointment.status = status;
-      await appointment.save();
-
-      res.status(200).json({ message: "Appointment status updated" });
+      // combine both individual and package appointment
+      const appointments = [...IndividualAppointments, ...packageAppointments];
+      res.status(200).json({ appointments });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

@@ -9,18 +9,18 @@ export default function Requests() {
 
   const getStatusClass = (status) => {
     switch (status) {
-      case "Accepted":
+      case "ACCEPTED":
         return "status-accepted";
-      case "Declined":
+      case "DECLINED":
         return "status-declined";
-      case "Completed":
+      case "COMPLETED":
         return "status-completed";
       default:
         return "status-pending";
     }
   };
 
-  const changeStatus = async (id, status) => {
+  const changeStatus = async (id, status, type) => {
     const token = localStorage.getItem("token");
     if (!token) {
       return;
@@ -32,7 +32,7 @@ export default function Requests() {
     await axios
       .put(
         `http://localhost:8000/api/v1/artist/appointments/${id}`,
-        { status },
+        { status, type },
         config
       )
       .then(() => {
@@ -68,7 +68,11 @@ export default function Requests() {
   }, [getRequestAppointments]);
 
   const handleCopy = (request) => {
-    const dataToCopy = `${request.firstname} ${request.lastname} | ${request.phone} | ${request.type_mehendi} | ${request.district} | ${request.address1}, ${request.address2}, ${request.city}`;
+    const address =
+      request.appointment_type === "individual"
+        ? `${request.address1}, ${request.address2}, ${request.city}`
+        : `${request.address}`;
+    const dataToCopy = `${request.firstname} ${request.lastname} | ${request.phone} | ${request.type_mehendi} | ${request.district} | ${address}`;
     navigator.clipboard.writeText(dataToCopy).then(
       () => {
         alert("Data copied to clipboard!");
@@ -112,7 +116,14 @@ export default function Requests() {
                 <td>{request.type_mehendi}</td>
                 <td>{request.district}</td>
                 <td>
-                  {request.address1},{request.address2},{request.city}
+                  {request.appointment_type === "individual" && (
+                    <span className="">
+                      {request.address1},{request.address2},{request.city}
+                    </span>
+                  )}
+                  {request.appointment_type === "package" && (
+                    <span className="">{request.address}</span>
+                  )}
                 </td>
                 <td>
                   <select
@@ -120,7 +131,13 @@ export default function Requests() {
                       request.status
                     )}`}
                     value={request.status}
-                    onChange={(e) => changeStatus(request._id, e.target.value)}
+                    onChange={(e) =>
+                      changeStatus(
+                        request._id,
+                        e.target.value,
+                        request.appointment_type
+                      )
+                    }
                   >
                     <option value="PENDING">Pending</option>
                     <option value="ACCEPTED">Accepted</option>
