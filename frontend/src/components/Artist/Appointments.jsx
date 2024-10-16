@@ -2,8 +2,13 @@ import React, { useState, useEffect, useCallback } from "react";
 import "../../css/artist.css";
 import axios from "axios";
 
-export default function Appointments({ selectedDate }) {
+export default function Appointments() {
   const [appointments, setAppointments] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
 
   const getRequestAppointments = useCallback(async (date) => {
     const token = localStorage.getItem("token");
@@ -35,6 +40,15 @@ export default function Appointments({ selectedDate }) {
         <h3 className="font-comic text-2xl mb-[-10px] text-center">
           Confirmed Appointments for {selectedDate.toISOString().split("T")[0]}
         </h3>
+        {/* date picker */}
+        <div className="date-picker pt-6">
+          <input
+            type="date"
+            value={selectedDate.toISOString().split("T")[0]}
+            onChange={(e) => handleDateChange(new Date(e.target.value))}
+            className="rounded-md min-w-52"
+          />
+        </div>
         <table className="timetable">
           <thead>
             <tr>
@@ -44,7 +58,6 @@ export default function Appointments({ selectedDate }) {
               <th>Contact Number</th>
               <th>District</th>
               <th>Address</th>
-              {/* <th>Actions</th> */}
             </tr>
           </thead>
           <tbody>
