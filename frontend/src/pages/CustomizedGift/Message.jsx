@@ -14,7 +14,7 @@ export default function Message() {
           id="message"
           value={message}
           onChange={(e) => dispatch(addMessage(e.target.value))}
-          placeholder="Leave blank if you wish to write it yourself"
+          placeholder="Enter your message here!"
           className="message-textarea"
         />
       </div>

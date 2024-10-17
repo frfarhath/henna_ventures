@@ -40,10 +40,9 @@ const Order = () => {
   const hideModal = () => {
     setShow(false);
   };
-
   const handleStatusChange = async (orderId, newStatus) => {
     try {
-      const postdata = { "status": newStatus };
+      const postdata = { status: newStatus };
       await axios.put(`http://localhost:8000/api/v1/individual/updateOrder/${orderId}`, postdata);
       alert('Successfully updated order status!');
       // Update the local state to reflect the change
@@ -58,15 +57,27 @@ const Order = () => {
     }
   };
 
+
   const statusOptions = [
-    { value: '0', label: 'Pending' },
-    { value: '1', label: 'Delivered' }
+    { value: 'PENDING', label: 'Pending' },
+    { value: 'PAID', label: 'Paid' },
+    { value: 'DELIVERED', label: 'Delivered' },
+    { value: 'CANCELLED', label: 'Cancelled' }
   ];
 
   const getStatusStyle = (status) => {
-    return status === '0'
-      ? { backgroundColor: 'rgb(168, 150, 19)', color: 'white' }
-      : { backgroundColor: 'green', color: 'white', padding: '0.2rem', borderRadius: '0.5rem' };
+    switch (status) {
+      case 'PENDING':
+        return { backgroundColor: 'rgb(168, 150, 19)', color: 'white', padding: '0.2rem', borderRadius: '0.5rem' };
+      case 'PAID':
+        return { backgroundColor: 'blue', color: 'white', padding: '0.2rem', borderRadius: '0.5rem' }; 
+      case 'DELIVERED':
+        return { backgroundColor: 'green', color: 'white', padding: '0.2rem', borderRadius: '0.5rem' };
+      case 'CANCELLED':
+        return { backgroundColor: 'red', color: 'white', padding: '0.2rem', borderRadius: '0.5rem' };
+      default:
+        return {};
+    }
   };
 
   return (
@@ -83,12 +94,12 @@ const Order = () => {
               <table>
                 <thead>
                   <tr>
-                    <th>Order ID</th>
+                    {/* <th>Order ID</th> */}
                     <th>Date</th>
                     <th>Customer Name</th>
                     <th>Address</th>
                     <th>Contact</th>
-                    <th>Type</th>
+                    {/* <th>Type</th> */}
                     <th>Items</th>
                     <th>Total</th>
                     <th>Status</th>
@@ -99,12 +110,12 @@ const Order = () => {
                   {fetchArray.length > 0 ? (
                     fetchArray.map((order) => (
                       <tr key={order._id}>
-                        <td>{order._id}</td>
+                        {/* <td>{order._id}</td> */}
                         <td>{new Date(order.date).toLocaleDateString()}</td>
                         <td>{order.recipientName}</td>
                         <td>{order.recipientAddress}</td>
                         <td>{order.recipientContact}</td>
-                         <td>{order.type}</td>
+                        {/* <td>{order.type}</td> */}
                         <td>{order.products ? order.products.length : (order.giftBox ? 1 : 0)}</td>
                         <td>
                           ${order.type === 'PRODUCT'
@@ -116,7 +127,8 @@ const Order = () => {
                             value={order.status}
                             onChange={(e) => handleStatusChange(order._id, e.target.value)}
                             className="Admin-modalinput"
-                            style={getStatusStyle(order.status)}>
+                            style={getStatusStyle(order.status)}
+                          >
                             {statusOptions.map((option) => (
                               <option key={option.value} value={option.value}>
                                 {option.label}

@@ -32,6 +32,7 @@ import UserDashboardLayout from "./components/UserDashboardLayout";
 import Profile from "./components/User Dashboard/Profile";
 import Orders from "./components/User Dashboard/Order";
 import Appointment from "./components/User Dashboard/Appointment";
+import MyAppointment from "./components/User Dashboard/MyAppointments.jsx";
 import AppointmentForm from "./components/User Dashboard/AppointmentForm";
 import Rating from "./components/User Dashboard/RatingAndReview";
 import PackageForm from "./components/User Dashboard/PackageForm";
@@ -110,6 +111,7 @@ function App() {
                 <Route path="profile" element={<Profile />} />
                 <Route path="orders" element={<Orders />} />
                 <Route path="appointment" element={<Appointment />} />
+                <Route path="myappointment" element={<MyAppointment />} />
                 <Route
                   path="/appointment/individual"
                   element={<AppointmentForm />}

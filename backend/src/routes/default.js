@@ -6,7 +6,7 @@ const repoController = require('../domains/admin/controllers/repository');
 const productController = require('../domains/admin/controllers/product');
 const appoinmentController = require('../domains/admin/controllers/appoinment');
 const artistController = require('../domains/admin/controllers/artist');
-const orderController = require('../domains/admin/controllers/order');
+
 const ReviewController = require('../domains/admin/controllers/review');
 const MessageController = require('../domains/admin/controllers/message');
 
@@ -41,9 +41,9 @@ router.post('/sendMail',storage, artistController.mail);
 router.post('/removeConfirmArtist',storage, artistController.removeConfirmArtist);
 //
 
-router.get('/getOrder', orderController.getOrder);
-router.post('/addOrder',storage, orderController.postOrder);
-router.put('/deliveryUpdate/:id', storage, orderController.deliveryUpdate);
+// router.get('/getOrder', orderController.getOrder);
+// router.post('/addOrder',storage, orderController.postOrder);
+// router.put('/deliveryUpdate/:id', storage, orderController.deliveryUpdate);
 
 router.get('/getReview', ReviewController.getReview);
 router.delete('/deleteReview/:id', ReviewController.deleteReview);

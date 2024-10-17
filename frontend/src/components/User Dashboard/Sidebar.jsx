@@ -44,6 +44,10 @@ const Sidebar = () => {
             <FaCalendarAlt className="mr-3" />
             Appointment
           </Link>
+          <Link to="/myappointment" className="flex items-center text-[#804f0e] hover:text-white hover:bg-[#804f0e] p-2 rounded-lg transition duration-300">
+            <FaCalendarAlt className="mr-3" />
+            My Appointments
+          </Link>
           <Link to="/profile" className="flex items-center text-[#804f0e] hover:text-white hover:bg-[#804f0e] p-2 rounded-lg transition duration-300">
             <FaUser className="mr-3" />
             Profile

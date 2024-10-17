@@ -52,6 +52,7 @@ const userSchema = new mongoose.Schema({
       ref: "orders",
     },
   ],
+  orders_: [{ type: mongoose.Schema.Types.ObjectId, ref: 'orders_' }],
   role: {
     type: String,
     enum: ['user', 'admin', 'artist'],

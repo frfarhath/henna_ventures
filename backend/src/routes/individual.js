@@ -1,13 +1,13 @@
 const express = require('express');
 const storage = require('../domains/helpers/storage');
 const router = express.Router();
-const { getOrders, getOrderById, updateOrderStatus, deleteOrder} = require("../domains/userdahboard/controllers/orderController");
+const { getOrders, updateOrderStatus, deleteOrder} = require("../domains/userdahboard/controllers/orderController");
 const collectionController = require('../domains/userdahboard/controllers/collection');
-const orderController = require('../domains/userdahboard/controllers/order');
 const individualController = require('../domains/userdahboard/controllers/individual');
 const packageController = require('../domains/userdahboard/controllers/package');
 const ratingController = require('../domains/userdahboard/controllers/rating');
 const profileController = require('../domains/userdahboard/controllers/profile');
+const appointmentController = require('../domains/userdahboard/controllers/appointment');
 const artistController = require('../domains/userdahboard/controllers/artist');
 const verifyToken = require('../middleware/auth');
 
@@ -40,8 +40,8 @@ router.delete('/removeFromCollection/:designId',verifyToken,collectionController
 router.get('/getArtist', artistController.getArtist);
 
 router.get("/getOrder", getOrders);
-router.get("/getOrder/:id", getOrderById);
+router.get('/getUserAppointments',verifyToken, appointmentController.getUserAppointments);
 
-router.put("/updateOrder", updateOrderStatus);
+router.put("/updateOrder/:orderId", updateOrderStatus);
 router.delete("/deleteOrder/:orderId", deleteOrder);
 module.exports = router;

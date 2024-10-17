@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import "../../css/artist.css";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function PasswordChange() {
@@ -8,6 +7,17 @@ export default function PasswordChange() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+
+  // Function to auto-hide the messages after 3 seconds
+  useEffect(() => {
+    if (message || error) {
+      const timer = setTimeout(() => {
+        setMessage("");
+        setError("");
+      }, 3000);
+      return () => clearTimeout(timer); // Clear the timer when the component unmounts
+    }
+  }, [message, error]);
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
@@ -69,8 +79,18 @@ export default function PasswordChange() {
         <div className="column-2">
           <div className="sub-row"></div>
           <div className="personalInfo">
-            {message && <div className="success-message">{message}</div>}
-            {error && <div className="error-message">{error}</div>}
+            {/* Success message with green background and white text */}
+            {message && (
+              <div className="bg-green-500 text-white p-3 rounded mb-4">
+                {message}
+              </div>
+            )}
+            {/* Error message with red background and white text */}
+            {error && (
+              <div className="bg-red-500 text-white p-3 rounded mb-4">
+                {error}
+              </div>
+            )}
             <form onSubmit={handleChangePassword}>
               <div className="form-floating">
                 <label htmlFor="oldPassword">Current Password</label>

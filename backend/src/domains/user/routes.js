@@ -278,27 +278,24 @@ router.put("/cart/:cartId", verifyToken, async (req, res) => {
   }
 });
 
-// create order
+// Create order
 router.post("/order", verifyToken, async (req, res) => {
   try {
     const userId = req.currentUser.userId;
-    const { items, recipientName, recipientAddress, recipientContact } =
-      req.body;
+    const { items, recipientName, recipientAddress, recipientContact } = req.body;
     let total = 0;
     let orderIds = [];
     const cartRecords = await Cart.find({ _id: { $in: items } });
-    // get cart details from cart using item array
+
     for (const cartItem of cartRecords) {
       cartItem?.products?.forEach((cart) => {
         total += cart.price * cart.quantity;
       });
 
-      // add gift box price (if available)
       if (cartItem?.type === "GIFT_BOX") {
         total += cartItem?.giftBox?.price;
       }
 
-      // save item in order collection
       let order;
 
       if (cartItem?.type === "GIFT_BOX") {
@@ -326,10 +323,11 @@ router.post("/order", verifyToken, async (req, res) => {
       }
 
       await order.save();
-      // add order id to orderIds array
       orderIds.push(order._id);
-      // delete cart item from Cart collection
       await Cart.findByIdAndDelete(cartItem._id);
+
+      // Associate order with user
+      await User.findByIdAndUpdate(userId, { $push: { orders_: order._id } });
     }
 
     const user = await User.findById(userId);
@@ -337,18 +335,16 @@ router.post("/order", verifyToken, async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // delete pending session after 15 minutes
     setTimeout(() => {
       deletePendingOrder(orderIds);
     }, 15 * 60 * 1000);
 
-    // generate payment hashes
     const hash = await md5(
       process.env.PAYHERE_MERCHANT_ID +
-        orderIds[0] +
-        total.toFixed(2) +
-        "LKR" +
-        md5(process.env.PAYHERE_SECRET).toUpperCase()
+      orderIds[0] +
+      total.toFixed(2) +
+      "LKR" +
+      md5(process.env.PAYHERE_SECRET).toUpperCase()
     ).toUpperCase();
 
     res.status(200).json({
@@ -379,15 +375,13 @@ router.post("/order", verifyToken, async (req, res) => {
   }
 });
 
-// complete order
+// Complete order
 router.post("/order/complete", async (req, res) => {
   try {
     const { orderIds } = req.body;
-    // update order status to PAID
-    orderIds?.forEach(async (id) => {
+    for (const id of orderIds) {
       await Orders.findByIdAndUpdate(id, { status: "PAID" });
-    });
-
+    }
     res.status(200).json({ message: "Order completed successfully" });
   } catch (error) {
     console.error("Error completing order:", error);
@@ -395,18 +389,22 @@ router.post("/order/complete", async (req, res) => {
   }
 });
 
-// get orders by logged user
+// Get orders by logged-in user
 router.get("/orders", verifyToken, async (req, res) => {
   try {
     const userId = req.currentUser.userId;
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate('orders_');
+    
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const orders = await User.findById(userId).populate("orders_");
+    console.log("User ID:", userId);
+    console.log("User:", user);
+    console.log("Orders:", user.orders_);
+
     res.status(200).json({
-      orders: orders.orders_,
+      orders: user.orders_,
     });
   } catch (error) {
     console.error("Error fetching orders:", error);
@@ -414,18 +412,14 @@ router.get("/orders", verifyToken, async (req, res) => {
   }
 });
 
-// delete pending session
+// Delete pending order
 const deletePendingOrder = async (ids) => {
-  ids?.forEach((id) => {
-    // get order details from order using item array
-    const order = Orders.findById(id);
-    // check if status is PENDING
-    if (order.status === "PENDING") {
-      // delete order record
-      Orders.findByIdAndDelete(id);
+  for (const id of ids) {
+    const order = await Orders.findById(id);
+    if (order && order.status === "PENDING") {
+      await Orders.findByIdAndDelete(id);
     }
-  });
-
+  }
   return true;
 };
 

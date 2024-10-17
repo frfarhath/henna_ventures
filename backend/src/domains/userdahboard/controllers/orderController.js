@@ -12,20 +12,35 @@ exports.getOrders = async (req, res) => {
 
 
 // Update order status
-exports.updateOrderStatus = async (req, res) => {
-    const { orderId, status } = req.body;
-
+// Controller file
+exports.updateOrderStatus = [
+  async (req, res) => {
     try {
-        const order = await Orders.findByIdAndUpdate(orderId, { status }, { new: true });
-        if (!order) {
-            return res.status(404).json({ message: "Order not found" });
-        }
-        return res.status(200).json(order);
+      const { status } = req.body;
+      const { orderId } = req.params;
+
+      // Find the order by its ID
+      const order = await Orders.findById(orderId);
+      if (!order) {
+        return res.status(404).json({ message: "Order not found" });
+      }
+
+      // Check if the status is valid
+      const validStatus = ["PENDING", "PAID", "DELIVERED", "CANCELLED"];
+      if (!validStatus.includes(status)) {
+        return res.status(400).json({ message: "Invalid status" });
+      }
+
+      // Update the order status
+      order.status = status;
+      await order.save();
+
+      res.status(200).json({ message: "Order status updated successfully" });
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: "Internal server error" });
+      res.status(500).json({ error: error.message });
     }
-};
+  },
+];
 
 // Delete an order
 exports.deleteOrder = async (req, res) => {
@@ -44,18 +59,3 @@ exports.deleteOrder = async (req, res) => {
 };
 
 
-// Fetch an order by ID
-exports.getOrderById = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const order = await Orders.findById(id);
-
-    if (!order) {
-      return res.status(404).json({ message: "Order not found" });
-    }
-
-    res.status(200).json(order);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching order", error });
-  }
-};
