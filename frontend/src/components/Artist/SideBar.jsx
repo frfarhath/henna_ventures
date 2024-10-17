@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarAlt,
@@ -11,15 +9,9 @@ import {
 import { useLocation } from "react-router-dom";
 import "../../css/artist.css";
 
-export default function SideBar({ onDateChange }) {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+export default function SideBar() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const location = useLocation();
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    onDateChange(date);
-  };
 
   const handleClickButton1 = () => {
     console.log("artist dashboard button clicked");
@@ -63,7 +55,7 @@ export default function SideBar({ onDateChange }) {
     <>
       {!isMobile ? (
         <div className="sidebar">
-          <div className="artist-button-group">
+          <div className="artist-button-group pb-40">
             <button
               className={`dashboard-button ${
                 isActive("/artistdashboard") ? "active" : ""
@@ -104,7 +96,6 @@ export default function SideBar({ onDateChange }) {
               Logout
             </button>
           </div>
-          <Calendar onChange={handleDateChange} value={selectedDate} />
         </div>
       ) : (
         <div className="navbar">
