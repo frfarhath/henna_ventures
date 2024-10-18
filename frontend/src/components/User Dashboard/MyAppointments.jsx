@@ -11,48 +11,44 @@ const UserAppointments = () => {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const navigate = useNavigate();
 
-  const fetchAppointments = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      
-      if (!token) {
-        throw new Error('No authentication token found');
-      }
-
-      const config = {
-        headers: { 
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      };
-      
-      const response = await axios.get(
-        'http://localhost:8000/api/v1/individual/getUserAppointments',
-        config
-      );
-
-      if (response.data?.appointments) {
-        setAppointments(response.data.appointments);
-        setError(null);
-      }
-    } catch (error) {
-      console.error('Error fetching appointments:', error);
-      setError(error.response?.data?.message || error.message);
-      
-      // Handle authentication errors
-      if (error.response?.status === 401) {
-        localStorage.removeItem('token'); // Clear invalid token
-        navigate('/signin'); // Redirect to login page
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          throw new Error('No authentication token found');
+        }
+  
+        const config = {
+          headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        };
+        const response = await axios.get(
+          'http://localhost:8000/api/v1/individual/getUserAppointments',
+          config
+        );
+  
+        if (response.data?.appointments) {
+          setAppointments(response.data.appointments);
+          setError(null);
+        }
+      } catch (error) {
+        console.error('Error fetching appointments:', error);
+        setError(error.response?.data?.message || error.message);
+        
+        if (error.response?.status === 401) {
+          localStorage.removeItem('token');
+          navigate('/signin');
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+  
     fetchAppointments();
     
-    // Set up polling with error handling
     const interval = setInterval(() => {
       if (!localStorage.getItem('token')) {
         clearInterval(interval);
@@ -60,9 +56,10 @@ const UserAppointments = () => {
       }
       fetchAppointments();
     }, 30000);
-
+  
     return () => clearInterval(interval);
   }, [navigate]);
+  
 
   const getStatusColor = (status) => {
     switch (status?.toUpperCase()) {
@@ -77,12 +74,7 @@ const UserAppointments = () => {
     }
   };
 
-  const DetailItem = ({ label, value, className = "" }) => (
-    <div className="mb-2">
-      <span className="font-semibold text-[#804f0e]">{label}: </span>
-      <span className={className}>{value || 'N/A'}</span>
-    </div>
-  );
+ 
   const AppointmentModal = ({ appointment, onClose }) => (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full mx-4">

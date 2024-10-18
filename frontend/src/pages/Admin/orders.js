@@ -118,7 +118,7 @@ const Order = () => {
                         {/* <td>{order.type}</td> */}
                         <td>{order.products ? order.products.length : (order.giftBox ? 1 : 0)}</td>
                         <td>
-                          ${order.type === 'PRODUCT'
+                          Rs{order.type === 'PRODUCT'
                             ? order.products.reduce((total, product) => total + product.price * product.quantity, 0).toFixed(2)
                             : order.giftBox.price.toFixed(2)}
                         </td>

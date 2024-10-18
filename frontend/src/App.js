@@ -70,7 +70,8 @@ function App() {
             <Route path="individual-package" element={<IndPackage />} />
             <Route path="package" element={<Package />} />
             <Route path="Designs" element={<Designs />} />
-
+            <Route path="giftbox" element={<CustomGiftBox />} />
+            <Route path="product" element={<ProductPage />} />
             <Route element={<ProtectedRoute allowedRoles={['artist']} />}>
               <Route path="artistdashboard" element={<ArtistDashboard />} />
               <Route path="requestpage" element={<RequestPage />} />
@@ -103,8 +104,7 @@ function App() {
           
         {/* Protected user route */}
         <Route element={<ProtectedRoute allowedRoles={['user']} />}>
-              <Route path="giftbox" element={<CustomGiftBox />} />
-              <Route path="product" element={<ProductPage />} />
+              
               <Route path="cart" element={<Cart />} />
               <Route path="checkoutinfo" element={<CheckoutInfo />} />
               <Route element={<UserDashboardLayout />}>

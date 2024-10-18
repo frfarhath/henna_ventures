@@ -57,7 +57,7 @@ const OrderView = ({ show, handleClose, passing }) => {
                   <tr key={index} className="border">
                     <th className="text-left px-4 py-2">Product {index + 1}</th>
                     <td className="px-4 py-2">
-                      {product.name} - {product.quantity} pcs @ ${product.price}
+                      {product.name} - {product.quantity} pcs @ Rs{product.price}
                     </td>
                   </tr>
                 ))
