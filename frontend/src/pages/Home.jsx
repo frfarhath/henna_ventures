@@ -22,14 +22,19 @@ function Home() {
     <div className="Home-page" style={{ backgroundColor: 'white' }}>
       <NewNav />
       <header className="home-header">
-        <div className="home-overlay">
-        <h1 className="font-dancing-script text-6xl mb-8">Welcome to Henna Ventures</h1>
-          <h4 className="font-sans mb-8 text-2xl">Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!</h4>
-          <a href="signup">
+  <div className="home-overlay">
+    {/* Use responsive text classes */}
+    <h1 className="font-dancing-script text-4xl md:text-6xl mb-4 md:mb-8 text-center">
+      Welcome to Henna Ventures
+    </h1>
+    <h4 className="font-sans text-lg md:text-2xl mb-4 md:mb-8 text-center">
+      Embrace Moments with Henna Ventures, Ultimate Mehendi Destination!
+    </h4>
+    <a href="signup">
             <button1>Sign Up Now</button1>
           </a>
-        </div>
-      </header>
+  </div>
+</header>
 
       {/* <div className="hometitle">
         Embrace Moments with Expertise in <br /> Mehendi, Henna Products!

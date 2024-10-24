@@ -376,19 +376,60 @@ router.post("/order", verifyToken, async (req, res) => {
 });
 
 // Complete order
+
+// Complete order
 router.post("/order/complete", async (req, res) => {
   try {
     const { orderIds } = req.body;
-    for (const id of orderIds) {
-      await Orders.findByIdAndUpdate(id, { status: "PAID" });
+    
+    // Input validation
+    if (!orderIds) {
+      return res.status(400).json({ message: "Order IDs are required" });
     }
-    res.status(200).json({ message: "Order completed successfully" });
+
+    // Ensure orderIds is always treated as an array
+    const orderIdArray = Array.isArray(orderIds) ? orderIds : [orderIds];
+
+    // Validate that we have at least one order ID
+    if (orderIdArray.length === 0) {
+      return res.status(400).json({ message: "No order IDs provided" });
+    }
+
+    // Update all orders
+    const updatePromises = orderIdArray.map(id => 
+      Orders.findByIdAndUpdate(
+        id, 
+        { status: "PAID" },
+        { new: true } // Return the updated document
+      )
+    );
+
+    const updatedOrders = await Promise.all(updatePromises);
+
+    // Check if any orders weren't found
+    const notFoundOrders = updatedOrders.filter(order => !order);
+    if (notFoundOrders.length > 0) {
+      return res.status(404).json({ 
+        message: "Some orders were not found",
+        failedOrderIds: notFoundOrders
+      });
+    }
+
+    res.status(200).json({ 
+      message: "Orders completed successfully",
+      updatedOrders: updatedOrders.map(order => ({
+        id: order._id,
+        status: order.status
+      }))
+    });
   } catch (error) {
     console.error("Error completing order:", error);
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ 
+      message: "Server Error",
+      error: error.message 
+    });
   }
 });
-
 // Get orders by logged-in user
 router.get("/orders", verifyToken, async (req, res) => {
   try {

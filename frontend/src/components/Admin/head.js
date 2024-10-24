@@ -28,7 +28,7 @@ const Head = () => {
                 <Link className='siderow' to='/'>
                     <AiFillHome size={23} className="icon4" />
                 </Link>
-                <Link className='siderow' to='/'>
+                <Link className='siderow' to='/Admin'>
                     <FaUser size={20} className="icon4" />
                 </Link>
                 <button className='siderow' onClick={handleLogout}>
