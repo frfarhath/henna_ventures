@@ -22,7 +22,8 @@ const Order = () => {
     try {
       const res = await axios.get('http://localhost:8000/api/v1/individual/getOrder');
       console.log('Fetched Orders:', res.data);
-      const resdata = res.data || [];
+      // Sort orders by date in descending order (newest first)
+      const resdata = (res.data || []).sort((a, b) => new Date(b.date) - new Date(a.date));
       setFetchArray(resdata);
     } catch (error) {
       console.error('Error fetching orders:', error);
@@ -40,16 +41,17 @@ const Order = () => {
   const hideModal = () => {
     setShow(false);
   };
+
   const handleStatusChange = async (orderId, newStatus) => {
     try {
       const postdata = { status: newStatus };
       await axios.put(`http://localhost:8000/api/v1/individual/updateOrder/${orderId}`, postdata);
       alert('Successfully updated order status!');
-      // Update the local state to reflect the change
+      // Update the local state to reflect the change while maintaining sort order
       setFetchArray(prevArray =>
         prevArray.map(order =>
           order._id === orderId ? { ...order, status: newStatus } : order
-        )
+        ).sort((a, b) => new Date(b.date) - new Date(a.date))
       );
     } catch (error) {
       console.error('Error updating order status:', error);
@@ -57,24 +59,19 @@ const Order = () => {
     }
   };
 
-
   const statusOptions = [
     { value: 'PENDING', label: 'Pending' },
-    { value: 'PAID', label: 'Paid' },
+    // { value: 'PAID', label: 'Paid' },
     { value: 'DELIVERED', label: 'Delivered' },
-    { value: 'CANCELLED', label: 'Cancelled' }
+    // { value: 'CANCELLED', label: 'Cancelled' }
   ];
 
   const getStatusStyle = (status) => {
     switch (status) {
       case 'PENDING':
         return { backgroundColor: 'rgb(168, 150, 19)', color: 'white', padding: '0.2rem', borderRadius: '0.5rem' };
-      case 'PAID':
-        return { backgroundColor: 'blue', color: 'white', padding: '0.2rem', borderRadius: '0.5rem' }; 
       case 'DELIVERED':
         return { backgroundColor: 'green', color: 'white', padding: '0.2rem', borderRadius: '0.5rem' };
-      case 'CANCELLED':
-        return { backgroundColor: 'red', color: 'white', padding: '0.2rem', borderRadius: '0.5rem' };
       default:
         return {};
     }
@@ -94,12 +91,10 @@ const Order = () => {
               <table>
                 <thead>
                   <tr>
-                    {/* <th>Order ID</th> */}
                     <th>Date</th>
                     <th>Customer Name</th>
                     <th>Address</th>
                     <th>Contact</th>
-                    {/* <th>Type</th> */}
                     <th>Items</th>
                     <th>Total</th>
                     <th>Status</th>
@@ -110,12 +105,10 @@ const Order = () => {
                   {fetchArray.length > 0 ? (
                     fetchArray.map((order) => (
                       <tr key={order._id}>
-                        {/* <td>{order._id}</td> */}
                         <td>{new Date(order.date).toLocaleDateString()}</td>
                         <td>{order.recipientName}</td>
                         <td>{order.recipientAddress}</td>
                         <td>{order.recipientContact}</td>
-                        {/* <td>{order.type}</td> */}
                         <td>{order.products ? order.products.length : (order.giftBox ? 1 : 0)}</td>
                         <td>
                           Rs{order.type === 'PRODUCT'
@@ -143,7 +136,7 @@ const Order = () => {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="10" style={{ textAlign: 'center' }}>No orders found.</td>
+                      <td colSpan="8" style={{ textAlign: 'center' }}>No orders found.</td>
                     </tr>
                   )}
                 </tbody>
