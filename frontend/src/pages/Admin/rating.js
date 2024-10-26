@@ -12,8 +12,6 @@ import Loading from '../../components/Admin/loading';
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineDoNotDisturb } from "react-icons/md";
 
-
-
 class Review extends Component {
 
     constructor(props) {
@@ -31,7 +29,6 @@ class Review extends Component {
     }
 
     componentDidMount() {
-
         const fetchData = async () => {
             try {
                 const res = await axios.get('http://localhost:8000/api/v1/admin/getReview');
@@ -71,7 +68,6 @@ class Review extends Component {
                     return null;  // To handle the case where none of the conditions are true
                 });
                 
-
                 const totArray = [
                     {
                         value: star5Array.length,
@@ -97,8 +93,7 @@ class Review extends Component {
                         value: star0Array.length,
                         label: '0',
                     },
-                    
-                ]
+                ];
 
                 this.setState({
                     StarsTotalArray: totArray
@@ -122,7 +117,6 @@ class Review extends Component {
             }
         };
         fetchData();
-
     }
 
     handleDlete = async (id) => {
@@ -140,89 +134,79 @@ class Review extends Component {
                 window.location.reload();
             }
         } else {
-            // User cancelled, do nothing
             alert('Review Deletion Cancelled');
         }
     };
 
     handleInputSearch = (e) => {
+        const searchValue = e.target.value;
         this.setState({
-            inputSearch: e.target.value
+            inputSearch: searchValue
+        }, () => {
+            // Call search immediately when input changes
+            this.search();
         });
     }
 
     search = () => {
-
-        if (this.state.inputSearch === '') {
-
+        if (this.state.inputSearch.trim() === '') {
             this.setState({
                 filterArray: this.state.fetchArray
             });
-
         } else {
-            const subArray = this.state.fetchArray.filter((item) => item.artist === this.state.inputSearch);
-this.setState({
-    filterArray: subArray
-});
-
-           
+            const searchTerm = this.state.inputSearch.toLowerCase().trim();
+            const subArray = this.state.fetchArray.filter((item) => 
+                item.artist.toLowerCase().includes(searchTerm)
+            );
+            this.setState({
+                filterArray: subArray
+            });
         }
-
     }
 
-
-    
-removeArtist = async (id, fullname) => {
-    const confirmRemove = window.confirm(`Are you sure you want to remove artist ${fullname}?`);
-    if (confirmRemove) {
-        try {
-            const postdata = {
-                "id": id,
-                "fullname": fullname
-            };
-            const res = await axios.post('http://localhost:8000/api/v1/admin/removeConfirmArtist', postdata, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                },
-            });
-            const resdata = await res.data;
-            console.log(resdata);
-            if (resdata === 'The Artist Not Available') {
-                alert('The Artist Already Removed!');
-            } else {
-                alert('Successfully! Artist Removed');
+    removeArtist = async (id, fullname) => {
+        const confirmRemove = window.confirm(`Are you sure you want to remove artist ${fullname}?`);
+        if (confirmRemove) {
+            try {
+                const postdata = {
+                    "id": id,
+                    "fullname": fullname
+                };
+                const res = await axios.post('http://localhost:8000/api/v1/admin/removeConfirmArtist', postdata, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
+                });
+                const resdata = await res.data;
+                console.log(resdata);
+                if (resdata === 'The Artist Not Available') {
+                    alert('The Artist Already Removed!');
+                } else {
+                    alert('Successfully! Artist Removed');
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.log('Main Error', error);
+                alert('Failed! Artist Removal');
                 window.location.reload();
             }
-        } catch (error) {
-            console.log('Main Error', error);
-            alert('Failed! Artist Removal');
-            window.location.reload();
+        } else {
+            alert('Artist Removal Cancelled');
         }
-    } else {
-        // User cancelled, do nothing
-        alert('Artist Removal Cancelled');
-    }
-};
+    };
 
     render() {
-
         const chartSetting = {
             width: 350,
             height: 125,
         };
 
-
         return (
             <div className='body'>
-
                 <SideBar />
-
                 <div className='content'>
-
                     <Head />
-
                     <div className='conbody'>
-
                         {!this.state.loading && (
                             <div>
                                 <div className='producthead'>
@@ -230,9 +214,7 @@ removeArtist = async (id, fullname) => {
                                 </div>
 
                                 <div className='row1'>
-
                                     <div className='cardrating'>
-
                                         <div className='rateitem1'>
                                             <h1 className='ratetxt1'>{this.state.highStarLabel}</h1>
                                             <div className="flex items-center">
@@ -267,7 +249,6 @@ removeArtist = async (id, fullname) => {
                                                 margin={{ top: 5, bottom: 30, left: 15, right: 20 }}
                                             />
                                         </div>
-
                                     </div>
 
                                     <div className='card'>
@@ -278,12 +259,13 @@ removeArtist = async (id, fullname) => {
                                             <h1 className='ratecounttxt'>{this.state.fetchArray.length}</h1>
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div className='search' style={{ marginTop: '2rem' }}>
                                     <IoSearchOutline size={22} style={{ color: 'black', cursor: 'pointer' }} onClick={this.search} />
-                                    <input className='searchinpu' placeholder='search by artist'
+                                    <input 
+                                        className='searchinpu' 
+                                        placeholder='search by artist'
                                         value={this.state.inputSearch}
                                         onChange={this.handleInputSearch}
                                     />
@@ -291,7 +273,6 @@ removeArtist = async (id, fullname) => {
 
                                 <div className='rownew' style={{ marginTop: '1rem' }}>
                                     <div className='reviewcard'>
-
                                         <table>
                                             <thead>
                                                 <tr>
@@ -305,12 +286,10 @@ removeArtist = async (id, fullname) => {
 
                                             <tbody>
                                                 {this.state.filterArray.map((item, index) => (
-
                                                     <tr key={index}>
                                                         <td>{item.date}</td>
                                                         <td>{item.review}</td>
                                                         <td>{item.artist}</td>
-
                                                         <td>
                                                             <div className="flex items-center">
                                                                 {[...Array(item.rating)].map((star, index) => (
@@ -322,7 +301,6 @@ removeArtist = async (id, fullname) => {
                                                                 ))}
                                                             </div>
                                                         </td>
-
                                                         <td>
                                                             <div style={{ display: 'flex', justifyContent: 'center' }} className='action'>
                                                                 <MdDelete size={22} className='MdDelete' onClick={() => this.handleDlete(item._id)} />
@@ -330,11 +308,9 @@ removeArtist = async (id, fullname) => {
                                                             </div>
                                                         </td>
                                                     </tr>
-
                                                 ))}
                                             </tbody>
                                         </table>
-
                                     </div>
                                 </div>
                             </div>
@@ -345,16 +321,11 @@ removeArtist = async (id, fullname) => {
                                 <Loading />
                             </div>
                         )}
-
                     </div>
-
                 </div>
             </div>
         )
-
     }
-
-
-};
+}
 
 export default Review;

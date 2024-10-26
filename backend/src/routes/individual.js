@@ -1,7 +1,7 @@
 const express = require('express');
 const storage = require('../domains/helpers/storage');
 const router = express.Router();
-const { getOrders, updateOrderStatus, deleteOrder} = require("../domains/userdahboard/controllers/orderController");
+// const { getOrders, updateOrderStatus, deleteOrder} = require("../domains/userdahboard/controllers/orderController");
 const collectionController = require('../domains/userdahboard/controllers/collection');
 const individualController = require('../domains/userdahboard/controllers/individual');
 const packageController = require('../domains/userdahboard/controllers/package');
@@ -39,9 +39,7 @@ router.delete('/removeFromCollection/:designId',verifyToken,collectionController
 // router.get('/getOrder', orderController.getOrder);
 router.get('/getArtist', artistController.getArtist);
 
-router.get("/getOrder", getOrders);
+
 router.get('/getUserAppointments',verifyToken, appointmentController.getUserAppointments);
 
-router.put("/updateOrder/:orderId", updateOrderStatus);
-router.delete("/deleteOrder/:orderId", deleteOrder);
 module.exports = router;

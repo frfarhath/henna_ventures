@@ -67,7 +67,6 @@ const MehendiGallery = () => {
             console.log('No image path for item');
             return '/path/to/default/image.jpg'; // Replace with the path to your default image
         }
-        // Ensure the image path is correctly formatted
         return `http://localhost:8000${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
     };
 
@@ -82,7 +81,36 @@ const MehendiGallery = () => {
                     </div>
                 </header>
                 <div className="container mx-auto px-4 py-8">
-                    {/* Search and category selection remain the same */}
+                    {/* Search and Filter Options */}
+                    <div className="flex items-center mb-6 space-x-4">
+                        <div className="relative flex-1">
+                            <input
+                                type="text"
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                placeholder="Search designs..."
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brown-500"
+                            />
+                            <FaSearch className="absolute top-2 right-4 text-gray-400" />
+                        </div>
+                        <select
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                            className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brown-500"
+                        >
+                            <option value="">All Categories</option>
+                            <option value="Pakistani">Pakistani</option>
+                            <option value="African">African</option>
+                            <option value="Indo-Arabic">Indo-Arabic</option>
+                            <option value="Moroccan">Moroccan</option>
+                            <option value="Indian">Indian</option>
+                            <option value="Western">Western</option>
+                            <option value="Arabic">Arabic</option>
+                            {/* Add more categories as needed */}
+                        </select>
+                    </div>
+
+                    {/* Gallery Display */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {filteredDesigns.map((design) => (
                             <motion.div
@@ -97,7 +125,7 @@ const MehendiGallery = () => {
                                     className="w-full h-72 object-cover"
                                     onError={(e) => {
                                         console.error('Image failed to load:', design.image);
-                                        e.target.src = '/path/to/fallback/image.jpg'; // Add a fallback image
+                                        e.target.src = '/path/to/fallback/image.jpg';
                                     }}
                                 />
                                 <div className="p-3 flex-grow flex flex-col justify-between items-center">

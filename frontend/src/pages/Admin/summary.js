@@ -32,7 +32,7 @@ class Summary extends Component {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/v1/individual/getOrder');
+                const res = await axios.get('http://localhost:8000/api/v1/admin/getOrder');
                 const resdata = res.data;
                 
                 const subArray = [];
@@ -144,7 +144,7 @@ class Summary extends Component {
                                 <div style={{ display: 'flex' }}>
 
                                     <div style={{ width: '40%', marginLeft: '1rem' }}>
-                                        <h2 style={{ color: '#804f0e', textAlign: 'center' }}>TOP SELLING ITEMS</h2>
+                                        <h2 style={{ color: '#804f0e', textAlign: 'center' }}>PENDIND ORDER QUANTITIES</h2>
 
                                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
 
@@ -233,7 +233,7 @@ class Summary extends Component {
 
                                 </div>
 
-                                <h2 style={{ color: '#804f0e', textAlign: 'center', marginBottom: 0 }}>WEEKLY APPOINMENT REPORT</h2>
+                                <h2 style={{ color: '#804f0e', textAlign: 'center', marginBottom: 0 }}>TOTAL APPOINMENTS</h2>
                                 <div className='row1' style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'center' }}>
 
                                     <div className='card'>

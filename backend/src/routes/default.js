@@ -2,6 +2,7 @@ const express = require('express');
 const storage = require('../domains/admin/helpers/storage');
 const router = express.Router();
 
+const { getOrders, updateOrderStatus, deleteOrder} = require("../domains/admin/controllers/order");
 const repoController = require('../domains/admin/controllers/repository');
 const productController = require('../domains/admin/controllers/product');
 const appoinmentController = require('../domains/admin/controllers/appoinment');
@@ -41,9 +42,6 @@ router.post('/sendMail',storage, artistController.mail);
 router.post('/removeConfirmArtist',storage, artistController.removeConfirmArtist);
 //
 
-// router.get('/getOrder', orderController.getOrder);
-// router.post('/addOrder',storage, orderController.postOrder);
-// router.put('/deliveryUpdate/:id', storage, orderController.deliveryUpdate);
 
 router.get('/getReview', ReviewController.getReview);
 router.delete('/deleteReview/:id', ReviewController.deleteReview);
@@ -54,5 +52,8 @@ router.post('/addMessage',storage, MessageController.postMessage);
 router.put('/messageStatusUpdate/:id', storage, MessageController.statusUpdate);
 router.delete('/deleteMessage/:id', MessageController.deleteMessage);
 
+router.get("/getOrder", getOrders);
+router.put("/updateOrder/:orderId", updateOrderStatus);
+router.delete("/deleteOrder/:orderId", deleteOrder);
 
 module.exports = router;

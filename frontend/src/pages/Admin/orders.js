@@ -20,7 +20,7 @@ const Order = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/v1/individual/getOrder');
+      const res = await axios.get('http://localhost:8000/api/v1/admin/getOrder');
       console.log('Fetched Orders:', res.data);
       // Sort orders by date in descending order (newest first)
       const resdata = (res.data || []).sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -45,7 +45,7 @@ const Order = () => {
   const handleStatusChange = async (orderId, newStatus) => {
     try {
       const postdata = { status: newStatus };
-      await axios.put(`http://localhost:8000/api/v1/individual/updateOrder/${orderId}`, postdata);
+      await axios.put(`http://localhost:8000/api/v1/admin/updateOrder/${orderId}`, postdata);
       alert('Successfully updated order status!');
       // Update the local state to reflect the change while maintaining sort order
       setFetchArray(prevArray =>
