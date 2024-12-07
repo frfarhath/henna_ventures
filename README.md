@@ -71,7 +71,7 @@ This project aims to empower Mehendi artists and streamline the planning process
 ### Prerequisites
 - Node.js and npm installed.
 - MongoDB running locally or a cloud database URL.
-- Blender (if you need to modify the 3D model).
+- Blender.
 
 ### Steps
 1. Clone the repository:
@@ -83,7 +83,7 @@ This project aims to empower Mehendi artists and streamline the planning process
 2. Install dependencies:
    ```bash
    cd backend && npm install
-   cd ../frontend && npm install
+   cd frontend && npm install
    ```
 
 3. Configure the environment variables:
